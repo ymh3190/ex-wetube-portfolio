@@ -1,0 +1,16 @@
+header
+    div WeTube
+    form
+        input(type="text" placeholder="Search")
+        button 
+            i.fa-solid.fa-magnifying-glass
+    form(action="/upload" method="post" enctype="multipart/form-data")
+        input(type="file" name="video")
+        input(type="text" name="title" placeholder="titleㅗㄱ")
+        //- add hashtags
+        button UPLOAD
+    div 
+        //- TODO: add href address
+        a(href="") 
+            i.fa-solid.fa-circle-user
+            span SIGN IN

@@ -1,0 +1,15 @@
+import Video from "../models/Video";
+
+export const index = async (req, res) => {
+  const videos = await Video.find({});
+  res.render("index", { videos });
+};
+
+export const postUpload = async (req, res) => {
+  const {
+    file: { originalname, path },
+    body: { title },
+  } = req;
+  await Video.create({ title: title ? title : originalname, path });
+  return res.redirect("/");
+};
