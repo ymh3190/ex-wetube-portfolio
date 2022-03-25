@@ -2,3 +2,4 @@ node_modules
 static
 uploads
 .DS_Store
+.env

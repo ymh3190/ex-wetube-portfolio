@@ -6,6 +6,9 @@ header
             i.fa-solid.fa-magnifying-glass
     div 
         //- TODO: add href address
-        a(href="/signin") 
-            i.fa-solid.fa-circle-user
-            span 로그인
+        if !user
+            a(href="/signin") 
+                i.fa-solid.fa-circle-user
+                span 로그인
+        else
+        

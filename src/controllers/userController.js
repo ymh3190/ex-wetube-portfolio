@@ -1,7 +1,11 @@
 import User from "../models/User";
 import bcrypt from "bcrypt";
 
-export const signin = (req, res) => res.render("signin");
+export const getSignin = (req, res) => res.render("signin");
+
+export const postSignin = (req, res) => {
+  return res.redirect("/");
+};
 
 export const getSignup = (req, res) => res.render("signup");
 
