@@ -5,6 +5,8 @@ export const index = async (req, res) => {
   res.render("index", { videos });
 };
 
+export const getUpload = (req, res) => res.render("upload");
+
 export const postUpload = async (req, res) => {
   const {
     file: { originalname, path },

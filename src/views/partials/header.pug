@@ -1,16 +1,11 @@
 header
     div WeTube
     form
-        input(type="text" placeholder="Search")
+        input(type="text" placeholder="검색")
         button 
             i.fa-solid.fa-magnifying-glass
-    form(action="/upload" method="post" enctype="multipart/form-data")
-        input(type="file" name="video")
-        input(type="text" name="title" placeholder="titleㅗㄱ")
-        //- add hashtags
-        button UPLOAD
     div 
         //- TODO: add href address
-        a(href="") 
+        a(href="/signin") 
             i.fa-solid.fa-circle-user
-            span SIGN IN
+            span 로그인
