@@ -1,14 +1,18 @@
 header
-    div WeTube
+    div 
+        a(href="/") WeTube
     form
         input(type="text" placeholder="검색")
         button 
             i.fa-solid.fa-magnifying-glass
     div 
-        //- TODO: add href address
         if !user
             a(href="/signin") 
                 i.fa-solid.fa-circle-user
                 span 로그인
         else
+            //- TODO: 주소 추가하기
+            a(href="") 
+                i.fa-solid.fa-video
+                
         

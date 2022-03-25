@@ -3,8 +3,28 @@ import bcrypt from "bcrypt";
 
 export const getSignin = (req, res) => res.render("signin");
 
-export const postSignin = (req, res) => {
-  return res.redirect("/");
+export const postSignin = async (req, res) => {
+  const {
+    body: { email, password },
+  } = req;
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.render("signin", { error: "이메일이 존재하지 않습니다." });
+    }
+
+    bcrypt.compare(password, user.password, (err, result) => {
+      if (result) {
+        req.session.user = user;
+        return res.redirect("/");
+      } else {
+        return res.render("signin");
+      }
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const getSignup = (req, res) => res.render("signup");
@@ -26,7 +46,7 @@ export const postSignup = async (req, res) => {
       .render("signup", { error: "이미 존재하는 이메일입니다." });
   }
 
-  bcrypt.hash(password, 10, async (err, hash) => {
+  bcrypt.hash(password, 10, async (_, hash) => {
     try {
       await User.create({
         firstName,
@@ -38,6 +58,5 @@ export const postSignup = async (req, res) => {
       console.log(error);
     }
   });
-
-  return res.redirect("/");
+  return res.redirect("/signin");
 };

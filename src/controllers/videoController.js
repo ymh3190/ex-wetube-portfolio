@@ -2,7 +2,7 @@ import Video from "../models/Video";
 
 export const index = async (req, res) => {
   const videos = await Video.find({});
-  res.render("index", { videos });
+  return res.render("index", { videos });
 };
 
 export const getUpload = (req, res) => res.render("upload");
