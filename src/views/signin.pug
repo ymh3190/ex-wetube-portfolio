@@ -1,0 +1,9 @@
+extends layouts/main.pug
+
+block content 
+    h1 signin 
+    form(method="post")
+        input(type="email", name="email" placeholder="Email")
+        input(type="password", name="password" placeholder="비밀번호를 입력하세요.")
+        button 로그인
+    a(href="/signup") 계정 생성하기 &rarr;

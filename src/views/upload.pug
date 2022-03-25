@@ -1,0 +1,9 @@
+extends layouts/main.pug
+
+block content 
+    h1 upload
+    form(method="post" enctype="multipart/form-data")
+        input(type="file" name="video")
+        input(type="text" name="title" placeholder="제목을 입력하세요.")
+        //- add hashtags
+        button 업로드
