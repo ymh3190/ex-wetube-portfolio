@@ -1,0 +1,6 @@
+extends layouts/main.pug
+
+block content 
+    h1 result
+    each video in videos 
+        video(src=video.path controls width="400" height="400") 

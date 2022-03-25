@@ -1,8 +1,8 @@
 header
     div 
         a(href="/") WeTube
-    form
-        input(type="text" placeholder="검색")
+    form(action="/result")
+        input(type="text" name="search" placeholder="검색")
         button 
             i.fa-solid.fa-magnifying-glass
     div 
@@ -11,8 +11,8 @@ header
                 i.fa-solid.fa-circle-user
                 span 로그인
         else
-            //- TODO: 주소 추가하기
-            a(href="") 
+            a(href="/upload") 
                 i.fa-solid.fa-video
+            a(href="/signout") 로그아웃
                 
         
