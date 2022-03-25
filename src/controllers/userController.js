@@ -1,5 +1,6 @@
 import User from "../models/User";
 import bcrypt from "bcrypt";
+import nodemailer from "nodemailer";
 
 export const getSignin = (req, res) => res.render("signin");
 
@@ -46,6 +47,33 @@ export const postSignup = async (req, res) => {
       .render("signup", { error: "이미 존재하는 이메일입니다." });
   }
 
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false,
+    auth: {
+      user: process.env.NODEMAILER_USER,
+      pass: process.env.NODEMAILER_PASS,
+    },
+  });
+
+  try {
+    await transporter.sendMail({
+      from: `"Wetube-Recall" <${process.env.NODEMAILER_USER}>`,
+      to: email,
+      subject: "Hello ✔",
+      text: "Hello world?",
+      html: "<b>Hello world?</b>",
+    });
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(400)
+      .render("signup", { error: "메일을 보내는데 실패했습니다." });
+  }
+
+  // 비밀번호 해쉬
   bcrypt.hash(password, 10, async (_, hash) => {
     try {
       await User.create({
