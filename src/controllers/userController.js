@@ -12,7 +12,9 @@ export const postSignin = async (req, res) => {
   try {
     const user = await User.findOne({ email });
     if (!user) {
-      return res.render("signin", { error: "이메일이 존재하지 않습니다." });
+      return res
+        .status(400)
+        .render("signin", { error: "이메일이 존재하지 않습니다." });
     }
 
     bcrypt.compare(password, user.password, (err, result) => {
@@ -20,7 +22,9 @@ export const postSignin = async (req, res) => {
         req.session.user = user;
         return res.redirect("/");
       } else {
-        return res.render("signin");
+        return res
+          .status(400)
+          .render("signin", { error: "비밀번호가 일치하지 않습니다." });
       }
     });
   } catch (error) {
@@ -47,6 +51,7 @@ export const postSignup = async (req, res) => {
       .render("signup", { error: "이미 존재하는 이메일입니다." });
   }
 
+  // 메일 보내기
   const transporter = nodemailer.createTransport({
     service: "gmail",
     host: "smtp.gmail.com",
@@ -60,9 +65,9 @@ export const postSignup = async (req, res) => {
 
   try {
     await transporter.sendMail({
-      from: `"Wetube-Recall" <${process.env.NODEMAILER_USER}>`,
+      from: `"Transporter Team" <${process.env.NODEMAILER_USER}>`,
       to: email,
-      subject: "Hello ✔",
+      subject: `${LastName}, finish setting up your new Account`,
       text: "Hello world?",
       html: "<b>Hello world?</b>",
     });
