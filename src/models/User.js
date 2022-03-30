@@ -1,12 +1,11 @@
 import mongoose from "mongoose";
-import bcrypt from "bcrypt";
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
   firstName: String,
   LastName: String,
-  email: String,
-  password: String,
+  email: { type: String, required: true },
+  password: { type: String, required: true },
   data: { type: Date, default: Date.now },
 });
 

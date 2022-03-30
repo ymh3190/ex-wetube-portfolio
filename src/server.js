@@ -4,6 +4,7 @@ import session from "express-session";
 import morgan from "morgan";
 import { localsMiddlewares } from "./middlewares";
 import rootRouter from "./routers/rootRouter";
+import userRouter from "./routers/userRouter";
 const app = express();
 
 app.set("view engine", "pug");
@@ -22,5 +23,6 @@ app.use(
 app.use(localsMiddlewares);
 app.use("/uploads", express.static(process.cwd() + "/uploads"));
 app.use("/", rootRouter);
+app.use("/users", userRouter);
 
 export default app;
