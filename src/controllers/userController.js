@@ -83,16 +83,13 @@ export const postSignup = async (req, res) => {
 
   // 비밀번호 해쉬
   try {
-    const hash = await bcrypt.hash(password, saltRounds);
-    if (hash) {
-      await User.create({
-        firstName,
-        LastName,
-        email,
-        password: hash,
-      });
-      return res.redirect("/signin");
-    }
+    await User.create({
+      firstName,
+      LastName,
+      email,
+      password: await bcrypt.hash(password, saltRounds),
+    });
+    return res.redirect("/signin");
   } catch (error) {
     console.log(error);
     return res.render("signup", { error: "해쉬를 할 수 없습니다." });
@@ -105,14 +102,21 @@ export const signout = (req, res) => {
 };
 
 export const github = (req, res) => {
-  const params = `client_id=${process.env.GITHUB_CLIENT}&scope=read:user%20user:email`;
+  // github open auth
+  const params = `client_id=${process.env.GITHUB_CLIENT}&scope=read:user`; // %20user:email
   const url = `https://github.com/login/oauth/authorize?${params}`;
   return res.redirect(url);
 };
 
 export const githubCallback = async (req, res) => {
-  const params = `client_id=${process.env.GITHUB_CLIENT}&client_secret=${process.env.GITHUB_SECRET}&code=${req.query.code}`;
+  const config = {
+    client_id: process.env.GITHUB_CLIENT,
+    client_secret: process.env.GITHUB_SECRET,
+    code: req.query.code,
+  };
+  const params = new URLSearchParams(config).toString();
   const url = `https://github.com/login/oauth/access_token?${params}`;
+
   const response = await (
     await fetch(url, {
       method: "post",
@@ -121,32 +125,25 @@ export const githubCallback = async (req, res) => {
       },
     })
   ).json();
+
   if ("access_token" in response) {
     const { access_token } = response;
-    const url = "https://api.github.com/user";
     const userData = await (
-      await fetch(url, {
+      await fetch("https://api.github.com/user", {
         headers: {
           Authorization: `token ${access_token}`,
         },
       })
     ).json();
-    const emailData = await (
-      await fetch(`${url}/emails`, {
-        headers: {
-          Authorization: `token ${access_token}`,
-        },
-      })
-    ).json();
-
-    const email = emailData.find(
-      (email) => email.primary === true && email.verified === true
-    ).email;
 
     try {
+      const email = userData.email;
       let user = await User.findOne({ email });
       if (!user) {
+        const [firstName, lastName] = userData.name.split(" ");
         user = await User.create({
+          firstName,
+          lastName,
           email,
           password: await bcrypt.hash("", saltRounds),
         });
@@ -160,3 +157,19 @@ export const githubCallback = async (req, res) => {
     return res.redirect("/signin");
   }
 };
+
+export const facebook = (req, res) => {
+  const config = {
+    client_id: process.env.FACEBOOK_ID,
+    redirect_uri: `http://localhost:${process.env.PORT}/users/facebook`,
+    scope: "email user_friends",
+    response_type: "code",
+    auth_type: "rerequest",
+    display: "popup",
+  };
+  const params = new URLSearchParams(config).toString();
+  const url = `https://www.facebook.com/v4.0/dialog/oauth?${params}`;
+  return res.redirect(url);
+};
+
+export const facebookCallback = (req, res) => {};
