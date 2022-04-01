@@ -161,15 +161,53 @@ export const githubCallback = async (req, res) => {
 export const facebook = (req, res) => {
   const config = {
     client_id: process.env.FACEBOOK_ID,
-    redirect_uri: `http://localhost:${process.env.PORT}/users/facebook`,
-    scope: "email user_friends",
-    response_type: "code",
+    redirect_uri: `http://localhost:${process.env.PORT}/users/facebook/callback`,
+    scope: "email public_profile",
     auth_type: "rerequest",
-    display: "popup",
   };
   const params = new URLSearchParams(config).toString();
-  const url = `https://www.facebook.com/v4.0/dialog/oauth?${params}`;
+  const url = `https://www.facebook.com/v13.0/dialog/oauth?${params}`;
   return res.redirect(url);
 };
 
-export const facebookCallback = (req, res) => {};
+export const facebookCallback = async (req, res) => {
+  const config = {
+    client_id: process.env.FACEBOOK_ID,
+    redirect_uri: `http://localhost:${process.env.PORT}/users/facebook/callback`,
+    client_secret: process.env.FACEBOOK_CLIENT,
+    code: req.query.code,
+  };
+  const params = new URLSearchParams(config).toString();
+  const url = `https://graph.facebook.com/v13.0/oauth/access_token?${params}`;
+
+  const response = await (
+    await fetch(url, {
+      method: "post",
+      headers: {
+        Accept: "application/json",
+      },
+    })
+  ).json();
+
+  if ("access_token" in response) {
+    const { access_token } = response;
+
+    const app_access_token = (
+      await (
+        await fetch(
+          `https://graph.facebook.com/oauth/access_token?client_id=${process.env.FACEBOOK_ID}&client_secret=${process.env.FACEBOOK_CLIENT}&grant_type=client_credentials`
+        )
+      ).json()
+    ).access_token;
+
+    const data = (
+      await (
+        await fetch(
+          `https://graph.facebook.com/debug_token?input_token=${access_token}&access_token=${app_access_token}`
+        )
+      ).json()
+    ).data;
+  }
+
+  return res.end();
+};
