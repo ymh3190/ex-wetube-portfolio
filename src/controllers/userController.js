@@ -162,9 +162,10 @@ export const facebook = (req, res) => {
   const config = {
     client_id: process.env.FACEBOOK_ID,
     redirect_uri: `http://localhost:${process.env.PORT}/users/facebook/callback`,
-    scope: "email public_profile",
+    scope: "email public_profile user_likes",
     auth_type: "rerequest",
   };
+  // state: "{st=state123abc,ds=123456789}",
   const params = new URLSearchParams(config).toString();
   const url = `https://www.facebook.com/v13.0/dialog/oauth?${params}`;
   return res.redirect(url);
@@ -180,34 +181,47 @@ export const facebookCallback = async (req, res) => {
   const params = new URLSearchParams(config).toString();
   const url = `https://graph.facebook.com/v13.0/oauth/access_token?${params}`;
 
-  const response = await (
-    await fetch(url, {
-      method: "post",
-      headers: {
-        Accept: "application/json",
-      },
-    })
-  ).json();
+  const response = await (await fetch(url)).json();
 
   if ("access_token" in response) {
     const { access_token } = response;
+    const { access_token: app_access_token } = await (
+      await fetch(
+        `https://graph.facebook.com/oauth/access_token?client_id=${process.env.FACEBOOK_ID}&client_secret=${process.env.FACEBOOK_CLIENT}&grant_type=client_credentials`
+      )
+    ).json();
 
-    const app_access_token = (
-      await (
-        await fetch(
-          `https://graph.facebook.com/oauth/access_token?client_id=${process.env.FACEBOOK_ID}&client_secret=${process.env.FACEBOOK_CLIENT}&grant_type=client_credentials`
-        )
-      ).json()
-    ).access_token;
+    const {
+      data: { user_id },
+    } = await (
+      await fetch(
+        `https://graph.facebook.com/debug_token?input_token=${access_token}&access_token=${app_access_token}`
+      )
+    ).json();
 
-    const data = (
-      await (
-        await fetch(
-          `https://graph.facebook.com/debug_token?input_token=${access_token}&access_token=${app_access_token}`
-        )
-      ).json()
-    ).data;
+    const { first_name, last_name, email } = await (
+      await fetch(
+        `https://graph.facebook.com/v13.0/${user_id}?fields=first_name,last_name,email&access_token=${access_token}`
+      )
+    ).json();
+
+    try {
+      let user = await User.findOne({ email });
+      if (!user) {
+        user = await User.create({
+          firstName: first_name,
+          lastName: last_name,
+          email,
+          password: await bcrypt.hash("", saltRounds),
+        });
+      }
+      req.session.user = user;
+      return res.redirect("/");
+    } catch (error) {
+      console.log(error);
+      return res.redirect("/signin");
+    }
+  } else {
+    return res.redirect("/signin");
   }
-
-  return res.end();
 };
