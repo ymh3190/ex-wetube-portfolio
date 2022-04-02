@@ -172,14 +172,14 @@ export const facebook = (req, res) => {
 };
 
 export const facebookCallback = async (req, res) => {
-  const config = {
+  let config = {
     client_id: process.env.FACEBOOK_ID,
     redirect_uri: `http://localhost:${process.env.PORT}/users/facebook/callback`,
     client_secret: process.env.FACEBOOK_CLIENT,
     code: req.query.code,
   };
-  const params = new URLSearchParams(config).toString();
-  const url = `https://graph.facebook.com/v13.0/oauth/access_token?${params}`;
+  let params = new URLSearchParams(config).toString();
+  let url = `https://graph.facebook.com/v13.0/oauth/access_token?${params}`;
 
   const response = await (await fetch(url)).json();
 
@@ -187,25 +187,30 @@ export const facebookCallback = async (req, res) => {
     const { access_token } = response;
 
     // 앱 액세스 토큰 생성
-    const { access_token: app_access_token } = await (
-      await fetch(
-        `https://graph.facebook.com/oauth/access_token?client_id=${process.env.FACEBOOK_ID}&client_secret=${process.env.FACEBOOK_CLIENT}&grant_type=client_credentials`
-      )
-    ).json();
+    config = {
+      client_id: process.env.FACEBOOK_ID,
+      client_secret: process.env.FACEBOOK_CLIENT,
+      grant_type: "client_credentials",
+    };
+    params = new URLSearchParams(config).toString();
+    url = `https://graph.facebook.com/oauth/access_token?${params}`;
 
-    const {
-      data: { user_id },
-    } = await (
-      await fetch(
-        `https://graph.facebook.com/debug_token?input_token=${access_token}&access_token=${app_access_token}`
-      )
-    ).json();
+    config = {
+      input_token: access_token,
+      access_token: (await (await fetch(url)).json()).access_token,
+    };
+    params = new URLSearchParams(config).toString();
+    url = `https://graph.facebook.com/debug_token?${params}`;
+    const { user_id } = (await (await fetch(url)).json()).data;
 
-    const { first_name, last_name, email } = await (
-      await fetch(
-        `https://graph.facebook.com/v13.0/${user_id}?fields=first_name,last_name,email&access_token=${access_token}`
-      )
-    ).json();
+    config = {
+      fields: "first_name,last_name,email",
+      access_token,
+    };
+    params = new URLSearchParams(config).toString();
+    url = `https://graph.facebook.com/v13.0/${user_id}?${params}`;
+
+    const { first_name, last_name, email } = await (await fetch(url)).json();
 
     try {
       let user = await User.findOne({ email });
@@ -221,7 +226,6 @@ export const facebookCallback = async (req, res) => {
       return res.redirect("/");
     } catch (error) {
       console.log(error);
-      return res.redirect("/signin");
     }
   } else {
     return res.redirect("/signin");
