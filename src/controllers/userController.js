@@ -96,8 +96,8 @@ export const postSignup = async (req, res) => {
   }
 };
 
-export const signout = (req, res) => {
-  req.session.destroy();
+export const signout = async (req, res) => {
+  await req.session.destroy();
   return res.redirect("/");
 };
 
@@ -164,8 +164,8 @@ export const facebook = (req, res) => {
     redirect_uri: `http://localhost:${process.env.PORT}/users/facebook/callback`,
     scope: "email public_profile user_likes",
     auth_type: "rerequest",
+    state: "{st=state123abc,ds=123456789}",
   };
-  // state: "{st=state123abc,ds=123456789}",
   const params = new URLSearchParams(config).toString();
   const url = `https://www.facebook.com/v13.0/dialog/oauth?${params}`;
   return res.redirect(url);
@@ -185,6 +185,8 @@ export const facebookCallback = async (req, res) => {
 
   if ("access_token" in response) {
     const { access_token } = response;
+
+    // 앱 액세스 토큰 생성
     const { access_token: app_access_token } = await (
       await fetch(
         `https://graph.facebook.com/oauth/access_token?client_id=${process.env.FACEBOOK_ID}&client_secret=${process.env.FACEBOOK_CLIENT}&grant_type=client_credentials`
