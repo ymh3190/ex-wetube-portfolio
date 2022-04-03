@@ -175,7 +175,7 @@ export const facebookCallback = async (req, res) => {
   let config = {
     client_id: process.env.FACEBOOK_ID,
     redirect_uri: `http://localhost:${process.env.PORT}/users/facebook/callback`,
-    client_secret: process.env.FACEBOOK_CLIENT,
+    client_secret: process.env.FACEBOOK_SECRET,
     code: req.query.code,
   };
   let params = new URLSearchParams(config).toString();
@@ -189,7 +189,7 @@ export const facebookCallback = async (req, res) => {
     // 앱 액세스 토큰 생성
     config = {
       client_id: process.env.FACEBOOK_ID,
-      client_secret: process.env.FACEBOOK_CLIENT,
+      client_secret: process.env.FACEBOOK_SECRET,
       grant_type: "client_credentials",
     };
     params = new URLSearchParams(config).toString();
@@ -218,6 +218,76 @@ export const facebookCallback = async (req, res) => {
         user = await User.create({
           firstName: first_name,
           lastName: last_name,
+          email,
+          password: await bcrypt.hash("", saltRounds),
+        });
+      }
+      req.session.user = user;
+      return res.redirect("/");
+    } catch (error) {
+      console.log(error);
+    }
+  } else {
+    return res.redirect("/signin");
+  }
+};
+
+export const naver = (req, res) => {
+  const config = {
+    response_type: "code",
+    client_id: process.env.NAVER_ID,
+    redirect_uri: `http://localhost:${process.env.PORT}/users/naver/callback`,
+    state: "RANDOM_STATE",
+  };
+  const params = new URLSearchParams(config).toString();
+  const url = `https://nid.naver.com/oauth2.0/authorize?${params}`;
+  return res.redirect(url);
+};
+
+export const naverCallback = async (req, res) => {
+  const config = {
+    grant_type: "authorization_code",
+    client_id: process.env.NAVER_ID,
+    client_secret: process.env.NAVER_SECRET,
+    redirect_uri: `http://localhost:${process.env.PORT}/users/naver/callback`,
+    code: req.query.code,
+    state: req.query.state,
+  };
+  const params = new URLSearchParams(config).toString();
+  const url = `https://nid.naver.com/oauth2.0/token?${params}`;
+  const response = await (await fetch(url)).json();
+
+  if ("access_token" in response) {
+    const { access_token } = response;
+
+    const {
+      response: { email, name },
+    } = await (
+      await fetch("https://openapi.naver.com/v1/nid/me", {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      })
+    ).json();
+
+    try {
+      let user = await User.findOne({ email });
+      if (!user) {
+        let firstName;
+        let lastName;
+        if (name.length === 2) {
+          firstName = name.substring(0, 1);
+          lastName = name.substring(1, 2);
+        } else if (name.length === 3) {
+          firstName = name.substring(0, 1);
+          lastName = name.substring(1, 3);
+        } else if (name.length === 4) {
+          firstName = name.substring(0, 2);
+          lastName = name.substring(2, 4);
+        }
+        user = await User.create({
+          firstName,
+          lastName,
           email,
           password: await bcrypt.hash("", saltRounds),
         });
