@@ -275,7 +275,7 @@ export const naverCallback = async (req, res) => {
       if (!user) {
         let firstName;
         let lastName;
-        if (name.test(/[가-힣]/)) {
+        if ((/[가-힣]/).test(name)) {
           if (name.length === 2) {
             lastName = name.substring(0, 1);
             firstName = name.substring(1, 2);
@@ -286,7 +286,6 @@ export const naverCallback = async (req, res) => {
             lastName = name.substring(0, 2);
             firstName = name.substring(2, 4);
           }
-        } else if (name.test(/[a-zA-Z]/)) {
         }
         user = await User.create({
           firstName,
@@ -344,7 +343,6 @@ export const kakaoCallback = async (req, res) => {
       await fetch("https://kapi.kakao.com/v2/user/me", {
         headers: {
           Authorization: `Bearer ${access_token}`,
-          // "Content-Type": "application/x-www-form-urlencoded",
         },
       })
     ).json();
