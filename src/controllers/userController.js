@@ -275,19 +275,84 @@ export const naverCallback = async (req, res) => {
       if (!user) {
         let firstName;
         let lastName;
-        if (name.length === 2) {
-          firstName = name.substring(0, 1);
-          lastName = name.substring(1, 2);
-        } else if (name.length === 3) {
-          firstName = name.substring(0, 1);
-          lastName = name.substring(1, 3);
-        } else if (name.length === 4) {
-          firstName = name.substring(0, 2);
-          lastName = name.substring(2, 4);
+        if (name.test(/[가-힣]/)) {
+          if (name.length === 2) {
+            lastName = name.substring(0, 1);
+            firstName = name.substring(1, 2);
+          } else if (name.length === 3) {
+            lastName = name.substring(0, 1);
+            firstName = name.substring(1, 3);
+          } else if (name.length === 4) {
+            lastName = name.substring(0, 2);
+            firstName = name.substring(2, 4);
+          }
+        } else if (name.test(/[a-zA-Z]/)) {
         }
         user = await User.create({
           firstName,
           lastName,
+          email,
+          password: await bcrypt.hash("", saltRounds),
+        });
+      }
+      req.session.user = user;
+      return res.redirect("/");
+    } catch (error) {
+      console.log(error);
+    }
+  } else {
+    return res.redirect("/signin");
+  }
+};
+
+export const kakao = (req, res) => {
+  const config = {
+    client_id: process.env.KAKAO_ID,
+    redirect_uri: `http://localhost:${process.env.PORT}/users/kakao/callback`,
+    response_type: "code",
+  };
+  const params = new URLSearchParams(config).toString();
+  const url = `https://kauth.kakao.com/oauth/authorize?${params}`;
+  return res.redirect(url);
+};
+
+export const kakaoCallback = async (req, res) => {
+  const config = {
+    grant_type: "authorization_code",
+    client_id: process.env.KAKAO_ID,
+    redirect_uri: `http://localhost:${process.env.PORT}/users/kakao/callback`,
+    code: req.query.code,
+    client_secret: process.env.KAKAO_SECRET,
+  };
+  const params = new URLSearchParams(config).toString();
+  const url = `https://kauth.kakao.com/oauth/token?${params}`;
+  const response = await (
+    await fetch(url, {
+      method: "post",
+      headers: {
+        "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
+      },
+    })
+  ).json();
+
+  if ("access_token" in response) {
+    const { access_token } = response;
+
+    const {
+      kakao_account: { email },
+    } = await (
+      await fetch("https://kapi.kakao.com/v2/user/me", {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+          // "Content-Type": "application/x-www-form-urlencoded",
+        },
+      })
+    ).json();
+
+    try {
+      let user = await User.findOne({ email });
+      if (!user) {
+        user = await User.create({
           email,
           password: await bcrypt.hash("", saltRounds),
         });

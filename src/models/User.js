@@ -2,8 +2,8 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
-  firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
+  firstName: String,
+  lastName: String,
   email: { type: String, required: true },
   profilePhoto: String,
   password: { type: String, required: true },
