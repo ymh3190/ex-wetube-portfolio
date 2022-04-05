@@ -102,8 +102,7 @@ export const signout = async (req, res) => {
 };
 
 export const github = (req, res) => {
-  // github open auth
-  const params = `client_id=${process.env.GITHUB_CLIENT}&scope=read:user`; // %20user:email
+  const params = `client_id=${process.env.GITHUB_CLIENT}&scope=read:user`;
   const url = `https://github.com/login/oauth/authorize?${params}`;
   return res.redirect(url);
 };
@@ -162,7 +161,7 @@ export const facebook = (req, res) => {
   const config = {
     client_id: process.env.FACEBOOK_ID,
     redirect_uri: `http://localhost:${process.env.PORT}/users/facebook/callback`,
-    scope: "email public_profile user_likes",
+    scope: "email public_profile",
     auth_type: "rerequest",
     state: "{st=state123abc,ds=123456789}",
   };
@@ -275,7 +274,7 @@ export const naverCallback = async (req, res) => {
       if (!user) {
         let firstName;
         let lastName;
-        if ((/[가-힣]/).test(name)) {
+        if (/[가-힣]/.test(name)) {
           if (name.length === 2) {
             lastName = name.substring(0, 1);
             firstName = name.substring(1, 2);
@@ -351,6 +350,86 @@ export const kakaoCallback = async (req, res) => {
       let user = await User.findOne({ email });
       if (!user) {
         user = await User.create({
+          email,
+          password: await bcrypt.hash("", saltRounds),
+        });
+      }
+      req.session.user = user;
+      return res.redirect("/");
+    } catch (error) {
+      console.log(error);
+    }
+  } else {
+    return res.redirect("/signin");
+  }
+};
+
+export const google = (req, res) => {
+  const config = {
+    client_id: process.env.GOOGLE_CLIENT,
+    response_type: "code",
+    state: "state_parameter_passthrough_value",
+    // scope: "https://www.googleapis.com/auth/drive.metadata.readonly",
+    scope:
+      "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email",
+    access_type: "offline",
+    redirect_uri: `http://localhost:${process.env.PORT}/users/google/callback`,
+    prompt: "consent",
+    include_granted_scopes: true,
+  };
+  const params = new URLSearchParams(config).toString();
+  const url = `https://accounts.google.com/o/oauth2/v2/auth?${params}`;
+  return res.redirect(url);
+};
+
+export const googleCallback = async (req, res) => {
+  const config = {
+    code: req.query.code,
+    client_id: process.env.GOOGLE_CLIENT,
+    client_secret: process.env.GOOGLE_SECRET,
+    redirect_uri: `http://localhost:${process.env.PORT}/users/google/callback`,
+    grant_type: "authorization_code",
+  };
+  const params = new URLSearchParams(config).toString();
+  const url = `https://oauth2.googleapis.com/token?${params}`;
+  const response = await (
+    await fetch(url, {
+      method: "post",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    })
+  ).json();
+
+  console.log("response: ", response);
+
+  if ("access_token" in response) {
+    const { access_token } = response;
+
+    // const data = await (
+    //   await fetch("https://www.googleapis.com/drive/v2/files", {
+    //     headers: {
+    //       Authorization: `Bearer ${access_token}`,
+    //     },
+    //   })
+    // ).json();
+    // console.log("data: ", data);
+
+    // https://groups.google.com/g/adwords-api/c/76pgv90DIpI?pli=1
+    const { email, given_name, family_name } = await (
+      await fetch("https://www.googleapis.com/oauth2/v2/userinfo", {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      })
+    ).json();
+
+    try {
+      let user = await User.findOne({ email });
+      if (!user) {
+        user = await User.create({
+          firstName: given_name,
+          lastName: family_name,
           email,
           password: await bcrypt.hash("", saltRounds),
         });

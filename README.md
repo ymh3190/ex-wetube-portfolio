@@ -6,4 +6,5 @@
   - [x] Facebook
   - [x] NAVER
   - [x] Kakao
-  - [] Google
+  - [x] Google
+- NoSQL: MongoDB
