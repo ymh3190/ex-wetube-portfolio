@@ -24,3 +24,12 @@ export const result = async (req, res) => {
   const videos = await Video.find({ title: RegExp(search, "i") });
   return res.render("result", { videos });
 };
+
+export const watch = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+
+  const video = await Video.findById(id);
+  return res.render("watch", { video });
+};

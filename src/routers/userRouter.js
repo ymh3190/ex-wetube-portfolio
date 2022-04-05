@@ -11,18 +11,19 @@ import {
   google,
   googleCallback,
 } from "../controllers/userController";
+import { publicOnly } from "../middlewares";
 
 const userRouter = express.Router();
 
-userRouter.get("/github", github);
+userRouter.all(publicOnly).get("/github", github);
 userRouter.get("/github/callback", githubCallback);
-userRouter.get("/facebook", facebook);
+userRouter.all(publicOnly).get("/facebook", facebook);
 userRouter.get("/facebook/callback", facebookCallback);
-userRouter.get("/naver", naver);
+userRouter.all(publicOnly).get("/naver", naver);
 userRouter.get("/naver/callback", naverCallback);
-userRouter.get("/kakao", kakao);
+userRouter.all(publicOnly).get("/kakao", kakao);
 userRouter.get("/kakao/callback", kakaoCallback);
-userRouter.get("/google", google);
+userRouter.all(publicOnly).get("/google", google);
 userRouter.get("/google/callback", googleCallback);
 
 export default userRouter;

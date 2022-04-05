@@ -5,6 +5,7 @@ import morgan from "morgan";
 import { localsMiddlewares } from "./middlewares";
 import rootRouter from "./routers/rootRouter";
 import userRouter from "./routers/userRouter";
+import videoRouter from "./routers/videoRouter";
 const app = express();
 
 app.set("view engine", "pug");
@@ -24,5 +25,6 @@ app.use(localsMiddlewares);
 app.use("/uploads", express.static(process.cwd() + "/uploads"));
 app.use("/", rootRouter);
 app.use("/users", userRouter);
+app.use("/videos", videoRouter);
 
 export default app;

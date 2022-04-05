@@ -3,4 +3,5 @@ extends layouts/main.pug
 block content 
     h1 index
     each video in videos 
-        video(src=video.path width="400" height="400") 
+        a(href=`/videos/${video.id}`) 
+            video(src=video.path width="400" height="400") 
