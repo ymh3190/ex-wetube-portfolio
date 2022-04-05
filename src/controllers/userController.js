@@ -369,7 +369,6 @@ export const google = (req, res) => {
     client_id: process.env.GOOGLE_CLIENT,
     response_type: "code",
     state: "state_parameter_passthrough_value",
-    // scope: "https://www.googleapis.com/auth/drive.metadata.readonly",
     scope:
       "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email",
     access_type: "offline",
@@ -401,21 +400,9 @@ export const googleCallback = async (req, res) => {
     })
   ).json();
 
-  console.log("response: ", response);
-
   if ("access_token" in response) {
     const { access_token } = response;
 
-    // const data = await (
-    //   await fetch("https://www.googleapis.com/drive/v2/files", {
-    //     headers: {
-    //       Authorization: `Bearer ${access_token}`,
-    //     },
-    //   })
-    // ).json();
-    // console.log("data: ", data);
-
-    // https://groups.google.com/g/adwords-api/c/76pgv90DIpI?pli=1
     const { email, given_name, family_name } = await (
       await fetch("https://www.googleapis.com/oauth2/v2/userinfo", {
         headers: {
