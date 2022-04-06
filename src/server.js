@@ -22,6 +22,7 @@ app.use(
   })
 );
 app.use(localsMiddlewares);
+app.use("/static", express.static(process.cwd() + "/static"));
 app.use("/uploads", express.static(process.cwd() + "/uploads"));
 app.use("/", rootRouter);
 app.use("/users", userRouter);

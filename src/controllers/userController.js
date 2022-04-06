@@ -39,10 +39,10 @@ export const getSignup = (req, res) => res.render("signup");
 
 export const postSignup = async (req, res) => {
   const {
-    body: { firstName, LastName, email, password, confirmPassword },
+    body: { firstName, lastName, email, password, confirm },
   } = req;
 
-  if (password !== confirmPassword) {
+  if (password !== confirm) {
     return res
       .status(400)
       .render("signup", { error: "비밀번호가 일치하지 않습니다." });
@@ -70,7 +70,7 @@ export const postSignup = async (req, res) => {
     await transporter.sendMail({
       from: `"Transporter Team" <${process.env.NODEMAILER_USER}>`,
       to: email,
-      subject: `${LastName}, finish setting up your new Account`,
+      subject: `${lastName}, finish setting up your new Account`,
       text: "Hello world?",
       html: "<b>Hello world?</b>",
     });
@@ -85,7 +85,7 @@ export const postSignup = async (req, res) => {
   try {
     await User.create({
       firstName,
-      LastName,
+      lastName,
       email,
       password: await bcrypt.hash(password, saltRounds),
     });
@@ -127,7 +127,7 @@ export const githubCallback = async (req, res) => {
 
   if ("access_token" in response) {
     const { access_token } = response;
-    const userData = await (
+    const { login, email, avatar_url, name } = await (
       await fetch("https://api.github.com/user", {
         headers: {
           Authorization: `token ${access_token}`,
@@ -136,15 +136,17 @@ export const githubCallback = async (req, res) => {
     ).json();
 
     try {
-      const email = userData.email;
       let user = await User.findOne({ email });
       if (!user) {
-        const [firstName, lastName] = userData.name.split(" ");
+        const [firstName, lastName] = name.split(" ");
         user = await User.create({
           firstName,
           lastName,
           email,
+          username: login,
+          profilePhoto: avatar_url,
           password: await bcrypt.hash("", saltRounds),
+          socialNet: true,
         });
       }
       req.session.user = user;
@@ -185,31 +187,16 @@ export const facebookCallback = async (req, res) => {
   if ("access_token" in response) {
     const { access_token } = response;
 
-    // 앱 액세스 토큰 생성
     config = {
-      client_id: process.env.FACEBOOK_ID,
-      client_secret: process.env.FACEBOOK_SECRET,
-      grant_type: "client_credentials",
-    };
-    params = new URLSearchParams(config).toString();
-    url = `https://graph.facebook.com/oauth/access_token?${params}`;
-
-    config = {
-      input_token: access_token,
-      access_token: (await (await fetch(url)).json()).access_token,
-    };
-    params = new URLSearchParams(config).toString();
-    url = `https://graph.facebook.com/debug_token?${params}`;
-    const { user_id } = (await (await fetch(url)).json()).data;
-
-    config = {
-      fields: "first_name,last_name,email",
       access_token,
+      fields: "email,first_name,last_name,picture",
     };
     params = new URLSearchParams(config).toString();
-    url = `https://graph.facebook.com/v13.0/${user_id}?${params}`;
+    url = `https://graph.facebook.com/v13.0/me?${params}`;
 
-    const { first_name, last_name, email } = await (await fetch(url)).json();
+    const { email, first_name, last_name, picture } = await (
+      await fetch(url)
+    ).json();
 
     try {
       let user = await User.findOne({ email });
@@ -218,7 +205,9 @@ export const facebookCallback = async (req, res) => {
           firstName: first_name,
           lastName: last_name,
           email,
+          profilePhoto: picture.data.url,
           password: await bcrypt.hash("", saltRounds),
+          socialNet: true,
         });
       }
       req.session.user = user;
@@ -260,7 +249,7 @@ export const naverCallback = async (req, res) => {
     const { access_token } = response;
 
     const {
-      response: { email, name },
+      response: { email },
     } = await (
       await fetch("https://openapi.naver.com/v1/nid/me", {
         headers: {
@@ -272,25 +261,10 @@ export const naverCallback = async (req, res) => {
     try {
       let user = await User.findOne({ email });
       if (!user) {
-        let firstName;
-        let lastName;
-        if (/[가-힣]/.test(name)) {
-          if (name.length === 2) {
-            lastName = name.substring(0, 1);
-            firstName = name.substring(1, 2);
-          } else if (name.length === 3) {
-            lastName = name.substring(0, 1);
-            firstName = name.substring(1, 3);
-          } else if (name.length === 4) {
-            lastName = name.substring(0, 2);
-            firstName = name.substring(2, 4);
-          }
-        }
         user = await User.create({
-          firstName,
-          lastName,
           email,
           password: await bcrypt.hash("", saltRounds),
+          socialNet: true,
         });
       }
       req.session.user = user;
@@ -337,6 +311,7 @@ export const kakaoCallback = async (req, res) => {
     const { access_token } = response;
 
     const {
+      properties: { profile_image },
       kakao_account: { email },
     } = await (
       await fetch("https://kapi.kakao.com/v2/user/me", {
@@ -352,6 +327,8 @@ export const kakaoCallback = async (req, res) => {
         user = await User.create({
           email,
           password: await bcrypt.hash("", saltRounds),
+          profilePhoto: profile_image,
+          socialNet: true,
         });
       }
       req.session.user = user;
@@ -428,5 +405,34 @@ export const googleCallback = async (req, res) => {
     }
   } else {
     return res.redirect("/signin");
+  }
+};
+
+export const getEditProfile = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+  const user = await User.findById(id);
+  // 현재 접속한 유저의 id와 수정하려는 유저의 id와 같은지 체크
+  if (!user || req.session.user._id !== id) {
+    return res.redirect("/");
+  }
+  // 현재 접속한 유저와 수정하려는 유저가 같다.
+  return res.render("editProfile");
+};
+
+export const postEditProfile = async (req, res) => {
+  const {
+    params: { id },
+    body: { lastName, firstName, password, confirm },
+  } = req;
+  if (req.session.user._id !== id) {
+    return res.redirect("/");
+  }
+
+  if (password !== confirm) {
+    const user = await User.findByIdAndUpdate(id, { lastName, firstName });
+    req.session.user = user;
+    return res.redirect(`/users/${id}`);
   }
 };

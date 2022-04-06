@@ -2,4 +2,6 @@ extends layouts/main.pug
 
 block content 
     h1 watch
-    video(src=`/${video.path}` width="800" height="400") 
+    .videoPlayer
+        video(src=`/${video.path}` controls width="100%") 
+        .videoControllers

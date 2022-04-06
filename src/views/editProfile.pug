@@ -1,0 +1,25 @@
+extends layouts/main.pug
+
+block content 
+    h1 Edit Profile
+    include partials/error.pug
+    form
+        input(type="text" name="lastName" placeholder="성" value=user.lastName)
+        input(type="text", name="firstName" placeholder="이름" value=user.firstName)
+        input(type="text" name="username" placeholder="유저 이름" value=user.username)
+        button(type="submit") 저장
+    form
+        input(type="email", name="email" placeholder="이메일" value=user.email)
+        button(type="submit") 이메일 변경
+    form
+        input(type="password", name="password" placeholder="비밀번호")
+        input(type="password", name="confirm" placeholder="재입력")
+        button(type="submit") 비밀번호 변경
+    form
+        img(src=user.profilePhoto, alt="" width="200" height="200")
+        input(type="file", name="photo" placeholder="사진")
+        button(type="submit") 업데이트
+    form
+        input(type="checkbox", name="")
+        button(type="submit") 계정 삭제
+

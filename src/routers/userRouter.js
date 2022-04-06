@@ -10,20 +10,27 @@ import {
   kakaoCallback,
   google,
   googleCallback,
+  getEditProfile,
+  postEditProfile,
 } from "../controllers/userController";
-import { publicOnly } from "../middlewares";
+import { privateOnly, publicOnly } from "../middlewares";
 
 const userRouter = express.Router();
 
-userRouter.all(publicOnly).get("/github", github);
+userRouter.get("/github", publicOnly, github);
 userRouter.get("/github/callback", githubCallback);
-userRouter.all(publicOnly).get("/facebook", facebook);
+userRouter.get("/facebook", publicOnly, facebook);
 userRouter.get("/facebook/callback", facebookCallback);
-userRouter.all(publicOnly).get("/naver", naver);
+userRouter.get("/naver", publicOnly, naver);
 userRouter.get("/naver/callback", naverCallback);
-userRouter.all(publicOnly).get("/kakao", kakao);
+userRouter.get("/kakao", publicOnly, kakao);
 userRouter.get("/kakao/callback", kakaoCallback);
-userRouter.all(publicOnly).get("/google", google);
+userRouter.get("/google", publicOnly, google);
 userRouter.get("/google/callback", googleCallback);
+userRouter
+  .all(privateOnly)
+  .route("/:id([\\w]{24})")
+  .get(getEditProfile)
+  .post(postEditProfile);
 
 export default userRouter;
