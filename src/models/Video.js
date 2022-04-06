@@ -4,7 +4,8 @@ const { Schema } = mongoose;
 const videoSchema = new Schema({
   title: String,
   path: String,
-  data: { type: Date, default: Date.now },
+  createdAt: { type: Date, default: Date.now },
+  views: { type: Number, default: 0 },
 });
 
 const Video = mongoose.model("Video", videoSchema);

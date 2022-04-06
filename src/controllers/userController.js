@@ -23,6 +23,7 @@ export const postSignin = async (req, res) => {
     // 비밀번호 체크
     const result = await bcrypt.compare(password, user.password);
     if (result) {
+      req.session.authorised = true;
       req.session.user = user;
       return res.redirect("/");
     } else {
@@ -149,6 +150,7 @@ export const githubCallback = async (req, res) => {
           socialNet: true,
         });
       }
+      req.session.authorised = true;
       req.session.user = user;
       return res.redirect("/");
     } catch (error) {
@@ -210,6 +212,7 @@ export const facebookCallback = async (req, res) => {
           socialNet: true,
         });
       }
+      req.session.authorised = true;
       req.session.user = user;
       return res.redirect("/");
     } catch (error) {
@@ -268,6 +271,7 @@ export const naverCallback = async (req, res) => {
           socialNet: true,
         });
       }
+      req.session.authorised = true;
       req.session.user = user;
       return res.redirect("/");
     } catch (error) {
@@ -336,6 +340,7 @@ export const kakaoCallback = async (req, res) => {
           socialNet: true,
         });
       }
+      req.session.authorised = true;
       req.session.user = user;
       return res.redirect("/");
     } catch (error) {
@@ -403,6 +408,7 @@ export const googleCallback = async (req, res) => {
           password: await bcrypt.hash("", saltRounds),
         });
       }
+      req.session.authorised = true;
       req.session.user = user;
       return res.redirect("/");
     } catch (error) {

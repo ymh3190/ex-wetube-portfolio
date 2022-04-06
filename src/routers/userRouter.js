@@ -28,8 +28,8 @@ userRouter.get("/kakao/callback", kakaoCallback);
 userRouter.get("/google", publicOnly, google);
 userRouter.get("/google/callback", googleCallback);
 userRouter
-  .all(privateOnly)
   .route("/:id([\\w]{24})")
+  .all(privateOnly)
   .get(getEditProfile)
   .post(postEditProfile);
 

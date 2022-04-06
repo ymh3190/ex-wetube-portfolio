@@ -3,5 +3,9 @@ extends layouts/main.pug
 block content 
     h1 watch
     .videoPlayer
-        video(src=`/${video.path}` controls width="100%") 
+        video(src=`/${video.path}` controls width="1000" height="400") 
         .videoControllers
+    .videoDetail
+        h2=video.title
+        h2 #{video.views === 1 ? `${video.views} view` : `${video.views} views`}
+        h2=video.createdAt

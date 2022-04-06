@@ -18,13 +18,13 @@ const rootRouter = express.Router();
 
 rootRouter.get("/", index);
 rootRouter
-  .all(privateOnly)
   .route("/upload")
+  .all(privateOnly)
   .get(getUpload)
   .post(videoUpload, postUpload);
-rootRouter.all(publicOnly).route("/signin").get(getSignin).post(postSignin);
-rootRouter.all(publicOnly).route("/signup").get(getSignup).post(postSignup);
-rootRouter.all(privateOnly).get("/signout", signout);
+rootRouter.route("/signin").all(publicOnly).get(getSignin).post(postSignin);
+rootRouter.route("/signup").all(publicOnly).get(getSignup).post(postSignup);
+rootRouter.get("/signout", privateOnly, signout);
 rootRouter.get("/result", result);
 
 export default rootRouter;

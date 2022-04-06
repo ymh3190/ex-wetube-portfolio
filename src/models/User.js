@@ -41,7 +41,7 @@ const userSchema = new Schema({
       return this.username;
     },
   },
-  socialNet: Boolean,
+  socialNet: { type: Boolean, default: false },
 });
 
 const User = mongoose.model("User", userSchema);
