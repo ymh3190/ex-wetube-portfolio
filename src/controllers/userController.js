@@ -249,7 +249,7 @@ export const naverCallback = async (req, res) => {
     const { access_token } = response;
 
     const {
-      response: { email },
+      response: { email, name },
     } = await (
       await fetch("https://openapi.naver.com/v1/nid/me", {
         headers: {
@@ -263,6 +263,7 @@ export const naverCallback = async (req, res) => {
       if (!user) {
         user = await User.create({
           email,
+          username: name,
           password: await bcrypt.hash("", saltRounds),
           socialNet: true,
         });
@@ -312,7 +313,10 @@ export const kakaoCallback = async (req, res) => {
 
     const {
       properties: { profile_image },
-      kakao_account: { email },
+      kakao_account: {
+        email,
+        profile: { nickname },
+      },
     } = await (
       await fetch("https://kapi.kakao.com/v2/user/me", {
         headers: {
@@ -326,6 +330,7 @@ export const kakaoCallback = async (req, res) => {
       if (!user) {
         user = await User.create({
           email,
+          username: nickname,
           password: await bcrypt.hash("", saltRounds),
           profilePhoto: profile_image,
           socialNet: true,
@@ -411,10 +416,10 @@ export const googleCallback = async (req, res) => {
 export const getEditProfile = async (req, res) => {
   const {
     params: { id },
+    session: { user },
   } = req;
-  const user = await User.findById(id);
   // 현재 접속한 유저의 id와 수정하려는 유저의 id와 같은지 체크
-  if (!user || req.session.user._id !== id) {
+  if (!(await User.findById(id)) || user._id !== id) {
     return res.redirect("/");
   }
   // 현재 접속한 유저와 수정하려는 유저가 같다.
@@ -424,15 +429,12 @@ export const getEditProfile = async (req, res) => {
 export const postEditProfile = async (req, res) => {
   const {
     params: { id },
-    body: { lastName, firstName, password, confirm },
+    session: { user },
   } = req;
-  if (req.session.user._id !== id) {
+
+  if (!(await User.findById(id)) || user._id !== id) {
     return res.redirect("/");
   }
-
-  if (password !== confirm) {
-    const user = await User.findByIdAndUpdate(id, { lastName, firstName });
-    req.session.user = user;
-    return res.redirect(`/users/${id}`);
-  }
+  // TODO: 프론트엔드로 수정사항 처리
+  // fetch()
 };
