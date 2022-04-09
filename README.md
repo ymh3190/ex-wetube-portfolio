@@ -1,12 +1,17 @@
 # wetube
 
 - NoSQL: MongoDB
-- 파일 업로드
+- 유저
+  - [x] 회원가입
+  - [x] 로그아웃
+  - [x] 계정삭제
 - 소셜 네트워크 로그인(REST)
   - [x] Github
   - [x] Facebook
   - [x] NAVER
   - [x] Kakao
   - [x] Google
+- 파일 업로드
 - 프로필 수정
+  - [x] async await fetch
 - 동영상 수정

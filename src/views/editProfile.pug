@@ -11,16 +11,18 @@ block content
     form#emailForm
         input#emailInput(type="email", name="email" placeholder="이메일" value=user.email)
         button 이메일 변경
-    form#passwordForm
-        input#passwordInput(type="password", name="password" placeholder="비밀번호")
-        input#confirmInput(type="password", name="confirm" placeholder="재입력")
-        button 비밀번호 변경
-    form(enctype="multipart/form-data")
-        img(src=user.profilePhoto, alt="" width="100" height="100")
-        input(type="file", name="photo" placeholder="사진")
+    if !user.socialNet
+        form#passwordForm
+            input#passwordInput(type="password", name="password" placeholder="비밀번호")
+            input#confirmInput(type="password", name="confirm" placeholder="재입력")
+            button 비밀번호 변경
+    form#photoForm(enctype="multipart/form-data")
+        img#photoImg(src=user.profilePhoto, alt="" width="100" height="100")
+        label.photoLabel(for="photoFileInput") 사진 선택
+        input#photoFileInput(type="file", name="photo" placeholder="사진")
         button 업데이트
-    form
-        input(type="checkbox", name="")
+    form#deleteAccountForm
+        input#deleteAccountInput(type="checkbox", name="")
         button 계정 삭제
 
 block scripts 

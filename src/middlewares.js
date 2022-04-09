@@ -1,7 +1,9 @@
 import multer from "multer";
-const upload = multer({ dest: "uploads/videos/" });
+const videoUpload = multer({ dest: "uploads/videos/" });
+const photoUpload = multer({ dest: "uploads/photos/" });
 
-export const videoUpload = upload.single("video");
+export const videoUploader = videoUpload.single("video");
+export const photoUploader = photoUpload.single("photo");
 
 export const localsMiddlewares = (req, res, next) => {
   res.locals.user = req.session.user;

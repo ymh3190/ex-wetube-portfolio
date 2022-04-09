@@ -88,5 +88,44 @@ async function handleSubmitChangePassword(e) {
     return alert(errorMessage);
   }
 }
+if (passwordForm) {
+  passwordForm.addEventListener("submit", handleSubmitChangePassword);
+}
 
-passwordForm.addEventListener("submit", handleSubmitChangePassword);
+const photoForm = document.getElementById("photoForm");
+const photoImg = document.getElementById("photoImg");
+const photoFileInput = document.getElementById("photoFileInput");
+
+async function handleSubmitUpdatePhoto(e) {
+  e.preventDefault();
+
+  const formData = new FormData(photoForm);
+  formData.append("file", photoFileInput);
+  photoFileInput.value = "";
+
+  const response = await fetch("/api/updatePhoto", {
+    method: "post",
+    body: formData,
+  });
+  if (response.status === 201) {
+    const { path } = await response.json();
+    photoImg.src = path;
+  }
+}
+photoForm.addEventListener("submit", handleSubmitUpdatePhoto);
+
+const deleteAccountForm = document.getElementById("deleteAccountForm");
+const deleteAccountInput = document.getElementById("deleteAccountInput");
+
+async function handleSubmitDeleteAccount(e) {
+  e.preventDefault();
+
+  if (deleteAccountInput.checked) {
+    const response = await fetch("/api/deleteAccount");
+    if (response.status === 200) {
+      alert("계정을 삭제했습니다.");
+      window.location.href = "/";
+    }
+  }
+}
+deleteAccountForm.addEventListener("submit", handleSubmitDeleteAccount);

@@ -73,3 +73,37 @@ export const changePassword = async (req, res) => {
     console.log(error);
   }
 };
+
+export const updatePhoto = async (req, res) => {
+  const {
+    file: { path },
+    session: { user },
+  } = req;
+
+  try {
+    const newUser = await User.findByIdAndUpdate(
+      { _id: user._id },
+      { profilePhoto: `/${path}` },
+      { new: true }
+    );
+    req.session.user = newUser;
+    return res.status(201).send({ path: `/${path}` });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteAccount = async (req, res) => {
+  const {
+    session: { user },
+  } = req;
+
+  try {
+    await User.findByIdAndDelete({ _id: user._id });
+    delete req.session.authorised;
+    delete req.session.user;
+    return res.status(200).end();
+  } catch (error) {
+    console.log(error);
+  }
+};
