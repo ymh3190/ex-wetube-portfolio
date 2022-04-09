@@ -5,7 +5,16 @@ block content
     .videoPlayer
         video(src=`/${video.path}` controls width="1000" height="400") 
         .videoControllers
-    .videoDetail
+    div
         h2=video.title
-        h2 #{video.views === 1 ? `${video.views} view` : `${video.views} views`}
-        h2=video.createdAt
+        h2 #{video.views} 회
+        h2 #{video.createdAt.getFullYear()}년
+        h2 #{video.createdAt.getMonth()+1}월
+        h2 #{video.createdAt.getDate()}일
+    div 
+        img(src=user.profilePhoto, alt="" width="50" height="50")
+        h2=user.username
+        h3 #{user.subscribers} 구독자
+        button 구독
+    div 
+        h2 비디오 상세

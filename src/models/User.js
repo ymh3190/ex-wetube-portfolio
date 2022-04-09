@@ -42,6 +42,7 @@ const userSchema = new Schema({
     },
   },
   socialNet: { type: Boolean, default: false },
+  subscribers: { type: Number, default: 0 },
 });
 
 const User = mongoose.model("User", userSchema);

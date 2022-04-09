@@ -11,10 +11,8 @@ import {
   google,
   googleCallback,
   getEditProfile,
-  postEditProfile,
 } from "../controllers/userController";
 import { privateOnly, publicOnly } from "../middlewares";
-
 const userRouter = express.Router();
 
 userRouter.get("/github", publicOnly, github);
@@ -27,10 +25,6 @@ userRouter.get("/kakao", publicOnly, kakao);
 userRouter.get("/kakao/callback", kakaoCallback);
 userRouter.get("/google", publicOnly, google);
 userRouter.get("/google/callback", googleCallback);
-userRouter
-  .route("/:id([\\w]{24})")
-  .all(privateOnly)
-  .get(getEditProfile)
-  .post(postEditProfile);
+userRouter.get("/:id([\\w]{24})", privateOnly, getEditProfile);
 
 export default userRouter;

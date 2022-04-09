@@ -1,6 +1,5 @@
 import express from "express";
 import {
-  getGithub,
   getSignin,
   getSignup,
   postSignin,

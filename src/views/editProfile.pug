@@ -3,23 +3,25 @@ extends layouts/main.pug
 block content 
     h1 Edit Profile
     include partials/error.pug
-    form(method="post")
-        input(type="text" name="lastName" placeholder="성" value=user.lastName)
-        input(type="text", name="firstName" placeholder="이름" value=user.firstName)
-        input(type="text" name="username" placeholder="유저 이름" value=user.username)
-        button(type="submit") 저장
-    form(method="post")
-        input(type="email", name="email" placeholder="이메일" value=user.email)
-        button(type="submit") 이메일 변경
-    form(method="post")
-        input(type="password", name="password" placeholder="비밀번호")
-        input(type="password", name="confirm" placeholder="재입력")
-        button(type="submit") 비밀번호 변경
-    form(method="post")
+    form#accountInfo
+        input#lastNameInput(type="text" name="lastName" placeholder="성" value=user.lastName)
+        input#firstNameInput(type="text", name="firstName" placeholder="이름" value=user.firstName)
+        input#usernameInput(type="text" name="username" placeholder="유저 이름" value=user.username)
+        button 저장
+    form#emailForm
+        input#emailInput(type="email", name="email" placeholder="이메일" value=user.email)
+        button 이메일 변경
+    form#passwordForm
+        input#passwordInput(type="password", name="password" placeholder="비밀번호")
+        input#confirmInput(type="password", name="confirm" placeholder="재입력")
+        button 비밀번호 변경
+    form(enctype="multipart/form-data")
         img(src=user.profilePhoto, alt="" width="100" height="100")
         input(type="file", name="photo" placeholder="사진")
-        button(type="submit") 업데이트
-    form(method="post")
+        button 업데이트
+    form
         input(type="checkbox", name="")
-        button(type="submit") 계정 삭제
-        
+        button 계정 삭제
+
+block scripts 
+    script(src="/public/js/editProfile.js") 

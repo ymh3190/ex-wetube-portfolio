@@ -431,16 +431,3 @@ export const getEditProfile = async (req, res) => {
   // 현재 접속한 유저와 수정하려는 유저가 같다.
   return res.render("editProfile");
 };
-
-export const postEditProfile = async (req, res) => {
-  const {
-    params: { id },
-    session: { user },
-  } = req;
-
-  if (!(await User.findById(id)) || user._id !== id) {
-    return res.redirect("/");
-  }
-  // TODO: 프론트엔드로 수정사항 처리
-  // fetch()
-};
