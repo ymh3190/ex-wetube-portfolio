@@ -3,7 +3,7 @@ extends layouts/main.pug
 block content 
     h1 watch
     .videoPlayer
-        video(src=`/${video.path}` controls width="1000" height="400") 
+        video(src=`/${video.path}` width="1000" height="400") 
         .videoControllers
     div
         h2=video.title
@@ -17,4 +17,4 @@ block content
         h3 #{user.subscribers} 구독자
         button 구독
     div 
-        h2 비디오 상세
+        div=video.description

@@ -1,0 +1,21 @@
+extends layouts/main.pug
+
+block content 
+    h1 studio 
+    each video in videos
+        div
+            a(href=`/videos/${video.id}/detail`) 
+                video(src=`/${video.path}` width="400" height="400" data-id=video.id) 
+            a(href=`/videos/${video.id}/detail`)
+                    i.fa-solid.fa-pencil
+            select#visibilitySelect 
+                option(value="") 공개 여부
+                option(value="private") 비공개
+                option(value="public") 공개 
+            h2 date #{video.createdAt}
+            h2 views #{video.views}
+            h2 comments
+            h2 likes vs unlikes
+
+block scripts 
+    script(src="/public/js/studio.js") 

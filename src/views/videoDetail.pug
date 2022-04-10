@@ -1,0 +1,11 @@
+extends layouts/main.pug
+
+block content 
+    h1 watch
+    a(href=`/studio/${user._id}`) Your Channel
+    .videoPlayer
+        video(src=`/${video.path}` width="1000" height="400") 
+    h2=video.title
+    h2=video.description
+    h2 thumbnail
+    h2 comments

@@ -1,4 +1,5 @@
 import User from "../models/User";
+import Video from "../models/Video";
 import bcrypt from "bcrypt";
 
 const saltRounds = 10;
@@ -38,7 +39,7 @@ export const changeEmail = async (req, res) => {
       req.session.user = newUser;
       return res.status(201).send({ email });
     }
-    return res.status(400).end();
+    return res.sendStatus(400);
   } catch (error) {
     console.log(error);
   }
@@ -60,7 +61,7 @@ export const changePassword = async (req, res) => {
           { new: true }
         );
         req.session.user = newUser;
-        return res.status(201).end();
+        return res.sendStatus(201);
       }
       return res.status(400).send({
         errorMessage: "이전 비밀번호와 일치합니다. 다른 비밀번호를 입력하세요.",
@@ -102,7 +103,21 @@ export const deleteAccount = async (req, res) => {
     await User.findByIdAndDelete({ _id: user._id });
     delete req.session.authorised;
     delete req.session.user;
-    return res.status(200).end();
+    return res.sendStatus(200);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const changeVisibility = async (req, res) => {
+  const {
+    session: { user },
+    body: { id, visibility }, // id: video id
+  } = req;
+
+  try {
+    await Video.findByIdAndUpdate(id, { visibility }, { new: true });
+    return res.sendStatus(201);
   } catch (error) {
     console.log(error);
   }

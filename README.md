@@ -11,7 +11,9 @@
   - [x] NAVER
   - [x] Kakao
   - [x] Google
-- 파일 업로드
+- [x] 파일 업로드
 - 프로필 수정
   - [x] async await fetch
 - 동영상 수정
+  - [x] 공개 여부
+  - [x] 수정 권한 부여

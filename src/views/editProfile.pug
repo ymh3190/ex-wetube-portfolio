@@ -19,10 +19,10 @@ block content
     form#photoForm(enctype="multipart/form-data")
         img#photoImg(src=user.profilePhoto, alt="" width="100" height="100")
         label.photoLabel(for="photoFileInput") 사진 선택
-        input#photoFileInput(type="file", name="photo" placeholder="사진")
+        input#photoFileInput(type="file", name="photo" placeholder="사진" accept="image/*")
         button 업데이트
     form#deleteAccountForm
-        input#deleteAccountInput(type="checkbox", name="")
+        input#deleteAccountInput(type="checkbox")
         button 계정 삭제
 
 block scripts 

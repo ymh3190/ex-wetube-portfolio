@@ -1,7 +1,7 @@
 import Video from "../models/Video";
 
 export const index = async (req, res) => {
-  const videos = await Video.find({});
+  const videos = await Video.find({ visibility: "public" });
   return res.render("index", { videos });
 };
 
@@ -9,10 +9,18 @@ export const getUpload = (req, res) => res.render("upload");
 
 export const postUpload = async (req, res) => {
   const {
+    session: { user },
     file: { originalname, path },
-    body: { title },
+    body: { title, description, visibility },
   } = req;
-  await Video.create({ title: title ? title : originalname, path });
+
+  await Video.create({
+    title: title ? title : originalname,
+    path,
+    owner: user._id,
+    description,
+    visibility,
+  });
   return res.redirect("/");
 };
 
@@ -32,4 +40,30 @@ export const watch = async (req, res) => {
 
   const video = await Video.findById(id);
   return res.render("watch", { video });
+};
+
+export const studio = async (req, res) => {
+  const {
+    session: { user },
+    params: { id },
+  } = req;
+
+  if (user._id !== id) {
+    return res.redirect("/");
+  }
+  const videos = await Video.find({ owner: id });
+  return res.render("studio", { videos });
+};
+
+export const getVideoDetail = async (req, res) => {
+  const {
+    session: { user },
+    params: { id },
+  } = req;
+
+  const video = await Video.findById(id);
+  if (video.owner.toString() !== user._id) {
+    return res.redirect("/");
+  }
+  return res.render("videoDetail", { video });
 };
