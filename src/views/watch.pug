@@ -36,7 +36,12 @@ block content
     div 
         div=video.description
     div 
-        h2 댓글 #{video.comments.length}개
+        div
+            h2 댓글 #{video.comments.length}개
+            div 정렬 기준
+            div 
+                div 인기 댓글순
+                div#newestFirst 최신순 
         div
             img(src=user.profilePhoto, alt="" width="50" height="50")
             form#commentForm
@@ -44,12 +49,15 @@ block content
                 div#cancelComment(style="display: none;")
                     button(type="button") 취소
                     button#commentBtn(disabled) 댓글
-        div 
-            each comment in video.comments
-                img(src=comment.owner.profilePhoto, alt="" width="50" height="50")
-                h2=comment.owner.username
-                h2=comment.createdAt
-                span=comment.text
+        div#commentContainers
+            each comment in video.comments.reverse()
+                div
+                    img(src=comment.owner.profilePhoto, alt="" width="50" height="50")
+                    h2=comment.owner.username
+                    h2=comment.createdAt
+                    span=comment.text
+                    if user._id === comment.owner._id.toString()
+                        div#delComment(data-id=comment._id) ❌
 
 block scripts 
     script(src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.2/gsap.min.js") 

@@ -136,5 +136,20 @@ export const addComment = async (req, res) => {
   });
   video.comments.push(comment._id);
   await video.save();
-  return res.status(200).json({ text });
+  return res.status(200).json({ text, user, commentId: comment._id });
+};
+
+export const delComment = async (req, res) => {
+  const {
+    body: { commentId, videoId },
+  } = req;
+
+  const video = await Video.findById(videoId);
+  for (const [i, comment] of video.comments.entries()) {
+    if (comment.toString() === commentId) {
+      video.comments.splice(i, 1);
+    }
+  }
+  await video.save();
+  return res.sendStatus(200);
 };

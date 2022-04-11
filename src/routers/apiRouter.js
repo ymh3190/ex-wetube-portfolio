@@ -4,6 +4,7 @@ import {
   changeEmail,
   changePassword,
   changeVisibility,
+  delComment,
   deleteAccount,
   saveInfo,
   updatePhoto,
@@ -18,5 +19,6 @@ apiRouter.post("/updatePhoto", privateOnly, photoUploader, updatePhoto);
 apiRouter.get("/deleteAccount", privateOnly, deleteAccount);
 apiRouter.post("/changeVisibility", privateOnly, changeVisibility);
 apiRouter.post("/comment", privateOnly, addComment);
+apiRouter.post("/comment/del", privateOnly, delComment);
 
 export default apiRouter;

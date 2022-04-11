@@ -19,11 +19,12 @@ video,
 
 .videoControllers__timeline-drag#timelineDrag {
   width: 1px;
-  height: 20px;
-  top: -10px;
+  height: 10px;
+  /* height: 20px; */
+  /* top: -10px; */
   background-color: yellow;
   position: absolute;
-  z-index: 2;
+  /* z-index: 2; */
   transform-origin: 0 0;
 }
 
