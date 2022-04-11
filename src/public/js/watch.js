@@ -47,24 +47,24 @@ volumeIcon.addEventListener("click", handleClickVolume);
 volumeInput.addEventListener("input", handleInputVolume);
 
 // Current & Total time
-const currentTimeSpan = document.getElementById("currentTimeSpan");
-const totalTimeSpan = document.getElementById("totalTimeSpan");
+// const currentTimeSpan = document.getElementById("currentTimeSpan");
+// const totalTimeSpan = document.getElementById("totalTimeSpan");
 
-function displayTimeSpan(time) {
-  if (time < 60) {
-    return new Date(time * 1000).toISOString().substring(14, 19);
-  } else if (time >= 3600) {
-    return new Date(time * 1000).toISOString().substring(11, 19);
-  }
-}
-function handleLoadedmetadataTotalTime() {
-  totalTimeSpan.innerText = displayTimeSpan(Math.ceil(video.duration));
-}
-function handleTimeupdateCurrentTime() {
-  currentTimeSpan.innerText = displayTimeSpan(Math.ceil(video.currentTime));
-}
-video.addEventListener("loadedmetadata", handleLoadedmetadataTotalTime);
-video.addEventListener("timeupdate", handleTimeupdateCurrentTime);
+// function displayTimeSpan(time) {
+//   if (time < 60) {
+//     return new Date(time * 1000).toISOString().substring(14, 19);
+//   } else if (time >= 3600) {
+//     return new Date(time * 1000).toISOString().substring(11, 19);
+//   }
+// }
+// function handleLoadedmetadataTotalTime() {
+//   totalTimeSpan.innerText = displayTimeSpan(Math.ceil(video.duration));
+// }
+// function handleTimeupdateCurrentTime() {
+//   currentTimeSpan.innerText = displayTimeSpan(Math.ceil(video.currentTime));
+// }
+// video.addEventListener("loadedmetadata", handleLoadedmetadataTotalTime);
+// video.addEventListener("timeupdate", handleTimeupdateCurrentTime);
 
 // Expand
 const expandIcon = document.getElementById("expandIcon");
@@ -85,6 +85,59 @@ expandIcon.addEventListener("click", handleClickExpand);
 const timeline = document.getElementById("timeline");
 const timelineDrag = document.getElementById("timelineDrag");
 const timelineProgress = document.getElementById("timelineProgress");
+
+// on interaction with video controls
 video.onplay = function () {
-  console.log(TweenMax);
+  gsap.ticker.add(vidUpdate);
 };
+video.onpause = function () {
+  gsap.ticker.remove(vidUpdate);
+};
+video.onended = function () {
+  gsap.ticker.remove(vidUpdate);
+};
+
+// Sync the timeline with the video duration
+function vidUpdate() {
+  TweenMax.set(timelineProgress, {
+    scaleX: (video.currentTime / video.duration).toFixed(5),
+  });
+  TweenMax.set(timelineDrag, {
+    x: ((video.currentTime / video.duration) * timeline.offsetWidth).toFixed(4),
+  });
+}
+
+// Make the timeline draggable
+Draggable.create(timelineDrag, {
+  type: "x",
+  trigger: timeline,
+  bounds: timeline,
+  onPress: function (e) {
+    video.currentTime = (this.x / this.maxX) * video.duration;
+    TweenMax.set(this.target, {
+      x: this.pointerX - timeline.getBoundingClientRect().left,
+    });
+    this.update();
+    var progress = this.x / timeline.offsetWidth;
+    TweenMax.set(timelineProgress, {
+      scaleX: progress,
+    });
+  },
+  onDrag: function () {
+    video.currentTime = (this.x / this.maxX) * video.duration;
+    var progress = this.x / timeline.offsetWidth;
+    TweenMax.set(timelineProgress, {
+      scaleX: progress,
+    });
+  },
+  onClick: function () {
+    video.currentTime = (this.x / this.maxX) * video.duration;
+    var progress = this.x / timeline.offsetWidth;
+    TweenMax.set(timelineProgress, {
+      scaleX: progress,
+    });
+  },
+  onRelease: function (e) {
+    e.preventDefault();
+  },
+});

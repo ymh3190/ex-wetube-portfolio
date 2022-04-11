@@ -1,0 +1,39 @@
+/* video {
+  display: block;
+  width: 100%;
+  height: auto;
+} */
+
+video,
+.videoControllers__timeline {
+  max-width: 50em;
+}
+
+.videoControllers__timeline {
+  width: 100%;
+  height: 10px;
+  background-color: black;
+  cursor: pointer;
+  position: relative;
+}
+
+.videoControllers__timeline-drag#timelineDrag {
+  width: 1px;
+  height: 20px;
+  top: -10px;
+  background-color: yellow;
+  position: absolute;
+  z-index: 2;
+  transform-origin: 0 0;
+}
+
+.videoControllers__timeline-progress {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: red;
+  transform: scaleX(0);
+  transform-origin: 0 0;
+  position: relative;
+  z-index: 1;
+}
