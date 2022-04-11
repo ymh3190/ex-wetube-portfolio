@@ -2,9 +2,26 @@ extends layouts/main.pug
 
 block content 
     h1 watch
-    .videoPlayer
+    .videoPlayer#videoPlayer
         video(src=`/${video.path}` width="1000" height="400") 
         .videoControllers
+            .videoControllers__timeline#timeline
+                .videoControllers__timeline-drag#timelineDrag
+                span.videoControllers__timeline-progress#timelineProgress
+            .videoControllers__container
+                .videoControllers__container-column
+                    .videoControllers__container-column__play
+                        i.fa-solid.fa-play#playIcon
+                    .videoControllers__container-column__volume
+                        i.fa-solid.fa-volume-high#volumeIcon
+                        input#volumeInput(type="range", name="volume" value='100')
+                    .videoControllers__container-column__time
+                        span.videoControllers__container-column__time-current-time#currentTimeSpan 00:00
+                        span.videoControllers__container-column__time-slash /
+                        span.videoControllers__container-column__time-total-time#totalTimeSpan 00:00
+                .videoControllers__container-column
+                    .videoControllers__container-column__expand 
+                        i.fa-solid.fa-expand#expandIcon
     div
         h2=video.title
         h2 #{video.views} 회
@@ -18,3 +35,7 @@ block content
         button 구독
     div 
         div=video.description
+
+block scripts 
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.2/gsap.min.js") 
+    script(src="/public/js/watch.js")

@@ -1,19 +1,34 @@
 # wetube
 
-- NoSQL: MongoDB
+- 프론트엔드: javascript
+- 백엔드: nodejs
+- 데이터베이스: MongoDB(NoSQL)
 - 유저
   - [x] 회원가입
   - [x] 로그아웃
   - [x] 계정삭제
+  - [x] 프로필 편집
 - 소셜 네트워크 로그인(REST)
   - [x] Github
   - [x] Facebook
   - [x] NAVER
   - [x] Kakao
   - [x] Google
-- [x] 파일 업로드
-- 프로필 수정
-  - [x] async await fetch
-- 동영상 수정
+- 비디오
+  - [x] 업로드
   - [x] 공개 여부
-  - [x] 수정 권한 부여
+  - [x] 비디오 편집 권한 부여
+  - [x] 비디오 편집
+  - [] 조회수 기록
+  - [] 좋아요 싫어요 기능
+  - [] 댓글
+- 프론트엔드
+  - [] 웹팩
+  - [] 스타일링
+  - [] 비디오 플레이어
+  - [] 라이브 기능
+  - [] 웝어쎔플리
+  - [] 플래쉬 메세지
+- 배포
+  - [] heroku
+  - [] AWS S3

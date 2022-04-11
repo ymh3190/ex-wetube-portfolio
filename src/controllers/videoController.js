@@ -67,3 +67,21 @@ export const getVideoDetail = async (req, res) => {
   }
   return res.render("videoDetail", { video });
 };
+
+export const postVideoDetail = async (req, res) => {
+  const {
+    session: { user },
+    params: { id },
+    body: { title, description },
+  } = req;
+
+  const video = await Video.findById(id);
+  if (video.owner.toString() !== user._id) {
+    return res.redirect("/");
+  }
+  if (!title) {
+    return res.redirect(`/videos/${id}/detail`);
+  }
+  await video.update({ title, description });
+  return res.redirect(`/studio/${user._id}`);
+};

@@ -7,8 +7,9 @@ const videoSchema = new Schema({
   createdAt: { type: Date, default: Date.now },
   views: { type: Number, default: 0 },
   description: String,
-  owner: { type: mongoose.Types.ObjectId, required: true },
+  owner: { type: Schema.Types.ObjectId, required: true, ref: "User" },
   visibility: { type: String, required: true },
+  comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
 });
 
 const Video = mongoose.model("Video", videoSchema);

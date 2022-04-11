@@ -3,9 +3,20 @@ extends layouts/main.pug
 block content 
     h1 watch
     a(href=`/studio/${user._id}`) Your Channel
-    .videoPlayer
-        video(src=`/${video.path}` width="1000" height="400") 
-    h2=video.title
-    h2=video.description
-    h2 thumbnail
-    h2 comments
+    div
+        a(href=`/videos/${video._id}`) 
+            video(src=`/${video.path}` width="1000" height="400")
+    form(method="post")
+        input#savePublishInput(type="checkbox", name="" checked)
+        label(for="savePublishInput") 저장 또는 게시
+        input#privateInput(type="checkbox", name="")
+        label(for="privateInput") 비공개
+        input#publicInput(type="checkbox", name="")
+        label(for="publicInput") 공개
+        input(type="text" name="title" value=video.title)
+        textarea(name="description", cols="30", rows="10")=video.description
+        h2 thumbnail
+        button 수정
+
+block scripts 
+    script(src="/public/js/videoDetail.js") 
