@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  addComment,
   changeEmail,
   changePassword,
   changeVisibility,
@@ -16,5 +17,6 @@ apiRouter.post("/changePassword", privateOnly, changePassword);
 apiRouter.post("/updatePhoto", privateOnly, photoUploader, updatePhoto);
 apiRouter.get("/deleteAccount", privateOnly, deleteAccount);
 apiRouter.post("/changeVisibility", privateOnly, changeVisibility);
+apiRouter.post("/comment", privateOnly, addComment);
 
 export default apiRouter;

@@ -38,7 +38,10 @@ export const watch = async (req, res) => {
     params: { id },
   } = req;
 
-  const video = await Video.findById(id);
+  const video = await Video.findById(id).populate({
+    path: "comments",
+    populate: { path: "owner" },
+  });
   return res.render("watch", { video });
 };
 

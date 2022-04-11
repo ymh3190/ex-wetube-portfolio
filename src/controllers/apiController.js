@@ -1,5 +1,6 @@
 import User from "../models/User";
 import Video from "../models/Video";
+import Comment from "../models/Comment";
 import bcrypt from "bcrypt";
 
 const saltRounds = 10;
@@ -111,7 +112,6 @@ export const deleteAccount = async (req, res) => {
 
 export const changeVisibility = async (req, res) => {
   const {
-    session: { user },
     body: { id, visibility }, // id: video id
   } = req;
 
@@ -121,4 +121,20 @@ export const changeVisibility = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const addComment = async (req, res) => {
+  const {
+    session: { user },
+    body: { text, id },
+  } = req;
+
+  const video = await Video.findById(id);
+  const comment = await Comment.create({
+    text,
+    owner: user._id,
+  });
+  video.comments.push(comment._id);
+  await video.save();
+  return res.status(200).json({ text });
 };
