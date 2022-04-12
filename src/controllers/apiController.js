@@ -153,3 +153,18 @@ export const delComment = async (req, res) => {
   await video.save();
   return res.sendStatus(200);
 };
+
+export const countView = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+
+  try {
+    const video = await Video.findById(id);
+    video.views += 1;
+    await video.save();
+    return res.sendStatus(201);
+  } catch (error) {
+    console.log(error);
+  }
+};

@@ -24,7 +24,9 @@ block content
                         i.fa-solid.fa-expand#expandIcon
     div
         h2=video.title
-        h2 #{video.views} 회
+        div
+            h2#views=video.views
+            span 회
         h2 #{video.createdAt.getFullYear()}년
         h2 #{video.createdAt.getMonth()+1}월
         h2 #{video.createdAt.getDate()}일
@@ -65,5 +67,6 @@ block content
 block scripts 
     script(src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.2/gsap.min.js") 
     script(src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.2/Draggable.min.js") 
+    script(src="/public/js/gsap.js") 
     script(src="/public/js/watch.js")
     script(src="/public/js/comment.js") 

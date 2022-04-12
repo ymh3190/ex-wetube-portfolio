@@ -51,7 +51,6 @@ async function handleSubmitComment(e) {
     commentsLength.innerText = parseInt(commentsLength.innerText, 10) + 1;
   }
 }
-commentForm.addEventListener("submit", handleSubmitComment);
 
 function handleFocusComment() {
   cancelComment.style.display = "block";
@@ -62,7 +61,6 @@ function handleFocusoutComment() {
   cancelComment.style.display = "none";
   commentInput.removeEventListener("focusout", handleFocusoutComment);
 }
-commentInput.addEventListener("focus", handleFocusComment);
 
 function handleInputComment() {
   const { value: text } = commentInput;
@@ -71,7 +69,6 @@ function handleInputComment() {
   }
   commentBtn.disabled = false;
 }
-commentInput.addEventListener("input", handleInputComment);
 
 async function handleClickDelComment(e) {
   const commentId = e.target.dataset.id;
@@ -89,6 +86,10 @@ async function handleClickDelComment(e) {
     commentsLength.innerText = parseInt(commentsLength.innerText, 10) - 1;
   }
 }
+
+commentForm.addEventListener("submit", handleSubmitComment);
+commentInput.addEventListener("focus", handleFocusComment);
+commentInput.addEventListener("input", handleInputComment);
 delComments.forEach((delComment) =>
   delComment.addEventListener("click", handleClickDelComment)
 );
