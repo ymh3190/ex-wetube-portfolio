@@ -1,6 +1,7 @@
 import express from "express";
 import {
   getVideoDetail,
+  history,
   postVideoDetail,
   watch,
 } from "../controllers/videoController";
@@ -13,5 +14,6 @@ videoRouter
   .all(privateOnly)
   .get(getVideoDetail)
   .post(postVideoDetail);
+videoRouter.get("/histroy", history);
 
 export default videoRouter;

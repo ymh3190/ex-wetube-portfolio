@@ -1,3 +1,4 @@
+import User from "../models/User";
 import Video from "../models/Video";
 
 export const index = async (req, res) => {
@@ -35,6 +36,9 @@ export const result = async (req, res) => {
 
 export const watch = async (req, res) => {
   const {
+    session: {
+      user: { _id },
+    },
     params: { id },
   } = req;
 
@@ -42,6 +46,22 @@ export const watch = async (req, res) => {
     path: "comments",
     populate: { path: "owner" },
   });
+  const user = await User.findById(_id);
+  const {
+    metadata: { histories },
+  } = user;
+  if (!histories.length) {
+    histories.push(video._id);
+  } else {
+    for (const [i, history] of histories.entries()) {
+      if (history._id.toString() === video.id) {
+        histories.splice(i, 1);
+      }
+    }
+    histories.push(video._id);
+  }
+  await user.save();
+  req.session.user = user;
   return res.render("watch", { video });
 };
 
@@ -87,4 +107,17 @@ export const postVideoDetail = async (req, res) => {
   }
   await video.update({ title, description });
   return res.redirect(`/studio/${user._id}`);
+};
+
+export const history = async (req, res) => {
+  const {
+    session: {
+      user: { _id },
+    },
+  } = req;
+
+  const user = await User.findById(_id);
+  const { histories } = await user.metadata.populate("histories");
+
+  return res.render("history", { videos: histories });
 };

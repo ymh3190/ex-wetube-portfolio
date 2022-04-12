@@ -42,7 +42,17 @@ const userSchema = new Schema({
     },
   },
   socialNet: { type: Boolean, default: false },
-  subscribers: { type: Number, default: 0 },
+  subscribers: [
+    {
+      subscriber: { type: Schema.Types.ObjectId, ref: "User" },
+      notification: { type: String, default: null },
+    },
+  ],
+  metadata: {
+    histories: [{ type: Schema.Types.ObjectId, ref: "Video" }],
+    like: [{ type: Schema.Types.ObjectId, ref: "Video" }],
+    dislike: [{ type: Schema.Types.ObjectId, ref: "Video" }],
+  },
 });
 
 const User = mongoose.model("User", userSchema);

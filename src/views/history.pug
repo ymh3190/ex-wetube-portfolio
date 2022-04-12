@@ -1,0 +1,7 @@
+extends layouts/main.pug
+
+block content 
+    h1 history
+    each video in videos.reverse() 
+        a(href=`/videos/${video.id}`) 
+            video(src=`/${video.path}` width="400" height="400") 

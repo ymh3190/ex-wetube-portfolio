@@ -5,7 +5,12 @@ const videoSchema = new Schema({
   title: { type: String, required: true },
   path: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
-  views: { type: Number, default: 0 },
+  metadata: {
+    views: { type: Number, default: 0 },
+    playTime: { type: Number, default: 0 },
+    liked: { type: Schema.Types.ObjectId, ref: "User" },
+    disliked: { type: Schema.Types.ObjectId, ref: "User" },
+  },
   description: String,
   owner: { type: Schema.Types.ObjectId, required: true, ref: "User" },
   visibility: { type: String, required: true },
