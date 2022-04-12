@@ -4,6 +4,7 @@ const cancelComment = document.getElementById("cancelComment");
 const commentBtn = document.getElementById("commentBtn");
 const delComments = document.querySelectorAll("#delComment");
 const commentContainers = document.getElementById("commentContainers");
+const commentsLength = document.getElementById("commentsLength");
 
 async function handleSubmitComment(e) {
   e.preventDefault();
@@ -36,7 +37,7 @@ async function handleSubmitComment(e) {
     usernameH2.innerText = user.username;
     commentContainer.appendChild(usernameH2);
     const createdAtH2 = document.createElement("h2");
-    createdAtH2.innerText = user.createdAt;
+    createdAtH2.innerText = new Date();
     commentContainer.appendChild(createdAtH2);
     const textSpan = document.createElement("span");
     textSpan.innerText = text;
@@ -44,8 +45,10 @@ async function handleSubmitComment(e) {
     const delComment = document.createElement("div");
     delComment.innerText = "❌";
     delComment.dataset.id = commentId;
+    delComment.addEventListener("click", handleClickDelComment);
     commentContainer.appendChild(delComment);
     commentContainers.prepend(commentContainer);
+    commentsLength.innerText = parseInt(commentsLength.innerText, 10) + 1;
   }
 }
 commentForm.addEventListener("submit", handleSubmitComment);
@@ -83,6 +86,7 @@ async function handleClickDelComment(e) {
   });
   if (response.status === 200) {
     e.target.parentElement.parentElement.removeChild(e.target.parentElement);
+    commentsLength.innerText = parseInt(commentsLength.innerText, 10) - 1;
   }
 }
 delComments.forEach((delComment) =>

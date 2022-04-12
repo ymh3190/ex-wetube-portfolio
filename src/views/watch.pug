@@ -37,11 +37,14 @@ block content
         div=video.description
     div 
         div
-            h2 댓글 #{video.comments.length}개
+            div 
+                span 댓글
+                span#commentsLength=video.comments.length
+                span 개
             div 정렬 기준
             div 
                 div 인기 댓글순
-                div#newestFirst 최신순 
+                div#newestFirst 최신순
         div
             img(src=user.profilePhoto, alt="" width="50" height="50")
             form#commentForm
