@@ -3,7 +3,7 @@ extends layouts/main.pug
 block content 
     h1 watch
     .videoPlayer#videoPlayer
-        video(src=`/${video.path}` width="1000" height="400" data-id=video.id) 
+        video(src=`/${video.path}` width="1000" height="400" data-id=video.id)
         .videoControllers
             .videoControllers__timeline#timeline
                 .videoControllers__timeline-drag#timelineDrag
@@ -30,6 +30,12 @@ block content
         h2 #{video.createdAt.getFullYear()}년
         h2 #{video.createdAt.getMonth()+1}월
         h2 #{video.createdAt.getDate()}일
+        div
+            i.fa-solid.fa-thumbs-up#likeIcon
+            span#likedCount=video.metadata.liked
+        div
+            i.fa-solid.fa-thumbs-down#dislikeIcon
+            span#dislikedCount=video.metadata.disliked
     div 
         img(src=user.profilePhoto, alt="" width="50" height="50")
         h2=user.username

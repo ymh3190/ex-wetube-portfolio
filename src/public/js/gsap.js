@@ -69,5 +69,3 @@ Draggable.create(timelineDrag, {
     e.preventDefault();
   },
 });
-
-video.addEventListener("loadedmetadata", handleLoadedmetadataTotalTime);

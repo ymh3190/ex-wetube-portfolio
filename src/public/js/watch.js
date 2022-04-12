@@ -3,9 +3,12 @@ const volumeIcon = document.getElementById("volumeIcon");
 const volumeInput = document.getElementById("volumeInput");
 const expandIcon = document.getElementById("expandIcon");
 const videoPlayer = document.getElementById("videoPlayer");
-const currentTimeSpan = document.getElementById("currentTimeSpan");
 const totalTimeSpan = document.getElementById("totalTimeSpan");
+const currentTimeSpan = document.getElementById("currentTimeSpan");
 const views = document.getElementById("views");
+const likeIcon = document.getElementById("likeIcon");
+const dislikeIcon = document.getElementById("dislikeIcon");
+const likedCount = document.getElementById("likedCount");
 
 function handleClickPlay() {
   if (video.paused) {
@@ -66,8 +69,23 @@ async function handleEnded() {
   await fetch(`/api/${id}/views`);
 }
 
+function handleClickLike() {
+  likedCount.innerText = parseInt(likedCount, 10) + 1;
+}
+
 playIcon.addEventListener("click", handleClickPlay);
 volumeIcon.addEventListener("click", handleClickVolume);
 volumeInput.addEventListener("input", handleInputVolume);
 expandIcon.addEventListener("click", handleClickExpand);
+video.addEventListener("loadedmetadata", handleLoadedmetadataTotalTime);
 video.addEventListener("ended", handleEnded);
+likeIcon.addEventListener("click", handleClickLike);
+
+let interval = setInterval(() => {
+  if (totalTimeSpan.innerText === "00:00") {
+    window.location.reload();
+  } else {
+    clearInterval(interval);
+    interval = null;
+  }
+}, 2000);

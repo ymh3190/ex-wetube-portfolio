@@ -50,8 +50,7 @@ const userSchema = new Schema({
   ],
   metadata: {
     histories: [{ type: Schema.Types.ObjectId, ref: "Video" }],
-    like: [{ type: Schema.Types.ObjectId, ref: "Video" }],
-    dislike: [{ type: Schema.Types.ObjectId, ref: "Video" }],
+    likes: [{ type: Schema.Types.ObjectId, ref: "Video" }],
   },
 });
 

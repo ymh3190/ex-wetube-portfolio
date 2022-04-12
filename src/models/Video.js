@@ -8,8 +8,8 @@ const videoSchema = new Schema({
   metadata: {
     views: { type: Number, default: 0 },
     playTime: { type: Number, default: 0 },
-    liked: { type: Schema.Types.ObjectId, ref: "User" },
-    disliked: { type: Schema.Types.ObjectId, ref: "User" },
+    liked: { type: Number, default: 0 },
+    disliked: { type: Number, default: 0 },
   },
   description: String,
   owner: { type: Schema.Types.ObjectId, required: true, ref: "User" },
