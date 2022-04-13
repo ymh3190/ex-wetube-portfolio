@@ -12,26 +12,38 @@ const likedCount = document.getElementById("likedCount");
 
 let playTimeInterval;
 
-function handleClickPlay() {
+function killPlayTimeInterval() {
+  if (playTimeInterval) {
+    clearInterval(playTimeInterval);
+    playTimeInterval = null;
+  }
+}
+
+function savePlayTime() {
   const {
     dataset: { id },
   } = video;
 
+  playTimeInterval = setInterval(async () => {
+    await fetch("/api/record/playtime", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id }),
+    });
+  }, 1000);
+}
+
+function handleClickPlay() {
   if (video.paused) {
     video.play();
     playIcon.className = "fa-solid fa-pause";
-    playTimeInterval = setInterval(async () => {
-      await fetch("/api/record/playtime", {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id }),
-      });
-    }, 1000);
+    savePlayTime();
   } else {
     video.pause();
     playIcon.className = "fa-solid fa-play";
+    killPlayTimeInterval();
   }
 }
 
@@ -59,6 +71,7 @@ function handleClickVolume() {
 }
 
 function handleInputVolume() {
+  console.log(volumeInput.value);
   video.volume = volumeInput.value / 100;
   displayVolumeIcon(volumeInput.value);
 }
@@ -99,19 +112,41 @@ function handleClickLike() {
   likedCount.innerText = parseInt(likedCount, 10) + 1;
 }
 
+function handleKeydown(e) {
+  e.preventDefault();
+  const { key } = e;
+
+  if (key === "ArrowRight") {
+    video.currentTime += 5;
+  } else if (key === "ArrowLeft") {
+    video.currentTime -= 5;
+  } else if (key === "ArrowUp") {
+    console.log(1234);
+    volumeInput.value += 5;
+    handleInputVolume();
+  } else if (key === "ArrowDown") {
+    volumeInput.value -= 5;
+    handleInputVolume();
+  } else if (key === " ") {
+    handleClickPlay();
+  } else if (key === "f") {
+    handleClickExpand();
+  }
+}
+
 playIcon.addEventListener("click", handleClickPlay);
 volumeIcon.addEventListener("click", handleClickVolume);
 volumeInput.addEventListener("input", handleInputVolume);
 expandIcon.addEventListener("click", handleClickExpand);
 video.addEventListener("loadedmetadata", handleLoadedmetadataTotalTime);
 video.addEventListener("ended", handleEnded);
+document.addEventListener("keydown", handleKeydown);
 likeIcon.addEventListener("click", handleClickLike);
 
 let totalTimeInterval = setInterval(() => {
   if (totalTimeSpan.innerText === "00:00") {
     window.location.reload();
   } else {
-    clearInterval(totalTimeInterval);
-    totalTimeInterval = null;
+    killPlayTimeInterval();
   }
 }, 500);
