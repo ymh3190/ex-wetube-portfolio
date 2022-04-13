@@ -7,6 +7,7 @@ import {
   countView,
   delComment,
   deleteAccount,
+  recordPlayTime,
   saveInfo,
   updatePhoto,
 } from "../controllers/apiController";
@@ -21,6 +22,7 @@ apiRouter.post("/changeVisibility", privateOnly, changeVisibility);
 apiRouter.post("/comment", privateOnly, addComment);
 apiRouter.post("/comment/del", privateOnly, delComment);
 apiRouter.get("/deleteAccount", privateOnly, deleteAccount);
-apiRouter.get("/:id([\\w]{24})/views", countView);
+apiRouter.post("/views", countView);
+apiRouter.post("/record/playtime", recordPlayTime);
 
 export default apiRouter;

@@ -10,10 +10,25 @@ const likeIcon = document.getElementById("likeIcon");
 const dislikeIcon = document.getElementById("dislikeIcon");
 const likedCount = document.getElementById("likedCount");
 
+let playTimeInterval;
+
 function handleClickPlay() {
+  const {
+    dataset: { id },
+  } = video;
+
   if (video.paused) {
     video.play();
     playIcon.className = "fa-solid fa-pause";
+    playTimeInterval = setInterval(async () => {
+      await fetch("/api/record/playtime", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id }),
+      });
+    }, 1000);
   } else {
     video.pause();
     playIcon.className = "fa-solid fa-play";
@@ -66,7 +81,18 @@ async function handleEnded() {
   const {
     dataset: { id },
   } = video;
-  await fetch(`/api/${id}/views`);
+
+  await fetch(`/api/views`, {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ id }),
+  });
+  if (playTimeInterval) {
+    clearInterval(playTimeInterval);
+    playTimeInterval = null;
+  }
 }
 
 function handleClickLike() {
@@ -81,11 +107,11 @@ video.addEventListener("loadedmetadata", handleLoadedmetadataTotalTime);
 video.addEventListener("ended", handleEnded);
 likeIcon.addEventListener("click", handleClickLike);
 
-let interval = setInterval(() => {
+let totalTimeInterval = setInterval(() => {
   if (totalTimeSpan.innerText === "00:00") {
     window.location.reload();
   } else {
-    clearInterval(interval);
-    interval = null;
+    clearInterval(totalTimeInterval);
+    totalTimeInterval = null;
   }
-}, 2000);
+}, 500);

@@ -156,12 +156,28 @@ export const delComment = async (req, res) => {
 
 export const countView = async (req, res) => {
   const {
-    params: { id },
+    body: { id },
   } = req;
 
   try {
     const video = await Video.findById(id);
-    video.views += 1;
+    video.metadata.views += 1;
+    await video.save();
+    return res.sendStatus(201);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const recordPlayTime = async (req, res) => {
+  const {
+    body: { id },
+  } = req;
+
+  try {
+    const video = await Video.findById(id);
+    console.log(video);
+    video.metadata.playTime += 1;
     await video.save();
     return res.sendStatus(201);
   } catch (error) {

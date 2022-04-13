@@ -20,13 +20,14 @@ block content
             //- label(for="publicInput") 공개
             h2 날짜 #{video.createdAt} &darr;
             h2 조회수 #{video.views}
-            h2 댓글
+            span 댓글
                 //- 해당 비디오의 댓글모음으로 이동
-                a(href="") 
-                    h2=video.comments.length 
+                span=video.comments.length 
             each comment in video.comments
                 h2=comment
             h2 좋아요(싫어요 대비)
+            span 플레이타임
+            span=video.metadata.playTime
 
 block scripts 
     script(src="/public/js/studio.js") 
