@@ -117,7 +117,10 @@ export const history = async (req, res) => {
   } = req;
 
   const user = await User.findById(_id);
-  const { histories } = await user.metadata.populate("histories");
+  const { histories } = await user.metadata.populate({
+    path: "histories",
+    populate: { path: "owner" },
+  });
 
   return res.render("history", { videos: histories });
 };

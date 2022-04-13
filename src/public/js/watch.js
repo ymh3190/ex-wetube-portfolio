@@ -121,7 +121,6 @@ function handleKeydown(e) {
   } else if (key === "ArrowLeft") {
     video.currentTime -= 5;
   } else if (key === "ArrowUp") {
-    console.log(1234);
     volumeInput.value += 5;
     handleInputVolume();
   } else if (key === "ArrowDown") {
