@@ -9,6 +9,7 @@ const views = document.getElementById("views");
 const likeIcon = document.getElementById("likeIcon");
 const dislikeIcon = document.getElementById("dislikeIcon");
 const likedCount = document.getElementById("likedCount");
+const main = document.querySelector("main");
 
 let playTimeInterval;
 
@@ -114,7 +115,7 @@ function handleClickLike() {
 
 function handleKeydown(e) {
   e.preventDefault();
-  const { key } = e;
+  const { key, metaKey } = e;
 
   if (key === "ArrowRight") {
     video.currentTime += 5;
@@ -130,6 +131,8 @@ function handleKeydown(e) {
     handleClickPlay();
   } else if (key === "f") {
     handleClickExpand();
+  } else if (metaKey && key === "r") {
+    window.location.reload();
   }
 }
 
@@ -145,7 +148,6 @@ likeIcon.addEventListener("click", handleClickLike);
 let totalTimeInterval = setInterval(() => {
   if (totalTimeSpan.innerText === "00:00") {
     window.location.reload();
-  } else {
-    killPlayTimeInterval();
   }
+  killPlayTimeInterval();
 }, 500);
