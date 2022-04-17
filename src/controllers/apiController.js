@@ -176,11 +176,36 @@ export const recordPlayTime = async (req, res) => {
 
   try {
     const video = await Video.findById(id);
-    console.log(video);
     video.metadata.playTime += 1;
     await video.save();
     return res.sendStatus(201);
   } catch (error) {
     console.log(error);
   }
+};
+
+export const addSubscribe = async (req, res) => {
+  const {
+    session: {
+      user: { _id },
+    },
+    body: { id },
+  } = req;
+
+  const video = await Video.findById(id).populate("owner");
+  const user = await User.findById(_id);
+  const owner = await User.findById(video.owner._id);
+  if (!user) {
+    // 세션 유저
+    return res.sendStatus(400);
+  }
+  if (owner._id.toString() === user._id.toString()) {
+    return res.end();
+  }
+  if (owner.subscribers.includes(user._id)) {
+    return res.end();
+  }
+  owner.subscribers.push(user._id);
+  await owner.save();
+  return res.sendStatus(201);
 };

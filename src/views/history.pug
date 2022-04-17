@@ -2,8 +2,8 @@ extends layouts/main.pug
 
 block content 
     h1 history
-    each video in videos.reverse() 
-        - var diffTime = parseInt(((Date.now()-video.createdAt.getTime())/1000)/86400) 
+    each video in videos.reverse()
+        - var diffTime = parseInt(((Date.now()-video.createdAt.getTime())/1000)/86400)
         - var day = video.createdAt.getDay()
         - var days = ['일요일','월요일','화요일','수요일','목요일','금요일','토요일']
         if diffTime === 0
@@ -18,6 +18,8 @@ block content
             h2 #{days[day-4]}
         else if diffTime === 5
             h2 #{days[day-5]}
+        else if diffTime === 6
+            h2 #{days[day-6]}
         a(href=`/videos/${video.id}`) 
             video(src=`/${video.path}` width="400" height="400") 
         h2 제목#{video.title}

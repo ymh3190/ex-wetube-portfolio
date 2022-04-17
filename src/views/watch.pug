@@ -14,7 +14,7 @@ block content
                         i.fa-solid.fa-play#playIcon
                     .videoControllers__container-column__volume
                         i.fa-solid.fa-volume-high#volumeIcon
-                        input#volumeInput(type="range", name="volume" value='100')
+                        input#volumeInput(type="range", name="volume" value="100")
                     .videoControllers__container-column__time
                         span.videoControllers__container-column__time-current-time#currentTimeSpan 00:00
                         span.videoControllers__container-column__time-slash /
@@ -39,8 +39,8 @@ block content
     div 
         img(src=user.profilePhoto, alt="" width="50" height="50")
         h2=user.username
-        h3 #{user.subscribers} 구독자
-        button 구독
+        h3 구독자 #{user.subscribers.length}명
+        button#subscribeBtn 구독
     div 
         div=video.description
     div 

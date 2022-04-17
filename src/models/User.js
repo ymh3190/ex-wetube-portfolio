@@ -42,12 +42,7 @@ const userSchema = new Schema({
     },
   },
   socialNet: { type: Boolean, default: false },
-  subscribers: [
-    {
-      subscriber: { type: Schema.Types.ObjectId, ref: "User" },
-      notification: { type: String, default: null },
-    },
-  ],
+  subscribers: [{ type: Schema.Types.ObjectId, ref: "User" }],
   metadata: {
     histories: [{ type: Schema.Types.ObjectId, ref: "Video" }],
     likes: [{ type: Schema.Types.ObjectId, ref: "Video" }],

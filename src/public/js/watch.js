@@ -9,7 +9,7 @@ const views = document.getElementById("views");
 const likeIcon = document.getElementById("likeIcon");
 const dislikeIcon = document.getElementById("dislikeIcon");
 const likedCount = document.getElementById("likedCount");
-const main = document.querySelector("main");
+const subscribeBtn = document.getElementById("subscribeBtn");
 
 let playTimeInterval;
 
@@ -72,7 +72,6 @@ function handleClickVolume() {
 }
 
 function handleInputVolume() {
-  console.log(volumeInput.value);
   video.volume = volumeInput.value / 100;
   displayVolumeIcon(volumeInput.value);
 }
@@ -136,6 +135,19 @@ function handleKeydown(e) {
   }
 }
 
+async function handleClickSubscribe(e) {
+  const {
+    dataset: { id },
+  } = video;
+  await fetch("/api/subscribe", {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ id }),
+  });
+}
+
 playIcon.addEventListener("click", handleClickPlay);
 volumeIcon.addEventListener("click", handleClickVolume);
 volumeInput.addEventListener("input", handleInputVolume);
@@ -144,10 +156,11 @@ video.addEventListener("loadedmetadata", handleLoadedmetadataTotalTime);
 video.addEventListener("ended", handleEnded);
 document.addEventListener("keydown", handleKeydown);
 likeIcon.addEventListener("click", handleClickLike);
+subscribeBtn.addEventListener("click", handleClickSubscribe);
 
-let totalTimeInterval = setInterval(() => {
-  if (totalTimeSpan.innerText === "00:00") {
-    window.location.reload();
-  }
-  killPlayTimeInterval();
-}, 500);
+// let totalTimeInterval = setInterval(() => {
+//   if (totalTimeSpan.innerText === "00:00") {
+//     window.location.reload();
+//   }
+//   killPlayTimeInterval();
+// }, 500);

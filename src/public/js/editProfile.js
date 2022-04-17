@@ -18,7 +18,7 @@ async function handleSubmitSaveInfo(e) {
     return (usernameInput.placeholder = "유저 이름을 입력하세요.");
   }
 
-  const response = await fetch(`/api/saveInfo`, {
+  const response = await fetch(`/api/save-info`, {
     method: "post",
     headers: {
       "Content-Type": "application/json",
