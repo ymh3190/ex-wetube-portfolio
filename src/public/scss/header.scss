@@ -1,0 +1,63 @@
+.header {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  padding: 1% 2% 1% 2%;
+  height: 100%;
+  align-items: center;
+  border-bottom: 1px solid black;
+  .header-nav {
+    display: flex;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    height: 100%;
+    .header-nav__bars {
+      margin-right: 3%;
+      .header-nav__bars-icon {
+        font-size: 130%;
+      }
+    }
+    .header-nav__logo {
+      .header-nav__logo-wetube-icon {
+        color: red;
+        font-size: 150%;
+      }
+      .header-nav__logo-wetube {
+        font-size: 150%;
+      }
+    }
+  }
+  .header-form {
+    height: 100%;
+    .header-form__input {
+      width: 50%;
+      height: 100%;
+    }
+    .header-form__button {
+      width: 10%;
+      height: 115%;
+    }
+  }
+  .header-menu {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    .header-menu-settings {
+      .header-menu-settings-icon {
+        font-size: 120%;
+      }
+    }
+    .header-menu-signin {
+      border: 1px solid blue;
+      padding: 3%;
+      margin-left: 5%;
+      width: 20%;
+      .header-menu-signin__link {
+        color: blue;
+        width: 100%;
+        .header-menu-signin__link-term {
+          margin-left: 10%;
+        }
+      }
+    }
+  }
+}

@@ -1,6 +1,141 @@
 /*!**********************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/public/sass/styles.scss ***!
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/public/scss/styles.scss ***!
   \**********************************************************************************************************************/
+@import url(https://fonts.googleapis.com/css2?family=Open+Sans&display=swap);
+/*!**************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/public/scss/styles.scss (1) ***!
+  \**************************************************************************************************************************/
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
 #photoFileInput {
   display: none;
 }
@@ -51,4 +186,76 @@ video,
   transform-origin: 0 0;
   position: relative;
   z-index: 1;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  padding: 1% 2% 1% 2%;
+  height: 100%;
+  align-items: center;
+  border-bottom: 1px solid black;
+}
+.header .header-nav {
+  display: flex;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  height: 100%;
+}
+.header .header-nav .header-nav__bars {
+  margin-right: 3%;
+}
+.header .header-nav .header-nav__bars .header-nav__bars-icon {
+  font-size: 130%;
+}
+.header .header-nav .header-nav__logo .header-nav__logo-wetube-icon {
+  color: red;
+  font-size: 150%;
+}
+.header .header-nav .header-nav__logo .header-nav__logo-wetube {
+  font-size: 150%;
+}
+.header .header-form {
+  height: 100%;
+}
+.header .header-form .header-form__input {
+  width: 50%;
+  height: 100%;
+}
+.header .header-form .header-form__button {
+  width: 10%;
+  height: 115%;
+}
+.header .header-menu {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+.header .header-menu .header-menu-settings .header-menu-settings-icon {
+  font-size: 120%;
+}
+.header .header-menu .header-menu-signin {
+  border: 1px solid blue;
+  padding: 3%;
+  margin-left: 5%;
+  width: 20%;
+}
+.header .header-menu .header-menu-signin .header-menu-signin__link {
+  color: blue;
+  width: 100%;
+}
+.header .header-menu .header-menu-signin .header-menu-signin__link .header-menu-signin__link-term {
+  margin-left: 10%;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: initial;
+}
+a:visited, a:hover, a:focus, a:hover, a:active {
+  text-decoration: none;
 }

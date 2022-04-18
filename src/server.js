@@ -25,7 +25,7 @@ app.use(
 app.use(localsMiddlewares);
 app.use("/static", express.static(process.cwd() + "/static"));
 app.use("/uploads", express.static(process.cwd() + "/uploads"));
-app.use("/assets", express.static(__dirname + "/assets"));
+app.use("/assets", express.static(process.cwd() + "/assets"));
 app.use("/", rootRouter);
 app.use("/users", userRouter);
 app.use("/videos", videoRouter);

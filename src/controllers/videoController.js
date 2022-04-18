@@ -36,9 +36,6 @@ export const result = async (req, res) => {
 
 export const watch = async (req, res) => {
   const {
-    session: {
-      user: { _id },
-    },
     params: { id },
   } = req;
 
@@ -46,22 +43,25 @@ export const watch = async (req, res) => {
     path: "comments",
     populate: { path: "owner" },
   });
-  const user = await User.findById(_id);
-  const {
-    metadata: { histories },
-  } = user;
-  if (!histories.length) {
-    histories.push(video._id);
-  } else {
-    for (const [i, history] of histories.entries()) {
-      if (history._id.toString() === video.id) {
-        histories.splice(i, 1);
+
+  if (req.session.user) {
+    const user = await User.findById(_id);
+    const {
+      metadata: { histories },
+    } = user;
+    if (!histories.length) {
+      histories.push(video._id);
+    } else {
+      for (const [i, history] of histories.entries()) {
+        if (history._id.toString() === video.id) {
+          histories.splice(i, 1);
+        }
       }
+      histories.push(video._id);
     }
-    histories.push(video._id);
+    await user.save();
+    req.session.user = user;
   }
-  await user.save();
-  req.session.user = user;
   return res.render("watch", { video });
 };
 

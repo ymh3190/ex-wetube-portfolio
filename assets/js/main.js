@@ -16,17 +16,17 @@
   \*******************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _sass_styles_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../sass/styles.scss */ \"./src/public/sass/styles.scss\");\n\n\n//# sourceURL=webpack://wetube/./src/public/js/main.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _scss_styles_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../scss/styles.scss */ \"./src/public/scss/styles.scss\");\n\n\n//# sourceURL=webpack://wetube/./src/public/js/main.js?");
 
 /***/ }),
 
-/***/ "./src/public/sass/styles.scss":
+/***/ "./src/public/scss/styles.scss":
 /*!*************************************!*\
-  !*** ./src/public/sass/styles.scss ***!
+  !*** ./src/public/scss/styles.scss ***!
   \*************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n\n\n//# sourceURL=webpack://wetube/./src/public/sass/styles.scss?");
+eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n\n\n//# sourceURL=webpack://wetube/./src/public/scss/styles.scss?");
 
 /***/ })
 

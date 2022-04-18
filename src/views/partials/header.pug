@@ -1,15 +1,23 @@
-header
-    div 
-        a(href="/") WeTube
-    form(action="/result")
-        input(type="text" name="search" placeholder="검색")
-        button 
+header.header
+    .header-nav
+        .header-nav__bars
+            i.header-nav__bars-icon.fa-solid.fa-bars
+        .header-nav__logo
+            a(href="/")
+                i.header-nav__logo-wetube-icon.fa-brands.fa-youtube
+                span.header-nav__logo-wetube WeTube
+    form.header-form(action="/result")
+        input.header-form__input(type="text" name="search" placeholder="검색")
+        button.header-form__button
             i.fa-solid.fa-magnifying-glass
-    div 
+    .header-menu
         if !authorised
-            a(href="/signin") 
-                i.fa-solid.fa-circle-user
-                span 로그인
+            .header-menu-settings
+                i.header-menu-settings-icon.fa-solid.fa-ellipsis-vertical
+            .header-menu-signin
+                a.header-menu-signin__link(href="/signin") 
+                    i.header-menu-signin__link-icon.fa-solid.fa-circle-user
+                    span.header-menu-signin__link-term 로그인
         else
             a(href="/upload") 
                 i.fa-solid.fa-video
