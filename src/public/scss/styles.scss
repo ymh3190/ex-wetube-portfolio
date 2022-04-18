@@ -2,7 +2,13 @@
 @import "reset.scss";
 @import "editProfile.scss";
 @import "videoPlayer.scss";
-@import "header.scss";
+
+// paritals
+@import "paritals/header.scss";
+@import "paritals/footer.scss";
+
+// routes
+@import "routes/index.scss";
 
 body {
   font-family: "Open Sans", sans-serif;

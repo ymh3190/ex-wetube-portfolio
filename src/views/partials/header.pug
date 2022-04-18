@@ -12,12 +12,12 @@ header.header
             i.fa-solid.fa-magnifying-glass
     .header-menu
         if !authorised
-            .header-menu-settings
-                i.header-menu-settings-icon.fa-solid.fa-ellipsis-vertical
-            .header-menu-signin
-                a.header-menu-signin__link(href="/signin") 
-                    i.header-menu-signin__link-icon.fa-solid.fa-circle-user
-                    span.header-menu-signin__link-term 로그인
+            .header-menu__settings
+                i.header-menu__settings-icon.fa-solid.fa-ellipsis-vertical
+            .header-menu__signin
+                a.header-menu__signin-link(href="/signin") 
+                    i.fa-solid.fa-circle-user
+                    span.header-menu__signin-link-term 로그인
         else
             a(href="/upload") 
                 i.fa-solid.fa-video
