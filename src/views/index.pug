@@ -1,7 +1,29 @@
 extends layouts/main.pug
 
 block content 
-    .videocontainer
+    .videocontainers
         each video in videos.reverse()
-            a(href=`/videos/${video.id}`) 
-                video(src=video.path width="270" height="150" style="object-fit: cover;") 
+            .videocontainers-container
+                a(href=`/videos/${video.id}`) 
+                    video.videocontainers-container__video(src=video.path) 
+                    .videocontainers-container-info
+                        .videocontainers-container-info__profile
+                            img.videocontainers-container-info__profile-img(src=video.owner.profilePhoto, alt="")
+                        .videocontainers-container-info__details
+                            h4.videocontainers-container-info__details-title=video.title
+                            //- TODO: 유저채널 route 만들기
+                            //- /channels/id
+                            a(href="/")
+                                span=video.owner.username
+                            div
+                                span #{video.metadata.views}회
+                                span •
+                                - let sec = Math.floor((Date.now()-video.createdAt.getTime())/1000)
+                                - let min = Math.floor(sec/60)
+                                - let hour = Math.floor(min/60)
+                                if sec < 60
+                                    span #{sec}초전
+                                else if sec >= 60 && sec < 3600
+                                    span #{min}분전
+                                else if sec >= 3600 && sec < 7200
+                                    span #{hour}시간전

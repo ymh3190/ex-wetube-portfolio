@@ -7,6 +7,7 @@ module.exports = {
     comment: "./src/public/js/comment.js",
     gsap: "./src/public/js/gsap.js",
     watch: "./src/public/js/watch.js",
+    index: "./src/public/js/index.js",
   },
   plugins: [
     new MiniCssExtractPlugin({

@@ -1,0 +1,28 @@
+.videocontainers {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 1%;
+  padding: 1%;
+  &-container {
+    &__video {
+      width: 100%;
+    }
+    &-info {
+      display: grid;
+      grid-template-columns: 1fr 5fr;
+      &__profile {
+        display: flex;
+        justify-content: center;
+        &-img {
+          width: 100%;
+        }
+      }
+      &__details {
+        display: flex;
+        flex-direction: column;
+        &-title {
+        }
+      }
+    }
+  }
+}

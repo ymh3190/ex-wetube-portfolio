@@ -32,11 +32,9 @@
     height: 100%;
     &__input {
       width: 50%;
-      height: 100%;
     }
     &__button {
       width: 10%;
-      height: 115%;
     }
   }
   //
@@ -63,4 +61,10 @@
       }
     }
   }
+}
+
+.header-form-style {
+  vertical-align: middle;
+  line-height: 1.5;
+  padding: 1%;
 }

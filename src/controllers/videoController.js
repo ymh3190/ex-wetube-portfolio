@@ -2,7 +2,7 @@ import User from "../models/User";
 import Video from "../models/Video";
 
 export const index = async (req, res) => {
-  const videos = await Video.find({ visibility: "public" });
+  const videos = await Video.find({ visibility: "public" }).populate("owner");
   return res.render("index", { videos });
 };
 

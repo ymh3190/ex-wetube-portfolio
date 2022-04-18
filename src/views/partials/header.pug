@@ -7,8 +7,8 @@ header.header
                 i.header-nav__logo-wetube-icon.fa-brands.fa-youtube
                 span.header-nav__logo-wetube WeTube
     form.header-form(action="/result")
-        input.header-form__input(type="text" name="search" placeholder="검색")
-        button.header-form__button
+        input.header-form__input.header-form-style(type="text" name="search" placeholder="검색")
+        button.header-form__button.header-form-style
             i.fa-solid.fa-magnifying-glass
     .header-menu
         if !authorised
