@@ -1,7 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
 @import "reset.scss";
 @import "editProfile.scss";
-@import "videoPlayer.scss";
 
 // paritals
 @import "paritals/header.scss";
@@ -9,6 +8,7 @@
 
 // pages
 @import "pages/index.scss";
+@import "pages/watch.scss";
 
 body {
   font-family: "Open Sans", sans-serif;

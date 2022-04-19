@@ -1,3 +1,4 @@
+const video = document.querySelector("video");
 const playIcon = document.getElementById("playIcon");
 const volumeIcon = document.getElementById("volumeIcon");
 const volumeInput = document.getElementById("volumeInput");
@@ -86,8 +87,16 @@ function handleClickExpand() {
   }
 }
 
+function displayTimeSpan(time) {
+  if (time < 60) {
+    return new Date(time * 1000).toISOString().substring(14, 19);
+  } else if (time >= 3600) {
+    return new Date(time * 1000).toISOString().substring(11, 19);
+  }
+}
+
 function handleLoadedmetadataTotalTime() {
-  totalTimeSpan.innerText = displayTimeSpan(Math.ceil(video.duration));
+  // totalTimeSpan.innerText = displayTimeSpan(Math.ceil(video.duration));
 }
 
 async function handleEnded() {

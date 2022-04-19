@@ -1,74 +1,91 @@
 extends layouts/main.pug
 
-block content 
-    h1 watch
-    .videoPlayer#videoPlayer
-        video(src=`/${video.path}` width="1000" height="400" data-id=video.id)
-        .videoControllers
-            .videoControllers__timeline#timeline
-                .videoControllers__timeline-drag#timelineDrag
-                span.videoControllers__timeline-progress#timelineProgress
-            .videoControllers__container
-                .videoControllers__container-column
-                    .videoControllers__container-column__play
-                        i.fa-solid.fa-play#playIcon
-                    .videoControllers__container-column__volume
-                        i.fa-solid.fa-volume-high#volumeIcon
-                        input#volumeInput(type="range", name="volume" value="100")
-                    .videoControllers__container-column__time
-                        span.videoControllers__container-column__time-current-time#currentTimeSpan 00:00
-                        span.videoControllers__container-column__time-slash /
-                        span.videoControllers__container-column__time-total-time#totalTimeSpan 00:00
-                .videoControllers__container-column
-                    .videoControllers__container-column__expand 
-                        i.fa-solid.fa-expand#expandIcon
-    div
-        h2=video.title
-        div
-            span#views=video.metadata.views
-            span 회
-        h2 #{video.createdAt.getFullYear()}년
-        h2 #{video.createdAt.getMonth()+1}월
-        h2 #{video.createdAt.getDate()}일
-        div
-            i.fa-solid.fa-thumbs-up#likeIcon
-            span#likedCount=video.metadata.liked
-        div
-            i.fa-solid.fa-thumbs-down#dislikeIcon
-            span#dislikedCount=video.metadata.disliked
-    div 
-        img(src=user.profilePhoto, alt="" width="50" height="50")
-        h2=user.username
-        h3 구독자 #{user.subscribers.length}명
-        button#subscribeBtn 구독
-    div 
-        div=video.description
-    div 
-        div
-            div 
-                span 댓글
-                span#commentsLength=video.comments.length
-                span 개
-            div 정렬 기준
-            div 
-                div 인기 댓글순
-                div#newestFirst 최신순
-        div
-            img(src=user.profilePhoto, alt="" width="50" height="50")
-            form#commentForm
-                input#commentInput(type="text" name="comment" placeholder="댓글 추가...")
-                div#cancelComment(style="display: none;")
-                    button(type="button") 취소
-                    button#commentBtn(disabled) 댓글
-        div#commentContainers
-            each comment in video.comments.reverse()
-                div
-                    img(src=comment.owner.profilePhoto, alt="" width="50" height="50")
-                    h2=comment.owner.username
-                    h2=comment.createdAt
-                    span=comment.text
-                    if user._id === comment.owner._id.toString()
-                        div#delComment(data-id=comment._id) ❌
+block content
+    .watchcontainers
+        .watchcontainers-container
+            .watchcontainers-container-videoplayer#videoPlayer
+                video.watchcontainers-container-videoplayer__video(src=`/${video.path}` data-id=video.id)
+                .watchcontainers-container-videoplayer-videocontrollers
+                    .watchcontainers-container-videoplayer-videocontrollers__timeline#timeline
+                        .watchcontainers-container-videoplayer-videocontrollers__timeline-drag#timelineDrag
+                        span.watchcontainers-container-videoplayer-videocontrollers__timeline-progress#timelineProgress
+                    .watchcontainers-container-videoplayer-videocontrollers__interaction
+                        .watchcontainers-container-videoplayer-videocontrollers__interaction-primary
+                            .watchcontainers-container-videoplayer-videocontrollers__interaction-primary-play
+                                i.watchcontainers-container-videoplayer-videocontrollers__interaction-primary-play-icon.fa-solid.fa-play#playIcon
+                            .watchcontainers-container-videoplayer-videocontrollers__interaction-primary-volume
+                                i.watchcontainers-container-videoplayer-videocontrollers__interaction-primary-volume-icon.fa-solid.fa-volume-high#volumeIcon
+                                input.watchcontainers-container-videoplayer-videocontrollers__interaction-primary-volume-input#volumeInput(type="range", name="volume" value="100")
+                            .watchcontainers-container-videoplayer-videocontrollers__interaction-primary-time
+                                span.watchcontainers-container-videoplayer-videocontrollers__interaction-primary-time-currenttime#currentTimeSpan 00:00
+                                span.watchcontainers-container-videoplayer-videocontrollers__interaction-primary-time-slash /
+                                span.watchcontainers-container-videoplayer-videocontrollers__interaction-primary-time-totaltime#totalTimeSpan 00:00
+                        .watchcontainers-container-videoplayer-videocontrollers__interaction-secondary
+                            .watchcontainers-container-videoplayer-videocontrollers__interaction-secondary-expand 
+                                i.watchcontainers-container-videoplayer-videocontrollers__interaction-secondary-expand-icon.fa-solid.fa-expand#expandIcon
+            .watchcontainers-container-details
+                .watchcontainers-container-details__primary
+                    h2.watchcontainers-container-details__primary-videotitle=video.title
+                    div.watchcontainers-container-details__primary-videoinfo
+                        .watchcontainers-container-details__primary-videoinfo-left
+                            span.watchcontainers-container-details__primary-videoinfo-left-term 조회수
+                            span.watchcontainers-container-details__primary-videoinfo-left-count#views=video.metadata.views
+                            span 회
+                            span.watchcontainers-container-details__primary-videoinfo-left-dot •
+                            span.watchcontainers-container-details__primary-videoinfo-left-year #{video.createdAt.getFullYear()}년
+                            span.watchcontainers-container-details__primary-videoinfo-left-month #{video.createdAt.getMonth()+1}월
+                            span #{video.createdAt.getDate()}일
+                        .watchcontainers-container-details__primary-videoinfo-right
+                            .watchcontainers-container-details__primary-videoinfo-right-like
+                                i.watchcontainers-container-details__primary-videoinfo-right-like-icon.fa-solid.fa-thumbs-up#likeIcon
+                                span.watchcontainers-container-details__primary-videoinfo-right-like-count#likedCount=video.metadata.liked
+                            .watchcontainers-container-details__primary-videoinfo-right-dislike
+                                i.fa-solid.fa-thumbs-down#dislikeIcon
+                .watchcontainers-container-details__secondary
+                    .watchcontainers-container-details__secondary-left
+                        img.watchcontainers-container-details__secondary-left-img(src=user.profilePhoto, alt="" width="50" height="50")
+                    .watchcontainers-container-details__secondary-middle
+                        .watchcontainers-container-details__secondary-middle-ownerinfo
+                            h2.watchcontainers-container-details__secondary-middle-ownerinfo-username=video.owner.username
+                            span=user.subscribers.length 
+                            span  구독자
+                        .watchcontainers-container-details__secondary-middle-showmore
+                            each string in video.description
+                                //- TODO: show more 처리
+                                if /\r\n|\r|\n/.test(string)
+                                    div=string
+                                else
+                                    span=string
+                    .watchcontainers-container-details__secondary-right
+                        button.watchcontainers-container-details__secondary-right-button#subscribeBtn 구독
+                div 
+                    div
+                        div 
+                            span 댓글
+                            span#commentsLength=video.comments.length
+                            span 개
+                        div 정렬 기준
+                        div 
+                            div 인기 댓글순
+                            div#newestFirst 최신순
+                    div
+                        img(src=user.profilePhoto, alt="" width="50" height="50")
+                        form#commentForm
+                            input#commentInput(type="text" name="comment" placeholder="댓글 추가...")
+                            div#cancelComment(style="display: none;")
+                                button(type="button") 취소
+                                button#commentBtn(disabled) 댓글
+                    div#commentContainers
+                        each comment in video.comments.reverse()
+                            div
+                                img(src=comment.owner.profilePhoto, alt="" width="50" height="50")
+                                h2=comment.owner.username
+                                h2=comment.createdAt
+                                span=comment.text
+                                if user._id === comment.owner._id.toString()
+                                    div#delComment(data-id=comment._id) ❌
+        .recommanded
+            span recommended
 
 block scripts 
     script(src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.2/gsap.min.js") 

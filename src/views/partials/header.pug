@@ -14,10 +14,10 @@ header.header
         if !authorised
             .header-menu__settings
                 i.header-menu__settings-icon.fa-solid.fa-ellipsis-vertical
-            .header-menu__signin
-                a.header-menu__signin-link(href="/signin") 
+            a.header-menu__link(href="/signin") 
+                .header-menu__link-signin
                     i.fa-solid.fa-circle-user
-                    span.header-menu__signin-link-term 로그인
+                    span.header-menu__link-signin-term 로그인
         else
             a(href="/upload") 
                 i.fa-solid.fa-video

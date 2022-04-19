@@ -9,10 +9,10 @@
     }
     &-info {
       display: grid;
-      grid-template-columns: 1fr 5fr;
+      grid-template-columns: 1fr 6fr;
+      margin-top: 3%;
+      align-items: center;
       &__profile {
-        display: flex;
-        justify-content: center;
         &-img {
           width: 100%;
         }
@@ -20,7 +20,19 @@
       &__details {
         display: flex;
         flex-direction: column;
+        padding-left: 3%;
         &-title {
+          margin-bottom: 4%;
+        }
+        &-owner {
+          margin-bottom: 3%;
+        }
+        &-data {
+          display: flex;
+          align-items: center;
+          &-dot {
+            margin: 0 1% 0 1%;
+          }
         }
       }
     }

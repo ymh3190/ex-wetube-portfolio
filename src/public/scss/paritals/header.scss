@@ -43,18 +43,17 @@
     justify-content: end;
     align-items: center;
     &__settings {
+      margin-right: 5%;
       &-icon {
         font-size: 120%;
       }
     }
-    &__signin {
+    &__link {
       border: 1px solid blue;
       padding: 3%;
-      margin-left: 5%;
       width: 20%;
-      &-link {
+      &-signin {
         color: blue;
-        width: 100%;
         &-term {
           margin-left: 10%;
         }

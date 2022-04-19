@@ -10,20 +10,28 @@ block content
                         .videocontainers-container-info__profile
                             img.videocontainers-container-info__profile-img(src=video.owner.profilePhoto, alt="")
                         .videocontainers-container-info__details
-                            h4.videocontainers-container-info__details-title=video.title
+                            .videocontainers-container-info__details-title
+                                h4.videocontainers-container-info__details-title-term=video.title
                             //- TODO: 유저채널 route 만들기
                             //- /channels/id
-                            a(href="/")
-                                span=video.owner.username
-                            div
+                            .videocontainers-container-info__details-owner
+                                a(href="/")
+                                    span=video.owner.username
+                            .videocontainers-container-info__details-data
                                 span #{video.metadata.views}회
-                                span •
+                                span.videocontainers-container-info__details-data-dot •
                                 - let sec = Math.floor((Date.now()-video.createdAt.getTime())/1000)
                                 - let min = Math.floor(sec/60)
                                 - let hour = Math.floor(min/60)
+                                - let day = Math.floor(hour/24)
+                                - let week = Math.floor(day/7)
                                 if sec < 60
                                     span #{sec}초전
                                 else if sec >= 60 && sec < 3600
                                     span #{min}분전
-                                else if sec >= 3600 && sec < 7200
+                                else if sec >= 3600 && sec < 86400
                                     span #{hour}시간전
+                                else if sec >= 86400 && sec < 604800
+                                    span #{day}일전
+                                else if sec >= 604800
+                                    span #{week}주전

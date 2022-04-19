@@ -1,4 +1,4 @@
-const video = document.querySelector(".videoPlayer video");
+const video = document.querySelector("video");
 const timeline = document.getElementById("timeline");
 const timelineDrag = document.getElementById("timelineDrag");
 const timelineProgress = document.getElementById("timelineProgress");

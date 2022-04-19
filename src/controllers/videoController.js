@@ -36,16 +36,19 @@ export const result = async (req, res) => {
 
 export const watch = async (req, res) => {
   const {
+    session,
     params: { id },
   } = req;
 
-  const video = await Video.findById(id).populate({
-    path: "comments",
-    populate: { path: "owner" },
-  });
+  const video = await Video.findById(id)
+    .populate({
+      path: "comments",
+      populate: { path: "owner" },
+    })
+    .populate("owner");
 
-  if (req.session.user) {
-    const user = await User.findById(_id);
+  if (session.user) {
+    const user = await User.findById(session.user._id);
     const {
       metadata: { histories },
     } = user;
