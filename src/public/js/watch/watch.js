@@ -40,24 +40,44 @@ function savePlayTime() {
 function handleClickPlay() {
   if (video.paused) {
     video.play();
-    playIcon.className = "fa-solid fa-pause";
-    savePlayTime();
+    playIcon.classList.remove("fa-play");
+    playIcon.classList.add("fa-pause");
   } else {
     video.pause();
-    playIcon.className = "fa-solid fa-play";
-    killPlayTimeInterval();
+    playIcon.classList.remove("fa-pause");
+    playIcon.classList.add("fa-play");
   }
 }
 
 function displayVolumeIcon(input) {
-  if (input >= 20) {
-    volumeIcon.className = "fa-solid fa-volume-high";
-  } else if (input >= 10 && input < 20) {
-    volumeIcon.className = "fa-solid fa-volume-low";
-  } else if (input > 0 && input < 10) {
-    volumeIcon.className = "fa-solid fa-volume-off";
-  } else {
-    volumeIcon.className = "fa-solid fa-volume-xmark";
+  for (const [i, el] of volumeIcon.classList.entries()) {
+    if (i === 0) {
+      continue;
+    }
+    if (el === "fa-solid") {
+      continue;
+    }
+    if (input >= 60) {
+      if (!el.includes("fa-volume-high")) {
+        volumeIcon.classList.remove(el);
+      }
+      volumeIcon.classList.add("fa-volume-high");
+    } else if (input >= 40 && input < 60) {
+      if (!el.includes("fa-volume-low")) {
+        volumeIcon.classList.remove(el);
+      }
+      volumeIcon.classList.add("fa-volume-low");
+    } else if (input > 0 && input < 40) {
+      if (!el.includes("fa-volume-off")) {
+        volumeIcon.classList.remove(el);
+      }
+      volumeIcon.classList.add("fa-volume-off");
+    } else {
+      if (!el.includes("fa-volume-xmark")) {
+        volumeIcon.classList.remove(el);
+      }
+      volumeIcon.classList.add("fa-volume-xmark");
+    }
   }
 }
 
@@ -80,15 +100,21 @@ function handleInputVolume() {
 function handleClickExpand() {
   if (!document.fullscreenElement) {
     videoPlayer.requestFullscreen();
+    expandIcon.classList.remove("fa-expand");
+    expandIcon.classList.add("fa-compress");
   } else {
     if (document.exitFullscreen) {
       document.exitFullscreen();
+      expandIcon.classList.remove("fa-compress");
+      expandIcon.classList.add("fa-expand");
     }
   }
 }
 
 function displayTimeSpan(time) {
-  if (time < 60) {
+  if (time < 600) {
+    return new Date(time * 1000).toISOString().substring(15, 19);
+  } else if (time >= 600 && time < 3600) {
     return new Date(time * 1000).toISOString().substring(14, 19);
   } else if (time >= 3600) {
     return new Date(time * 1000).toISOString().substring(11, 19);
@@ -96,7 +122,7 @@ function displayTimeSpan(time) {
 }
 
 function handleLoadedmetadataTotalTime() {
-  // totalTimeSpan.innerText = displayTimeSpan(Math.ceil(video.duration));
+  totalTimeSpan.innerText = displayTimeSpan(Math.ceil(video.duration));
 }
 
 async function handleEnded() {
@@ -139,9 +165,12 @@ function handleKeydown(e) {
     handleClickPlay();
   } else if (key === "f") {
     handleClickExpand();
-  } else if (metaKey && key === "r") {
-    window.location.reload();
+  } else if (key === "m") {
+    handleClickVolume();
   }
+  // else if (metaKey && key === "r") {
+  //   window.location.reload();
+  // }
 }
 
 async function handleClickSubscribe(e) {
@@ -163,7 +192,8 @@ volumeInput.addEventListener("input", handleInputVolume);
 expandIcon.addEventListener("click", handleClickExpand);
 video.addEventListener("loadedmetadata", handleLoadedmetadataTotalTime);
 video.addEventListener("ended", handleEnded);
-// document.addEventListener("keydown", handleKeydown);
+video.addEventListener("dblclick", handleClickExpand);
+document.addEventListener("keydown", handleKeydown);
 likeIcon.addEventListener("click", handleClickLike);
 subscribeBtn.addEventListener("click", handleClickSubscribe);
 

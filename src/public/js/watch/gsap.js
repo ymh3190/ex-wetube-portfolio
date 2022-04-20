@@ -14,7 +14,9 @@ video.onended = function () {
 };
 
 function displayTimeSpan(time) {
-  if (time < 60) {
+  if (time < 600) {
+    return new Date(time * 1000).toISOString().substring(15, 19);
+  } else if (time >= 600 && time < 3600) {
     return new Date(time * 1000).toISOString().substring(14, 19);
   } else if (time >= 3600) {
     return new Date(time * 1000).toISOString().substring(11, 19);

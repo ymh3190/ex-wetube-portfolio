@@ -308,24 +308,25 @@ table {
   align-items: center;
 }
 .watchcontainers-container-videoplayer-videocontrollers__interaction-primary-play {
-  margin-right: 5%;
+  width: 10%;
 }
 .watchcontainers-container-videoplayer-videocontrollers__interaction-primary-play-icon {
+  cursor: pointer;
   color: white;
   font-size: 120%;
 }
 .watchcontainers-container-videoplayer-videocontrollers__interaction-primary-volume {
   display: flex;
+  width: 40%;
   align-items: center;
-  margin-right: 5%;
-  cursor: pointer;
 }
 .watchcontainers-container-videoplayer-videocontrollers__interaction-primary-volume-icon {
   color: white;
+  width: 20%;
   font-size: 120%;
+  cursor: pointer;
 }
 .watchcontainers-container-videoplayer-videocontrollers__interaction-primary-volume-input {
-  margin-left: 10%;
   cursor: pointer;
   -webkit-appearance: none;
 }
@@ -364,6 +365,7 @@ table {
 .watchcontainers-container-videoplayer-videocontrollers__interaction-secondary-expand-icon {
   font-size: 120%;
   color: white;
+  cursor: pointer;
 }
 .watchcontainers-container-details {
   margin-top: 2%;
@@ -427,12 +429,14 @@ table {
 }
 .watchcontainers-container-details__secondary-left-img {
   width: 100%;
+  border-radius: 50%;
 }
 .watchcontainers-container-details__secondary-middle {
   width: 100%;
+  padding-left: 2%;
 }
 .watchcontainers-container-details__secondary-middle-ownerinfo {
-  padding-top: 2%;
+  padding-top: 1%;
   margin-bottom: 2%;
 }
 .watchcontainers-container-details__secondary-middle-ownerinfo-username {
@@ -472,9 +476,13 @@ table {
   display: flex;
   align-items: center;
 }
+.watchcontainers-container-details__tertiary-middle-img {
+  border-radius: 25px;
+}
 .watchcontainers-container-details__tertiary-middle-form {
   position: relative;
   width: 100%;
+  padding-left: 2%;
 }
 .watchcontainers-container-details__tertiary-middle-form-input {
   width: 100%;
@@ -507,9 +515,13 @@ table {
 .watchcontainers-container-details__tertiary-bottom-commentcontainer {
   display: flex;
 }
+.watchcontainers-container-details__tertiary-bottom-commentcontainer-img {
+  border-radius: 25px;
+}
 .watchcontainers-container-details__tertiary-bottom-commentcontainer-info {
   width: 100%;
   position: relative;
+  padding-left: 2%;
 }
 .watchcontainers-container-details__tertiary-bottom-commentcontainer-info-owner {
   margin-right: 2%;

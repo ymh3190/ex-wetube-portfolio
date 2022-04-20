@@ -17,9 +17,9 @@ block content
                                 i.watchcontainers-container-videoplayer-videocontrollers__interaction-primary-volume-icon.fa-solid.fa-volume-high#volumeIcon
                                 input.watchcontainers-container-videoplayer-videocontrollers__interaction-primary-volume-input#volumeInput(type="range", name="volume" value="100")
                             .watchcontainers-container-videoplayer-videocontrollers__interaction-primary-time
-                                span.watchcontainers-container-videoplayer-videocontrollers__interaction-primary-time-currenttime#currentTimeSpan 00:00
+                                span.watchcontainers-container-videoplayer-videocontrollers__interaction-primary-time-currenttime#currentTimeSpan 0:00
                                 span.watchcontainers-container-videoplayer-videocontrollers__interaction-primary-time-slash /
-                                span.watchcontainers-container-videoplayer-videocontrollers__interaction-primary-time-totaltime#totalTimeSpan 00:00
+                                span.watchcontainers-container-videoplayer-videocontrollers__interaction-primary-time-totaltime#totalTimeSpan 0:00
                         .watchcontainers-container-videoplayer-videocontrollers__interaction-secondary
                             .watchcontainers-container-videoplayer-videocontrollers__interaction-secondary-expand 
                                 i.watchcontainers-container-videoplayer-videocontrollers__interaction-secondary-expand-icon.fa-solid.fa-expand#expandIcon
@@ -43,11 +43,11 @@ block content
                                 i.fa-solid.fa-thumbs-down#dislikeIcon
                 .watchcontainers-container-details__secondary
                     .watchcontainers-container-details__secondary-left
-                        img.watchcontainers-container-details__secondary-left-img(src=user.profilePhoto, alt="" width="50" height="50")
+                        img.watchcontainers-container-details__secondary-left-img(src=video.owner.profilePhoto, alt="" width="50" height="50")
                     .watchcontainers-container-details__secondary-middle
                         .watchcontainers-container-details__secondary-middle-ownerinfo
                             h2.watchcontainers-container-details__secondary-middle-ownerinfo-username=video.owner.username
-                            span=user.subscribers.length 
+                            span=video.owner.subscribers.length 
                             span  구독자
                         .watchcontainers-container-details__secondary-middle-showmore
                             each string in video.description
@@ -70,22 +70,23 @@ block content
                             .watchcontainers-container-details__tertiary-top-right-hidden
                                 div 인기 댓글순
                                 div#newestFirst 최신순
-                    .watchcontainers-container-details__tertiary-middle#tertiaryMiddle
-                        img(src=user.profilePhoto, alt="" width="50" height="50")
-                        form.watchcontainers-container-details__tertiary-middle-form#commentForm
-                            input.watchcontainers-container-details__tertiary-middle-form-input#commentInput(type="text" name="comment" placeholder="댓글 추가...")
-                            .watchcontainers-container-details__tertiary-middle-form-cancelorcomment#cancelOrComment
-                                button.watchcontainers-container-details__tertiary-middle-form-cancelorcomment-cancel#cancelBtn(type="button") 취소
-                                button.watchcontainers-container-details__tertiary-middle-form-cancelorcomment-comment#commentBtn 댓글
+                    if authorised
+                        .watchcontainers-container-details__tertiary-middle#tertiaryMiddle
+                            img.watchcontainers-container-details__tertiary-middle-img(src=user.profilePhoto, alt="" width="50" height="50")
+                            form.watchcontainers-container-details__tertiary-middle-form#commentForm
+                                input.watchcontainers-container-details__tertiary-middle-form-input#commentInput(type="text" name="comment" placeholder="댓글 추가...")
+                                .watchcontainers-container-details__tertiary-middle-form-cancelorcomment#cancelOrComment
+                                    button.watchcontainers-container-details__tertiary-middle-form-cancelorcomment-cancel#cancelBtn(type="button") 취소
+                                    button.watchcontainers-container-details__tertiary-middle-form-cancelorcomment-comment#commentBtn 댓글
                     .watchcontainers-container-details__tertiary-bottom#commentContainers
                         each comment in video.comments.reverse()
                             .watchcontainers-container-details__tertiary-bottom-commentcontainer#commentContainer
-                                img(src=comment.owner.profilePhoto, alt="" width="50" height="50")
+                                img.watchcontainers-container-details__tertiary-bottom-commentcontainer-img(src=comment.owner.profilePhoto, alt="" width="50" height="50")
                                 .watchcontainers-container-details__tertiary-bottom-commentcontainer-info
                                     span.watchcontainers-container-details__tertiary-bottom-commentcontainer-info-owner=comment.owner.username
                                     span.watchcontainers-container-details__tertiary-bottom-commentcontainer-info-createdAt=comment.createdAt.toISOString().substring(0,19)
                                     div.watchcontainers-container-details__tertiary-bottom-commentcontainer-info-text=comment.text
-                                    if user._id === comment.owner._id.toString()
+                                    if authorised && user._id === comment.owner._id.toString()
                                         div.watchcontainers-container-details__tertiary-bottom-commentcontainer-info-del#delComment(data-id=comment._id) ❌
         .recommanded
             span recommended
