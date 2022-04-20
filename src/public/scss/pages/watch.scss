@@ -3,7 +3,6 @@
   grid-template-columns: 2fr 1fr;
   padding: 1%;
   column-gap: 1%;
-
   &-container {
     &-videoplayer {
       position: relative;
@@ -169,6 +168,9 @@
       &__secondary {
         display: grid;
         grid-template-columns: 1fr 10fr 1.5fr;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+        padding-bottom: 2%;
+        margin-bottom: 2%;
         &-left {
           border-radius: 30px;
           &-img {
@@ -196,6 +198,86 @@
             color: white;
             padding: 5%;
             font-size: 105%;
+          }
+        }
+      }
+      &__tertiary {
+        margin-top: 2%;
+        display: flex;
+        flex-direction: column;
+        &-top {
+          display: flex;
+          margin-bottom: 2%;
+          &-left {
+            margin-right: 2%;
+          }
+          &-right {
+            width: 20%;
+            &-icon {
+              margin-right: 5%;
+            }
+            &-hidden {
+              display: none;
+            }
+          }
+        }
+        &-middle {
+          display: flex;
+          align-items: center;
+          &-form {
+            position: relative;
+            width: 100%;
+            &-input {
+              width: 100%;
+              border: none;
+              line-height: 1.5;
+              border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+            }
+            &-cancelorcomment {
+              position: absolute;
+              width: 25%;
+              right: 0;
+              display: flex;
+              visibility: hidden;
+              margin: 2% 0 2% 0;
+              &-cancel,
+              &-comment {
+                width: 100%;
+                border: none;
+                padding: 1%;
+                cursor: pointer;
+              }
+              &-cancel {
+                color: rgba(5, 5, 5, 0.5);
+                background: none;
+              }
+              &-comment {
+                color: white;
+                background-color: black;
+              }
+            }
+          }
+        }
+        &-bottom {
+          &-commentcontainer {
+            display: flex;
+            &-info {
+              width: 100%;
+              position: relative;
+              &-owner {
+                margin-right: 2%;
+              }
+              &-createdAt {
+              }
+              &-text {
+                padding-top: 1%;
+              }
+              &-del {
+                position: absolute;
+                right: 0;
+                top: 0;
+              }
+            }
           }
         }
       }

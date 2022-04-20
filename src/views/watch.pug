@@ -52,38 +52,41 @@ block content
                         .watchcontainers-container-details__secondary-middle-showmore
                             each string in video.description
                                 //- TODO: show more 처리
-                                if /\r\n|\r|\n/.test(string)
-                                    div=string
+                                if /\r|\n|\r\n/.test(string)
+                                    br
                                 else
                                     span=string
                     .watchcontainers-container-details__secondary-right
                         button.watchcontainers-container-details__secondary-right-button#subscribeBtn 구독
-                div 
-                    div
-                        div 
-                            span 댓글
+                .watchcontainers-container-details__tertiary
+                    .watchcontainers-container-details__tertiary-top
+                        .watchcontainers-container-details__tertiary-top-left 
+                            span 댓글 
                             span#commentsLength=video.comments.length
                             span 개
-                        div 정렬 기준
-                        div 
-                            div 인기 댓글순
-                            div#newestFirst 최신순
-                    div
+                        .watchcontainers-container-details__tertiary-top-right
+                            i.watchcontainers-container-details__tertiary-top-right-icon.fa-solid.fa-arrow-up-wide-short
+                            span 정렬 기준
+                            .watchcontainers-container-details__tertiary-top-right-hidden
+                                div 인기 댓글순
+                                div#newestFirst 최신순
+                    .watchcontainers-container-details__tertiary-middle#tertiaryMiddle
                         img(src=user.profilePhoto, alt="" width="50" height="50")
-                        form#commentForm
-                            input#commentInput(type="text" name="comment" placeholder="댓글 추가...")
-                            div#cancelComment(style="display: none;")
-                                button(type="button") 취소
-                                button#commentBtn(disabled) 댓글
-                    div#commentContainers
+                        form.watchcontainers-container-details__tertiary-middle-form#commentForm
+                            input.watchcontainers-container-details__tertiary-middle-form-input#commentInput(type="text" name="comment" placeholder="댓글 추가...")
+                            .watchcontainers-container-details__tertiary-middle-form-cancelorcomment#cancelOrComment
+                                button.watchcontainers-container-details__tertiary-middle-form-cancelorcomment-cancel#cancelBtn(type="button") 취소
+                                button.watchcontainers-container-details__tertiary-middle-form-cancelorcomment-comment#commentBtn 댓글
+                    .watchcontainers-container-details__tertiary-bottom#commentContainers
                         each comment in video.comments.reverse()
-                            div
+                            .watchcontainers-container-details__tertiary-bottom-commentcontainer#commentContainer
                                 img(src=comment.owner.profilePhoto, alt="" width="50" height="50")
-                                h2=comment.owner.username
-                                h2=comment.createdAt
-                                span=comment.text
-                                if user._id === comment.owner._id.toString()
-                                    div#delComment(data-id=comment._id) ❌
+                                .watchcontainers-container-details__tertiary-bottom-commentcontainer-info
+                                    span.watchcontainers-container-details__tertiary-bottom-commentcontainer-info-owner=comment.owner.username
+                                    span.watchcontainers-container-details__tertiary-bottom-commentcontainer-info-createdAt=comment.createdAt.toISOString().substring(0,19)
+                                    div.watchcontainers-container-details__tertiary-bottom-commentcontainer-info-text=comment.text
+                                    if user._id === comment.owner._id.toString()
+                                        div.watchcontainers-container-details__tertiary-bottom-commentcontainer-info-del#delComment(data-id=comment._id) ❌
         .recommanded
             span recommended
 

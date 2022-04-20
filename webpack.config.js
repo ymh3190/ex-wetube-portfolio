@@ -1,12 +1,14 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require("path");
 
+const WATCH_PATH = "./src/public/js/watch";
+
 module.exports = {
   entry: {
     main: "./src/public/js/main.js",
-    comment: "./src/public/js/comment.js",
-    gsap: "./src/public/js/gsap.js",
-    watch: "./src/public/js/watch.js",
+    gsap: `${WATCH_PATH}/gsap.js`,
+    watch: `${WATCH_PATH}/watch.js`,
+    comment: `${WATCH_PATH}/comment.js`,
     index: "./src/public/js/index.js",
   },
   plugins: [

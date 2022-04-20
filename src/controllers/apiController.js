@@ -128,6 +128,7 @@ export const addComment = async (req, res) => {
     session: { user },
     body: { text, id },
   } = req;
+  console.log(1);
 
   const video = await Video.findById(id);
   const comment = await Comment.create({

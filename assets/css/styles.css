@@ -418,6 +418,9 @@ table {
 .watchcontainers-container-details__secondary {
   display: grid;
   grid-template-columns: 1fr 10fr 1.5fr;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  padding-bottom: 2%;
+  margin-bottom: 2%;
 }
 .watchcontainers-container-details__secondary-left {
   border-radius: 30px;
@@ -443,6 +446,81 @@ table {
   color: white;
   padding: 5%;
   font-size: 105%;
+}
+.watchcontainers-container-details__tertiary {
+  margin-top: 2%;
+  display: flex;
+  flex-direction: column;
+}
+.watchcontainers-container-details__tertiary-top {
+  display: flex;
+  margin-bottom: 2%;
+}
+.watchcontainers-container-details__tertiary-top-left {
+  margin-right: 2%;
+}
+.watchcontainers-container-details__tertiary-top-right {
+  width: 20%;
+}
+.watchcontainers-container-details__tertiary-top-right-icon {
+  margin-right: 5%;
+}
+.watchcontainers-container-details__tertiary-top-right-hidden {
+  display: none;
+}
+.watchcontainers-container-details__tertiary-middle {
+  display: flex;
+  align-items: center;
+}
+.watchcontainers-container-details__tertiary-middle-form {
+  position: relative;
+  width: 100%;
+}
+.watchcontainers-container-details__tertiary-middle-form-input {
+  width: 100%;
+  border: none;
+  line-height: 1.5;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}
+.watchcontainers-container-details__tertiary-middle-form-cancelorcomment {
+  position: absolute;
+  width: 25%;
+  right: 0;
+  display: flex;
+  visibility: hidden;
+  margin: 2% 0 2% 0;
+}
+.watchcontainers-container-details__tertiary-middle-form-cancelorcomment-cancel, .watchcontainers-container-details__tertiary-middle-form-cancelorcomment-comment {
+  width: 100%;
+  border: none;
+  padding: 1%;
+  cursor: pointer;
+}
+.watchcontainers-container-details__tertiary-middle-form-cancelorcomment-cancel {
+  color: rgba(5, 5, 5, 0.5);
+  background: none;
+}
+.watchcontainers-container-details__tertiary-middle-form-cancelorcomment-comment {
+  color: white;
+  background-color: black;
+}
+.watchcontainers-container-details__tertiary-bottom-commentcontainer {
+  display: flex;
+}
+.watchcontainers-container-details__tertiary-bottom-commentcontainer-info {
+  width: 100%;
+  position: relative;
+}
+.watchcontainers-container-details__tertiary-bottom-commentcontainer-info-owner {
+  margin-right: 2%;
+}
+.watchcontainers-container-details__tertiary-bottom-commentcontainer-info-text {
+  padding-top: 1%;
+}
+.watchcontainers-container-details__tertiary-bottom-commentcontainer-info-del {
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 body {

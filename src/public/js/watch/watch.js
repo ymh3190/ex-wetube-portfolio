@@ -163,7 +163,7 @@ volumeInput.addEventListener("input", handleInputVolume);
 expandIcon.addEventListener("click", handleClickExpand);
 video.addEventListener("loadedmetadata", handleLoadedmetadataTotalTime);
 video.addEventListener("ended", handleEnded);
-document.addEventListener("keydown", handleKeydown);
+// document.addEventListener("keydown", handleKeydown);
 likeIcon.addEventListener("click", handleClickLike);
 subscribeBtn.addEventListener("click", handleClickSubscribe);
 
