@@ -46,6 +46,7 @@ const userSchema = new Schema({
   metadata: {
     histories: [{ type: Schema.Types.ObjectId, ref: "Video" }],
     likes: [{ type: Schema.Types.ObjectId, ref: "Video" }],
+    dislikes: [{ type: Schema.Types.ObjectId, ref: "Video" }],
   },
 });
 

@@ -1,6 +1,7 @@
 import express from "express";
 import {
   addComment,
+  addDislike,
   addLike,
   addSubscribe,
   changeEmail,
@@ -28,5 +29,6 @@ apiRouter.post("/views", countView);
 apiRouter.post("/record/play-time", recordPlayTime);
 apiRouter.post("/subscribe", addSubscribe);
 apiRouter.post("/like", addLike);
+apiRouter.post("/dislike", addDislike);
 
 export default apiRouter;

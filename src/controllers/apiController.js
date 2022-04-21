@@ -218,7 +218,11 @@ export const addLike = async (req, res) => {
 
   const video = await Video.findById(videoId);
   const user = await User.findById(userId);
-  if (!user.metadata.likes.includes(videoId)) {
+  const index = user.metadata.dislikes.indexOf(video._id);
+  if (index !== -1) {
+    user.metadata.dislikes.splice(index, 1);
+  }
+  if (!user.metadata.likes.includes(video._id)) {
     user.metadata.likes.push(video._id);
     video.metadata.liked += 1;
   } else {
@@ -229,4 +233,29 @@ export const addLike = async (req, res) => {
   await user.save();
   req.session.user = user;
   return res.status(201).send({ liked: video.metadata.liked });
+};
+
+export const addDislike = async (req, res) => {
+  const {
+    body: { videoId, userId },
+  } = req;
+
+  const video = await Video.findById(videoId);
+  const user = await User.findById(userId);
+  const index = user.metadata.likes.indexOf(video._id);
+  if (index !== -1) {
+    user.metadata.likes.splice(index, 1);
+    video.metadata.liked -= 1;
+  }
+  if (!user.metadata.dislikes.includes(video._id)) {
+    user.metadata.dislikes.push(video._id);
+    video.metadata.disliked += 1;
+  } else {
+    user.metadata.dislikes.pop();
+    video.metadata.disliked -= 1;
+  }
+  await video.save();
+  await user.save();
+  req.session.user = user;
+  return res.sendStatus(201);
 };

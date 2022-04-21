@@ -1,0 +1,162 @@
+.editprofilecontainer {
+  width: 100%;
+  padding: 1%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10%;
+  &__form {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    border-right: 1px solid rgba(0, 0, 0, 0.5);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+    box-shadow: 1px 1px 1px black;
+    position: relative;
+    margin-bottom: 2%;
+    border-radius: 5px;
+    &-info {
+      margin-bottom: 10%;
+      input {
+        padding: 1%;
+        border: none;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+      }
+      &-title {
+        font-size: 120%;
+        color: chocolate;
+        border-top: 1px solid chocolate;
+        border-left: 1px solid chocolate;
+        box-shadow: -1px -1px 1px chocolate;
+      }
+      &-fullname {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding: 1%;
+        margin-top: 1%;
+        span {
+          font-size: 105%;
+          padding: 1%;
+          margin-right: 5%;
+        }
+        margin-bottom: 3%;
+        &-lastname {
+          margin-right: 5%;
+          display: flex;
+          justify-content: center;
+        }
+        &-firstname {
+          display: flex;
+          justify-content: center;
+        }
+      }
+      &-username {
+        display: flex;
+        span {
+          margin-right: 2%;
+        }
+      }
+      &-button {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        border: none;
+        background-color: rgb(127, 159, 194);
+        width: 30%;
+        height: 30%;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    }
+    &-email {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 10%;
+      input {
+        padding: 1%;
+        border: none;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+      }
+      &-title {
+        font-size: 120%;
+        color: chocolate;
+        border-top: 1px solid chocolate;
+        border-left: 1px solid chocolate;
+        box-shadow: -1px -1px 1px chocolate;
+        width: 30%;
+        margin-bottom: 2%;
+      }
+      &-block {
+        display: flex;
+        span {
+          margin-right: 2%;
+        }
+      }
+      &-button {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        border: none;
+        background-color: rgb(127, 159, 194);
+        width: 30%;
+        height: 30%;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    }
+    &-photo {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 10%;
+      &-title {
+        font-size: 120%;
+        color: chocolate;
+        border-top: 1px solid chocolate;
+        border-left: 1px solid chocolate;
+        box-shadow: -1px -1px 1px chocolate;
+        width: 30%;
+        margin-bottom: 2%;
+      }
+      &-button {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        border: none;
+        background-color: rgb(127, 159, 194);
+        width: 30%;
+        height: 30%;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    }
+  }
+  &__formdelete {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    border-right: 1px solid rgba(0, 0, 0, 0.5);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+    box-shadow: 1px 1px 1px black;
+    margin-bottom: 2%;
+    border-radius: 5px;
+    &-title {
+      font-size: 120%;
+      color: chocolate;
+      border-top: 1px solid chocolate;
+      border-left: 1px solid chocolate;
+      box-shadow: -1px -1px 1px chocolate;
+      width: 30%;
+      margin-bottom: 2%;
+    }
+    &-block {
+      display: flex;
+      justify-content: space-between;
+    }
+    &-button {
+      border: none;
+      background-color: rgb(127, 159, 194);
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  }
+}
