@@ -210,3 +210,23 @@ export const addSubscribe = async (req, res) => {
   await owner.save();
   return res.sendStatus(201);
 };
+
+export const addLike = async (req, res) => {
+  const {
+    body: { videoId, userId },
+  } = req;
+
+  const video = await Video.findById(videoId);
+  const user = await User.findById(userId);
+  if (!user.metadata.likes.includes(videoId)) {
+    user.metadata.likes.push(video._id);
+    video.metadata.liked += 1;
+  } else {
+    user.metadata.likes.pop();
+    video.metadata.liked -= 1;
+  }
+  await video.save();
+  await user.save();
+  req.session.user = user;
+  return res.status(201).send({ liked: video.metadata.liked });
+};

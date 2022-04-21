@@ -1,0 +1,38 @@
+.signincontainer {
+  width: 100%;
+  padding: 1%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10%;
+  &-form {
+    display: grid;
+    grid-template-rows: 1fr 1.5fr 1fr 1.5fr 1fr;
+    width: 30%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 2%;
+    border-radius: 2%;
+    span {
+      padding: 3%;
+    }
+    &-email,
+    &-password,
+    &-login {
+      border: none;
+      height: 100%;
+    }
+    &-email,
+    &-password {
+      padding: 1%;
+      padding-left: 2%;
+    }
+    &-login {
+      font-size: 105%;
+      cursor: pointer;
+    }
+  }
+  &-link {
+    width: 30%;
+    margin-bottom: 1%;
+  }
+}

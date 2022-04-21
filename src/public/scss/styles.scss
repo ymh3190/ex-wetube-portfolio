@@ -5,10 +5,13 @@
 // paritals
 @import "paritals/header.scss";
 @import "paritals/footer.scss";
+@import "paritals/socialNet.scss";
 
 // pages
 @import "pages/index.scss";
 @import "pages/watch.scss";
+@import "pages/signin.scss";
+@import "pages/signup.scss";
 
 body {
   font-family: "Open Sans", sans-serif;

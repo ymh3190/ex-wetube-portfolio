@@ -156,6 +156,7 @@
               align-items: center;
               font-size: 120%;
               &-icon {
+                cursor: pointer;
               }
               &-count {
                 margin-left: 10px;
@@ -164,6 +165,9 @@
             &-dislike {
               margin-left: 5%;
               font-size: 120%;
+              &-icon {
+                cursor: pointer;
+              }
             }
           }
         }

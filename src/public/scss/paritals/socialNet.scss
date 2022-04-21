@@ -1,0 +1,33 @@
+.socialNet {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  width: 30%;
+  a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5%;
+  }
+  &-github {
+    background-color: black;
+    color: white;
+  }
+  &-facebook {
+    background-color: blue;
+    color: white;
+  }
+  &-naver {
+    background-color: green;
+    color: white;
+  }
+  &-kakao {
+    color: black;
+    background-color: yellow;
+  }
+  &-google {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    background-color: black;
+    color: white;
+  }
+}

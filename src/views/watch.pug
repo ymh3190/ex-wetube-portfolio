@@ -40,7 +40,7 @@ block content
                                 i.watchcontainers-container-details__primary-videoinfo-right-like-icon.fa-solid.fa-thumbs-up#likeIcon
                                 span.watchcontainers-container-details__primary-videoinfo-right-like-count#likedCount=video.metadata.liked
                             .watchcontainers-container-details__primary-videoinfo-right-dislike
-                                i.fa-solid.fa-thumbs-down#dislikeIcon
+                                i.watchcontainers-container-details__primary-videoinfo-right-dislike-icon.fa-solid.fa-thumbs-down#dislikeIcon
                 .watchcontainers-container-details__secondary
                     .watchcontainers-container-details__secondary-left
                         img.watchcontainers-container-details__secondary-left-img(src=video.owner.profilePhoto, alt="" width="50" height="50")
@@ -72,7 +72,7 @@ block content
                                 div#newestFirst 최신순
                     if authorised
                         .watchcontainers-container-details__tertiary-middle#tertiaryMiddle
-                            img.watchcontainers-container-details__tertiary-middle-img(src=user.profilePhoto, alt="" width="50" height="50")
+                            img.watchcontainers-container-details__tertiary-middle-img#userImg(src=user.profilePhoto, alt="" width="50" height="50" data-id=user._id)
                             form.watchcontainers-container-details__tertiary-middle-form#commentForm
                                 input.watchcontainers-container-details__tertiary-middle-form-input#commentInput(type="text" name="comment" placeholder="댓글 추가...")
                                 .watchcontainers-container-details__tertiary-middle-form-cancelorcomment#cancelOrComment
@@ -97,3 +97,4 @@ block scripts
     script(src="/assets/js/gsap.js") 
     script(src="/assets/js/watch.js")
     script(src="/assets/js/comment.js") 
+    script(src="/assets/js/like.js") 

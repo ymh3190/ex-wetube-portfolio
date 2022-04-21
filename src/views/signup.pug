@@ -1,14 +1,18 @@
 extends layouts/main.pug
 
 block content 
-    h1 signup 
     include partials/error.pug
-    form(method="post")
-        input(type="text", name="lastName" placeholder="성")
-        input(type="text", name="firstName" placeholder="이름")
-        input(type="email", name="email" placeholder="이메일")
-        input(type="password", name="password" placeholder="비밀번호")
-        input(type="password", name="confirm" placeholder="재입력")
-        button(type="submit")  생성 
-    a(href="/signin") 로그인하러 가기 &rarr;
-    include partials/socialNet.pug
+    .signupcontainer
+        form.signupcontainer-form(method="post")
+            span 성을 입력하세요.
+            input.signupcontainer-form-lastname(type="text", name="lastName" placeholder="성")
+            span 이름을 입력하세요.
+            input.signupcontainer-form-firstname(type="text", name="firstName" placeholder="이름")
+            span 이메일을 입력하세요.
+            input.signupcontainer-form-email(type="email", name="email" placeholder="이메일")
+            span 비밀번호를 입력하세요.
+            input.signupcontainer-form-password(type="password", name="password" placeholder="비밀번호")
+            input.signupcontainer-form-confirm(type="password", name="confirm" placeholder="재입력")
+            button.signupcontainer-form-create(type="submit")  생성 
+        a.signupcontainer-link(href="/signin") 로그인하러 가기 &rarr;
+        include partials/socialNet.pug

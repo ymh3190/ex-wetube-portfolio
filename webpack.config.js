@@ -9,6 +9,7 @@ module.exports = {
     gsap: `${WATCH_PATH}/gsap.js`,
     watch: `${WATCH_PATH}/watch.js`,
     comment: `${WATCH_PATH}/comment.js`,
+    like: `${WATCH_PATH}/like.js`,
     index: "./src/public/js/index.js",
   },
   plugins: [

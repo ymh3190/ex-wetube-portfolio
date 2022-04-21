@@ -7,9 +7,6 @@ const videoPlayer = document.getElementById("videoPlayer");
 const totalTimeSpan = document.getElementById("totalTimeSpan");
 const currentTimeSpan = document.getElementById("currentTimeSpan");
 const views = document.getElementById("views");
-const likeIcon = document.getElementById("likeIcon");
-const dislikeIcon = document.getElementById("dislikeIcon");
-const likedCount = document.getElementById("likedCount");
 const subscribeBtn = document.getElementById("subscribeBtn");
 
 let playTimeInterval;
@@ -143,13 +140,9 @@ async function handleEnded() {
   }
 }
 
-function handleClickLike() {
-  likedCount.innerText = parseInt(likedCount, 10) + 1;
-}
-
 function handleKeydown(e) {
   e.preventDefault();
-  const { key, metaKey } = e;
+  const { key, metaKey, altKey } = e;
 
   if (key === "ArrowRight") {
     video.currentTime += 5;
@@ -167,10 +160,13 @@ function handleKeydown(e) {
     handleClickExpand();
   } else if (key === "m") {
     handleClickVolume();
+  } else if (metaKey && key === "r") {
+    window.location.reload();
+  } else if ((metaKey && altKey && key === "Dead") || key === "F12") {
+    // ⌘⌥I || F12
+    console.log(1);
+    // TODO: 개발자 모드 진입
   }
-  // else if (metaKey && key === "r") {
-  //   window.location.reload();
-  // }
 }
 
 async function handleClickSubscribe(e) {
@@ -193,8 +189,7 @@ expandIcon.addEventListener("click", handleClickExpand);
 video.addEventListener("loadedmetadata", handleLoadedmetadataTotalTime);
 video.addEventListener("ended", handleEnded);
 video.addEventListener("dblclick", handleClickExpand);
-document.addEventListener("keydown", handleKeydown);
-likeIcon.addEventListener("click", handleClickLike);
+// document.addEventListener("keydown", handleKeydown);
 subscribeBtn.addEventListener("click", handleClickSubscribe);
 
 // let totalTimeInterval = setInterval(() => {

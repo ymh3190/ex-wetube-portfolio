@@ -218,6 +218,40 @@ table {
   justify-content: center;
 }
 
+.socialNet {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  width: 30%;
+}
+.socialNet a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5%;
+}
+.socialNet-github {
+  background-color: black;
+  color: white;
+}
+.socialNet-facebook {
+  background-color: blue;
+  color: white;
+}
+.socialNet-naver {
+  background-color: green;
+  color: white;
+}
+.socialNet-kakao {
+  color: black;
+  background-color: yellow;
+}
+.socialNet-google {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  background-color: black;
+  color: white;
+}
+
 .videocontainers {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -410,12 +444,18 @@ table {
   align-items: center;
   font-size: 120%;
 }
+.watchcontainers-container-details__primary-videoinfo-right-like-icon {
+  cursor: pointer;
+}
 .watchcontainers-container-details__primary-videoinfo-right-like-count {
   margin-left: 10px;
 }
 .watchcontainers-container-details__primary-videoinfo-right-dislike {
   margin-left: 5%;
   font-size: 120%;
+}
+.watchcontainers-container-details__primary-videoinfo-right-dislike-icon {
+  cursor: pointer;
 }
 .watchcontainers-container-details__secondary {
   display: grid;
@@ -533,6 +573,75 @@ table {
   position: absolute;
   right: 0;
   top: 0;
+}
+
+.signincontainer {
+  width: 100%;
+  padding: 1%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10%;
+}
+.signincontainer-form {
+  display: grid;
+  grid-template-rows: 1fr 1.5fr 1fr 1.5fr 1fr;
+  width: 30%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 2%;
+  border-radius: 2%;
+}
+.signincontainer-form span {
+  padding: 3%;
+}
+.signincontainer-form-email, .signincontainer-form-password, .signincontainer-form-login {
+  border: none;
+  height: 100%;
+}
+.signincontainer-form-email, .signincontainer-form-password {
+  padding: 1%;
+  padding-left: 2%;
+}
+.signincontainer-form-login {
+  font-size: 105%;
+  cursor: pointer;
+}
+.signincontainer-link {
+  width: 30%;
+  margin-bottom: 1%;
+}
+
+.signupcontainer {
+  width: 100%;
+  padding: 1%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2%;
+}
+.signupcontainer-form {
+  display: grid;
+  grid-template-rows: 1fr 1.2fr 1fr 1.2fr 1fr 1.2fr 1fr 1.2fr 1.2fr 1.2fr;
+  width: 30%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 2%;
+  border-radius: 2%;
+}
+.signupcontainer-form span {
+  padding: 3%;
+}
+.signupcontainer-form-lastname, .signupcontainer-form-firstname, .signupcontainer-form-email, .signupcontainer-form-password, .signupcontainer-form-confirm, .signupcontainer-form-create {
+  border: none;
+  height: 100%;
+  padding-left: 3%;
+}
+.signupcontainer-form-create {
+  font-size: 105%;
+  cursor: pointer;
+}
+.signupcontainer-link {
+  width: 30%;
+  margin-bottom: 1%;
 }
 
 body {

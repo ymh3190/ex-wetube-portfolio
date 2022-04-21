@@ -1,6 +1,7 @@
 import express from "express";
 import {
   addComment,
+  addLike,
   addSubscribe,
   changeEmail,
   changePassword,
@@ -26,5 +27,6 @@ apiRouter.get("/deleteAccount", privateOnly, deleteAccount);
 apiRouter.post("/views", countView);
 apiRouter.post("/record/play-time", recordPlayTime);
 apiRouter.post("/subscribe", addSubscribe);
+apiRouter.post("/like", addLike);
 
 export default apiRouter;
