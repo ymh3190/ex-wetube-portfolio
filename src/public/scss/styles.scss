@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
 @import "reset.scss";
-@import "editProfile.scss";
 
 // paritals
 @import "paritals/header.scss";
@@ -13,6 +12,7 @@
 @import "pages/signin.scss";
 @import "pages/signup.scss";
 @import "pages/editProfile.scss";
+@import "pages/upload.scss";
 
 body {
   font-family: "Open Sans", sans-serif;

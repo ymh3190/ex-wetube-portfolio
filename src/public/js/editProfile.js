@@ -69,7 +69,7 @@ async function handleSubmitChangePassword(e) {
   const confirm = confirmInput.value;
 
   if (!password) {
-    return (password.placeholder = "비밀번호를 입력하세요.");
+    return (passwordInput.placeholder = "비밀번호를 입력하세요.");
   } else if (password !== confirm) {
     return (confirmInput.placeholder = "비밀번호가 일치하지 않습니다.");
   }

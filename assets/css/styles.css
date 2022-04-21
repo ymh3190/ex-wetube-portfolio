@@ -136,18 +136,6 @@ table {
   border-spacing: 0;
 }
 
-#photoFileInput {
-  display: none;
-}
-
-.photoLabel {
-  padding: 6px 25px;
-  /* background-color: #ff6600; */
-  border-radius: 4px;
-  color: white;
-  cursor: pointer;
-}
-
 .header {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
@@ -189,8 +177,13 @@ table {
   justify-content: end;
   align-items: center;
 }
+.header-menu__upload i {
+  font-size: 120%;
+}
 .header-menu__settings {
-  margin-right: 5%;
+  display: grid;
+  grid-template-columns: 1.5fr 1.5fr 1.5fr 1fr;
+  margin-left: 2%;
 }
 .header-menu__settings-icon {
   font-size: 120%;
@@ -650,7 +643,7 @@ table {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 10%;
+  margin-top: 2%;
 }
 .editprofilecontainer__form {
   display: flex;
@@ -777,6 +770,39 @@ table {
   border-radius: 5px;
   cursor: pointer;
 }
+.editprofilecontainer__form-password {
+  margin-bottom: 10%;
+  display: flex;
+  flex-direction: column;
+}
+.editprofilecontainer__form-password-title {
+  font-size: 120%;
+  color: chocolate;
+  border-top: 1px solid chocolate;
+  border-left: 1px solid chocolate;
+  box-shadow: -1px -1px 1px chocolate;
+  width: 30%;
+  margin-bottom: 2%;
+}
+.editprofilecontainer__form-password-block :first-child {
+  margin-right: 10%;
+}
+.editprofilecontainer__form-password-block input {
+  padding: 1%;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}
+.editprofilecontainer__form-password-button {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  border: none;
+  background-color: rgb(127, 159, 194);
+  width: 30%;
+  height: 30%;
+  border-radius: 5px;
+  cursor: pointer;
+}
 .editprofilecontainer__formdelete {
   display: flex;
   flex-direction: column;
@@ -804,6 +830,50 @@ table {
   border: none;
   background-color: rgb(127, 159, 194);
   border-radius: 5px;
+  cursor: pointer;
+}
+
+#photoFileInput {
+  display: none;
+}
+
+.photoLabel {
+  padding: 6px 25px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.uploadcontainer {
+  padding: 1%;
+  display: flex;
+  justify-content: center;
+  margin-top: 1%;
+}
+.uploadcontainer-form {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  border-right: 1px solid rgba(44, 4, 4, 0.2);
+}
+.uploadcontainer-form__label, .uploadcontainer-form__file, .uploadcontainer-form__input, .uploadcontainer-form__textarea, .uploadcontainer-form__select {
+  margin-bottom: 3%;
+  padding: 2%;
+  border: none;
+  border-bottom: 1px solid salmon;
+}
+.uploadcontainer-form__label {
+  cursor: pointer;
+}
+.uploadcontainer-form__file {
+  display: none;
+}
+.uploadcontainer-form__select {
+  cursor: pointer;
+}
+.uploadcontainer-form__button {
+  border: none;
+  background-color: white;
+  font-size: 120%;
   cursor: pointer;
 }
 

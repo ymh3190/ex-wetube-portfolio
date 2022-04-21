@@ -25,10 +25,13 @@ block content
                     input#emailInput(type="email", name="email" placeholder="이메일" value=user.email)
                 button.editprofilecontainer__form-email-button 이메일 변경
         if !user.socialNet
-            form.editprofilecontainer__formpassword#passwordForm
-                input#passwordInput(type="password", name="password" placeholder="비밀번호")
-                input#confirmInput(type="password", name="confirm" placeholder="재입력")
-                button 비밀번호 변경
+            form.editprofilecontainer__form#passwordForm
+                .editprofilecontainer__form-password
+                    span.editprofilecontainer__form-password-title 비밀번호
+                    .editprofilecontainer__form-password-block
+                        input#passwordInput(type="password", name="password" placeholder="비밀번호")
+                        input#confirmInput(type="password", name="confirm" placeholder="재입력")
+                    button.editprofilecontainer__form-password-button 비밀번호 변경
         form.editprofilecontainer__form#photoForm(enctype="multipart/form-data")
             .editprofilecontainer__form-photo
                 span.editprofilecontainer__form-photo-title 사진 변경

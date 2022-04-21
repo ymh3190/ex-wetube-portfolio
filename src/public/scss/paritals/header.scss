@@ -42,8 +42,15 @@
     display: flex;
     justify-content: end;
     align-items: center;
+    &__upload {
+      i {
+        font-size: 120%;
+      }
+    }
     &__settings {
-      margin-right: 5%;
+      display: grid;
+      grid-template-columns: 1.5fr 1.5fr 1.5fr 1fr;
+      margin-left: 2%;
       &-icon {
         font-size: 120%;
       }

@@ -1,0 +1,37 @@
+.uploadcontainer {
+  padding: 1%;
+  display: flex;
+  justify-content: center;
+  margin-top: 1%;
+  &-form {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    border-right: 1px solid rgba(44, 4, 4, 0.2);
+    &__label,
+    &__file,
+    &__input,
+    &__textarea,
+    &__select {
+      margin-bottom: 3%;
+      padding: 2%;
+      border: none;
+      border-bottom: 1px solid salmon;
+    }
+    &__label {
+      cursor: pointer;
+    }
+    &__file {
+      display: none;
+    }
+    &__select {
+      cursor: pointer;
+    }
+    &__button {
+      border: none;
+      background-color: white;
+      font-size: 120%;
+      cursor: pointer;
+    }
+  }
+}

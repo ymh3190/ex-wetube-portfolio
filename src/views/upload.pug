@@ -1,13 +1,14 @@
 extends layouts/main.pug
 
 block content 
-    h1 upload
-    form(method="post" enctype="multipart/form-data")
-        input(type="file" name="video" accept="video/*")
-        input(type="text" name="title" placeholder="제목을 입력하세요.")
-        textarea(name="description", cols="30", rows="10" placeholder="상세 내용을 입력하세요.")
-        //- add hashtags
-        select(name="visibility") visibility
-            option(value="private") 비공개
-            option(value="public") 공개
-        button 업로드
+    .uploadcontainer
+        form.uploadcontainer-form(method="post" enctype="multipart/form-data")
+            label.uploadcontainer-form__label(for="videoFile") 파일 선택
+            input.uploadcontainer-form__file#videoFile(type="file" name="video" accept="video/*")
+            input.uploadcontainer-form__input(type="text" name="title" placeholder="제목을 입력하세요.")
+            textarea.uploadcontainer-form__textarea(name="description", cols="30", rows="10" placeholder="상세 내용을 입력하세요.")
+            //- add hashtags
+            select.uploadcontainer-form__select(name="visibility") visibility
+                option(value="public") 공개
+                option(value="private") 비공개
+            button.uploadcontainer-form__button 업로드
