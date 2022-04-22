@@ -72,7 +72,7 @@ block content
                                 div#newestFirst 최신순
                     if authorized
                         .watchcontainers-container-details__tertiary-middle#tertiaryMiddle
-                            img.watchcontainers-container-details__tertiary-middle-img#userImg(src=user.profilePhoto, alt="" width="50" height="50" data-id=user._id)
+                            img.watchcontainers-container-details__tertiary-middle-img(src=user.profilePhoto, alt="" width="50" height="50")
                             form.watchcontainers-container-details__tertiary-middle-form#commentForm
                                 input.watchcontainers-container-details__tertiary-middle-form-input#commentInput(type="text" name="comment" placeholder="댓글 추가...")
                                 .watchcontainers-container-details__tertiary-middle-form-cancelorcomment#cancelOrComment

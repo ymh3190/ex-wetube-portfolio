@@ -112,7 +112,7 @@ export const deleteAccount = async (req, res) => {
 
 export const changeVisibility = async (req, res) => {
   const {
-    body: { id, visibility }, // id: video id
+    body: { id, visibility },
   } = req;
 
   try {
@@ -125,19 +125,23 @@ export const changeVisibility = async (req, res) => {
 
 export const addComment = async (req, res) => {
   const {
-    session: { user },
+    session,
     body: { text, id },
   } = req;
-  console.log(1);
 
+  if (!session.user) {
+    return res.sendStatus(401);
+  }
   const video = await Video.findById(id);
   const comment = await Comment.create({
     text,
-    owner: user._id,
+    owner: session.user._id,
   });
   video.comments.push(comment._id);
   await video.save();
-  return res.status(200).json({ text, user, commentId: comment._id });
+  return res
+    .status(200)
+    .json({ text, user: session.user, commentId: comment._id });
 };
 
 export const delComment = async (req, res) => {
@@ -211,11 +215,15 @@ export const addSubscribe = async (req, res) => {
 
 export const addLike = async (req, res) => {
   const {
-    body: { videoId, userId },
+    session,
+    body: { id },
   } = req;
 
-  const video = await Video.findById(videoId);
-  const user = await User.findById(userId);
+  if (!session.user) {
+    return res.sendStatus(401);
+  }
+  const video = await Video.findById(id);
+  const user = await User.findById(session.user._id);
   const index = user.metadata.dislikes.indexOf(video._id);
   if (index !== -1) {
     user.metadata.dislikes.splice(index, 1);
@@ -235,11 +243,15 @@ export const addLike = async (req, res) => {
 
 export const addDislike = async (req, res) => {
   const {
-    body: { videoId, userId },
+    session,
+    body: { id },
   } = req;
 
-  const video = await Video.findById(videoId);
-  const user = await User.findById(userId);
+  if (!session.user) {
+    return res.sendStatus(401);
+  }
+  const video = await Video.findById(id);
+  const user = await User.findById(session.user._id);
   const index = user.metadata.likes.indexOf(video._id);
   if (index !== -1) {
     user.metadata.likes.splice(index, 1);
@@ -261,13 +273,13 @@ export const addDislike = async (req, res) => {
 export const delHistory = async (req, res) => {
   const {
     session,
-    body: { id: videoId },
+    body: { id },
   } = req;
 
   if (!session.user) {
     return res.sendStatus(401);
   }
-  const video = await Video.findById(videoId);
+  const video = await Video.findById(id);
   const user = await User.findById(session.user._id);
   const {
     metadata: { histories },

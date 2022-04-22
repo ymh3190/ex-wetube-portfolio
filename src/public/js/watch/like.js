@@ -25,18 +25,15 @@ function countLike(count) {
 
 async function handleClickLike() {
   const {
-    dataset: { id: videoId },
+    dataset: { id },
   } = video;
-  const {
-    dataset: { id: userId },
-  } = userImg;
 
   const response = await fetch("/api/like", {
     method: "post",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ videoId, userId }),
+    body: JSON.stringify({ id }),
   });
   if (response.status === 201) {
     const { liked } = await response.json();
@@ -46,18 +43,15 @@ async function handleClickLike() {
 
 async function handleClickDislike() {
   const {
-    dataset: { id: videoId },
+    dataset: { id },
   } = video;
-  const {
-    dataset: { id: userId },
-  } = userImg;
 
   const response = await fetch("/api/dislike", {
     method: "post",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ videoId, userId }),
+    body: JSON.stringify({ id }),
   });
   if (response.status === 201) {
     countDislike();

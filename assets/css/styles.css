@@ -254,6 +254,9 @@ table {
   column-gap: 1%;
   padding: 1%;
 }
+.videocontainers-container {
+  margin-bottom: 10%;
+}
 .videocontainers-container__video {
   width: 100%;
 }
