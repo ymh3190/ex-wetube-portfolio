@@ -3,7 +3,11 @@ const visibilitySelects = document.querySelectorAll("#visibilitySelect");
 async function handleChangeVisiblity(e) {
   const {
     target: visibilitySelect,
-    target: { parentElement },
+    target: {
+      parentElement: {
+        parentElement: { parentElement },
+      },
+    },
   } = e;
   const video = parentElement.querySelector("video");
   const { id } = video.dataset;

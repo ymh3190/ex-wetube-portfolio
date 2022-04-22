@@ -12,11 +12,8 @@ block content
                         .videocontainers-container-info__details
                             .videocontainers-container-info__details-title
                                 h4.videocontainers-container-info__details-title-term=video.title
-                            //- TODO: 유저채널 route 만들기
-                            //- /channels/id
                             .videocontainers-container-info__details-owner
-                                a(href="/")
-                                    span=video.owner.username
+                                span=video.owner.username
                             .videocontainers-container-info__details-data
                                 span #{video.metadata.views}회
                                 span.videocontainers-container-info__details-data-dot •

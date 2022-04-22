@@ -102,7 +102,7 @@ export const deleteAccount = async (req, res) => {
 
   try {
     await User.findByIdAndDelete({ _id: user._id });
-    delete req.session.authorised;
+    delete req.session.authorized;
     delete req.session.user;
     return res.sendStatus(200);
   } catch (error) {
@@ -255,6 +255,30 @@ export const addDislike = async (req, res) => {
     video.metadata.disliked -= 1;
   }
   await video.save();
+  await user.save();
+  req.session.user = user;
+  return res.sendStatus(201);
+};
+
+export const delHistory = async (req, res) => {
+  const {
+    session,
+    body: { id: videoId },
+  } = req;
+
+  if (!session.user) {
+    return res.sendStatus(401);
+  }
+  const video = await Video.findById(videoId);
+  const user = await User.findById(session.user._id);
+  const {
+    metadata: { histories },
+  } = user;
+  for (const [i, history] of histories.entries()) {
+    if (history.video._id.toString() === video._id.toString()) {
+      histories.splice(i, 1);
+    }
+  }
   await user.save();
   req.session.user = user;
   return res.sendStatus(201);

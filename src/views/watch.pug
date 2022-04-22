@@ -70,7 +70,7 @@ block content
                             .watchcontainers-container-details__tertiary-top-right-hidden
                                 div 인기 댓글순
                                 div#newestFirst 최신순
-                    if authorised
+                    if authorized
                         .watchcontainers-container-details__tertiary-middle#tertiaryMiddle
                             img.watchcontainers-container-details__tertiary-middle-img#userImg(src=user.profilePhoto, alt="" width="50" height="50" data-id=user._id)
                             form.watchcontainers-container-details__tertiary-middle-form#commentForm
@@ -86,7 +86,7 @@ block content
                                     span.watchcontainers-container-details__tertiary-bottom-commentcontainer-info-owner=comment.owner.username
                                     span.watchcontainers-container-details__tertiary-bottom-commentcontainer-info-createdAt=comment.createdAt.toISOString().substring(0,19)
                                     div.watchcontainers-container-details__tertiary-bottom-commentcontainer-info-text=comment.text
-                                    if authorised && user._id === comment.owner._id.toString()
+                                    if authorized && user._id === comment.owner._id.toString()
                                         div.watchcontainers-container-details__tertiary-bottom-commentcontainer-info-del#delComment(data-id=comment._id) ❌
         .recommanded
             span recommended

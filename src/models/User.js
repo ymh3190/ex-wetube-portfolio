@@ -44,7 +44,12 @@ const userSchema = new Schema({
   socialNet: { type: Boolean, default: false },
   subscribers: [{ type: Schema.Types.ObjectId, ref: "User" }],
   metadata: {
-    histories: [{ type: Schema.Types.ObjectId, ref: "Video" }],
+    histories: [
+      {
+        video: { type: Schema.Types.ObjectId, ref: "Video" },
+        createdAt: { type: Date, default: Date.now },
+      },
+    ],
     likes: [{ type: Schema.Types.ObjectId, ref: "Video" }],
     dislikes: [{ type: Schema.Types.ObjectId, ref: "Video" }],
   },

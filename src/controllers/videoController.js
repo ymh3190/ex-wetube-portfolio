@@ -47,20 +47,20 @@ export const watch = async (req, res) => {
     })
     .populate("owner");
 
-  if (session.user) {
+  if (session.authorized) {
     const user = await User.findById(session.user._id);
     const {
       metadata: { histories },
     } = user;
     if (!histories.length) {
-      histories.push(video._id);
+      histories.push({ video: video._id });
     } else {
       for (const [i, history] of histories.entries()) {
-        if (history._id.toString() === video.id) {
+        if (history.video._id.toString() === video.id) {
           histories.splice(i, 1);
         }
       }
-      histories.push(video._id);
+      histories.push({ video: video._id });
     }
     await user.save();
     req.session.user = user;
@@ -122,8 +122,8 @@ export const history = async (req, res) => {
   const user = await User.findById(_id);
   const { histories } = await user.metadata.populate({
     path: "histories",
-    populate: { path: "owner" },
+    populate: { path: "video", populate: { path: "owner" } },
   });
 
-  return res.render("history", { videos: histories });
+  return res.render("history", { histories });
 };

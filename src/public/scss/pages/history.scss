@@ -1,0 +1,58 @@
+.historycontainer {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  padding: 1%;
+  margin-left: 1%;
+  &-left {
+    &-date {
+      &__term {
+        display: inline-block;
+        margin-bottom: 20px;
+        font-size: 110%;
+      }
+      &__container {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        margin-bottom: 1%;
+        &-left {
+          a {
+            video {
+              width: 100%;
+            }
+          }
+        }
+        &-right {
+          padding-left: 4%;
+          display: grid;
+          grid-template-rows: repeat(3, 1fr);
+          &-top {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            &-title {
+              font-size: 160%;
+              font-weight: 500;
+            }
+            &-button {
+              background-color: white;
+              border: none;
+            }
+          }
+          &-middle {
+            a {
+              margin-right: 2%;
+              span {
+                font-size: 140%;
+              }
+            }
+            &-views {
+              margin-left: 2%;
+              font-size: 120%z;
+            }
+          }
+        }
+      }
+    }
+  }
+  &-right {
+  }
+}

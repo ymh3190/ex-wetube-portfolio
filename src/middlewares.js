@@ -7,12 +7,12 @@ export const photoUploader = photoUpload.single("photo");
 
 export const localsMiddlewares = (req, res, next) => {
   res.locals.user = req.session.user;
-  res.locals.authorised = Boolean(req.session.authorised);
+  res.locals.authorized = Boolean(req.session.authorized);
   next();
 };
 
 export const publicOnly = (req, res, next) => {
-  if (!req.session.authorised) {
+  if (!req.session.authorized) {
     next();
   } else {
     return res.redirect("/");
@@ -20,7 +20,7 @@ export const publicOnly = (req, res, next) => {
 };
 
 export const privateOnly = (req, res, next) => {
-  if (req.session.authorised) {
+  if (req.session.authorized) {
     next();
   } else {
     return res.redirect("/");

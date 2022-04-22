@@ -32,9 +32,12 @@
     height: 100%;
     &__input {
       width: 50%;
+      border: 1px solid rgba(0, 0, 0, 0.4);
+      border-right: none;
     }
     &__button {
       width: 10%;
+      border: 1px solid rgba(0, 0, 0, 0.4);
     }
   }
   //

@@ -1,0 +1,47 @@
+.studiocontainers {
+  padding: 1%;
+  &-studiocontainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 2%;
+    &-left,
+    &-right-visibility,
+    &-right-date,
+    &-right-views,
+    &-right-comments,
+    &-right-likes {
+      display: grid;
+      grid-template-rows: 1fr 5fr;
+      span {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 105%;
+      }
+    }
+    &-left {
+      a {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        video {
+          width: 45%;
+        }
+      }
+    }
+    &-right {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      &-visibility {
+        select {
+          border: none;
+          -webkit-appearance: none;
+          text-align: center;
+        }
+        select:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+}

@@ -1,28 +1,45 @@
 extends layouts/main.pug
 
 block content 
-    h1 history
-    each video in videos.reverse()
-        - var diffTime = parseInt(((Date.now()-video.createdAt.getTime())/1000)/86400)
-        - var day = video.createdAt.getDay()
-        - var days = ['일요일','월요일','화요일','수요일','목요일','금요일','토요일']
-        if diffTime === 0
-            h2 오늘
-        else if diffTime === 1
-            h2 어제
-        else if diffTime === 2
-            h2 #{days[day-2]}
-        else if diffTime === 3
-            h2 #{days[day-3]}
-        else if diffTime === 4
-            h2 #{days[day-4]}
-        else if diffTime === 5
-            h2 #{days[day-5]}
-        else if diffTime === 6
-            h2 #{days[day-6]}
-        a(href=`/videos/${video.id}`) 
-            video(src=`/${video.path}` width="400" height="400") 
-        h2 제목#{video.title}
-        h2 유저이름#{video.owner.username}
-        h2 조회수#{video.metadata.views}
-        h2 상세설명#{video.description}
+    .historycontainer
+        .historycontainer-left
+            //- - const days = ['일요일','월요일','화요일','수요일','목요일','금요일','토요일']
+            if histories.length
+                .historycontainer-left-date#leftDate
+                    span.historycontainer-left-date__term 오늘
+                    each history in histories.reverse()
+                        - const diffTime = parseInt(((Date.now()-history.createdAt.getTime())/1000)/86400)
+                        - const day = history.createdAt.getDay()
+                        if diffTime === 0
+                            .historycontainer-left-date__container
+                                .historycontainer-left-date__container-left
+                                    a(href=`/videos/${history.video.id}`)
+                                        video(src=`/${history.video.path}`)
+                                .historycontainer-left-date__container-right
+                                    .historycontainer-left-date__container-right-top
+                                        span.historycontainer-left-date__container-right-top-title=history.video.title
+                                        button.historycontainer-left-date__container-right-top-button#deleteBtn(data-id=history.video.id) ❌
+                                    .historycontainer-left-date__container-right-middle
+                                        a(href=`/channels/${history.video.owner.username}`) 
+                                            span=history.video.owner.username
+                                        span •
+                                        span.historycontainer-left-date__container-right-middle-views 조회수 #{history.video.metadata.views}
+                                    .historycontainer-left-date__container-right-bottom
+                                        span=history.video.description
+
+                    //- //- else if diffTime === 1
+                    //- //-     span 어제
+                    //- //- else if diffTime === 2
+                    //- //-     span #{days[day-2]}
+                    //- //- else if diffTime === 3
+                    //- //-     span #{days[day-3]}
+                    //- //- else if diffTime === 4
+                    //- //-     span #{days[day-4]}
+                    //- //- else if diffTime === 5
+                    //- //-     span #{days[day-5]}
+                    //- //- else if diffTime === 6
+                    //- //-     span #{days[day-6]}
+        .historycontainer-right
+
+block scripts 
+    script(src="/assets/js/history.js") 

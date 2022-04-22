@@ -10,6 +10,7 @@ import {
   countView,
   delComment,
   deleteAccount,
+  delHistory,
   recordPlayTime,
   saveInfo,
   updatePhoto,
@@ -30,5 +31,6 @@ apiRouter.post("/record/play-time", recordPlayTime);
 apiRouter.post("/subscribe", addSubscribe);
 apiRouter.post("/like", addLike);
 apiRouter.post("/dislike", addDislike);
+apiRouter.post("/delHistory", delHistory);
 
 export default apiRouter;

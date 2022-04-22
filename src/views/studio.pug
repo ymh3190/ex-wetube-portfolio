@@ -1,33 +1,34 @@
 extends layouts/main.pug
 
 block content 
-    h1 studio 
-    each video in videos
-        div
-            a(href=`/videos/${video.id}/detail`) 
-                video(src=`/${video.path}` width="400" height="400" data-id=video.id) 
-            a(href=`/videos/${video.id}/detail`)
-                    i.fa-solid.fa-pencil
-            select#visibilitySelect 
-                option(value="") 공개 상태
-                option(value="private") 비공개
-                option(value="public") 공개
-            //- input#savePublishInput(type="checkbox", name="" checked)
-            //- label(for="savePublishInput") 저장 또는 게시
-            //- input#privateInput(type="checkbox", name="")
-            //- label(for="privateInput") 비공개
-            //- input#publicInput(type="checkbox", name="")
-            //- label(for="publicInput") 공개
-            h2 날짜 #{video.createdAt} &darr;
-            h2 조회수 #{video.views}
-            span 댓글
-                //- 해당 비디오의 댓글모음으로 이동
-                span=video.comments.length 
-            each comment in video.comments
-                h2=comment
-            h2 좋아요(싫어요 대비)
-            span 플레이타임
-            span=video.metadata.playTime
+    .studiocontainers
+        each video in videos
+            .studiocontainers-studiocontainer
+                .studiocontainers-studiocontainer-left
+                    span 비디오
+                    a(href=`/videos/${video.id}`) 
+                        video(src=`/${video.path}` data-id=video.id)
+                .studiocontainers-studiocontainer-right
+                    .studiocontainers-studiocontainer-right-visibility
+                        span 공개 여부
+                        select#visibilitySelect 
+                            option(value="") #{video.visibility==="public" ? "공개":"비공개"} / 공개 상태
+                            option(value="private") 비공개
+                            option(value="public") 공개
+                    .studiocontainers-studiocontainer-right-date
+                        span 날짜 &darr;
+                        span=video.createdAt.toISOString().substring(0,10)
+                    .studiocontainers-studiocontainer-right-views
+                        span 조회수
+                        span=video.metadata.views
+                    .studiocontainers-studiocontainer-right-comments
+                        span 댓글
+                        span=video.comments.length
+                    .studiocontainers-studiocontainer-right-likes
+                        - let liked = video.metadata.liked
+                        - let disliked = video.metadata.disliked
+                        span 좋아요(싫어요 대비)
+                        span #{(liked-disliked)/((liked+disliked)===0? 1:(liked+disliked))*100}%
 
 block scripts 
     script(src="/assets/js/studio.js") 
