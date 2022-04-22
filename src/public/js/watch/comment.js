@@ -128,9 +128,11 @@ async function handleClickComment(e) {
   e.preventDefault();
 }
 
-commentForm.addEventListener("submit", handleSubmitComment);
-commentInput.addEventListener("focus", handleFocusComment);
-cancelBtn.addEventListener("click", handleClickCancel);
-delComments.forEach((delComment) =>
-  delComment.addEventListener("click", handleClickDelComment)
-);
+if (commentForm) {
+  commentForm.addEventListener("submit", handleSubmitComment);
+  commentInput.addEventListener("focus", handleFocusComment);
+  cancelBtn.addEventListener("click", handleClickCancel);
+  delComments.forEach((delComment) =>
+    delComment.addEventListener("click", handleClickDelComment)
+  );
+}

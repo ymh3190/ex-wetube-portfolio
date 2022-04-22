@@ -187,19 +187,17 @@ export const recordPlayTime = async (req, res) => {
 
 export const addSubscribe = async (req, res) => {
   const {
-    session: {
-      user: { _id },
-    },
+    session,
     body: { id },
   } = req;
 
-  const video = await Video.findById(id).populate("owner");
-  const user = await User.findById(_id);
-  const owner = await User.findById(video.owner._id);
-  if (!user) {
-    // 세션 유저
-    return res.sendStatus(400);
+  if (!session.user) {
+    return res.sendStatus(401);
   }
+
+  const video = await Video.findById(id).populate("owner");
+  const user = await User.findById(session.user._id);
+  const owner = await User.findById(video.owner._id);
   if (owner._id.toString() === user._id.toString()) {
     return res.end();
   }
