@@ -186,12 +186,14 @@
     &-block {
       display: flex;
       justify-content: space-between;
-    }
-    &-button {
-      border: none;
-      background-color: rgb(127, 159, 194);
-      border-radius: 5px;
-      cursor: pointer;
+      &-button {
+        border: none;
+        background-color: rgb(127, 159, 194);
+        border-radius: 5px;
+        width: 30%;
+        height: 30%;
+        cursor: pointer;
+      }
     }
   }
 }
