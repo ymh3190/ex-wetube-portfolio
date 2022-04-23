@@ -85,11 +85,13 @@ export const updatePhoto = async (req, res) => {
   try {
     const newUser = await User.findByIdAndUpdate(
       { _id: user._id },
-      { profilePhoto: file ? file.location : "" },
+      { profilePhoto: process.env.NODE_ENV ? file.location : file.path },
       { new: true }
     );
     req.session.user = newUser;
-    return res.status(201).send({ path: `/${file.location}` });
+    return res
+      .status(201)
+      .send({ path: process.env.NODE_ENV ? file.location : file.path });
   } catch (error) {
     console.log(error);
   }

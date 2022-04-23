@@ -55,33 +55,6 @@ export const postSignup = async (req, res) => {
       .render("signup", { error: "이미 존재하는 이메일입니다." });
   }
 
-  // 메일 보내기
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    host: "smtp.gmail.com",
-    port: 587,
-    secure: false,
-    auth: {
-      user: process.env.NODEMAILER_USER,
-      pass: process.env.NODEMAILER_PASS,
-    },
-  });
-
-  try {
-    await transporter.sendMail({
-      from: `"Transporter Team" <${process.env.NODEMAILER_USER}>`,
-      to: email,
-      subject: `${lastName}, finish setting up your new Account`,
-      text: "Hello world?",
-      html: "<b>Hello world?</b>",
-    });
-  } catch (error) {
-    console.log(error);
-    return res
-      .status(400)
-      .render("signup", { error: "메일을 전송할 수 없습니다." });
-  }
-
   // 비밀번호 해쉬
   try {
     await User.create({
