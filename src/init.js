@@ -1,3 +1,4 @@
+import "regenerator-runtime/runtime.js";
 import "./db";
 import app from "./server";
 
