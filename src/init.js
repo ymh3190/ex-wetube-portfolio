@@ -1,6 +1,7 @@
 import "regenerator-runtime/runtime.js";
 import "./db";
 import app from "./server";
-const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => console.log(`listening on *:${process.env.PORT}`));
+app.listen(process.env.PORT, () =>
+  console.log(`listening on *:${process.env.PORT}`)
+);

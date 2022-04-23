@@ -11,13 +11,13 @@ export const getUpload = (req, res) => res.render("upload");
 export const postUpload = async (req, res) => {
   const {
     session: { user },
-    file: { originalname, path },
+    file: { originalname, location },
     body: { title, description, visibility },
   } = req;
 
   await Video.create({
     title: title ? title : originalname,
-    path,
+    path: location,
     owner: user._id,
     description,
     visibility,

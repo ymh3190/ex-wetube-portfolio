@@ -78,14 +78,14 @@ export const changePassword = async (req, res) => {
 
 export const updatePhoto = async (req, res) => {
   const {
-    file: { path },
+    file,
     session: { user },
   } = req;
 
   try {
     const newUser = await User.findByIdAndUpdate(
       { _id: user._id },
-      { profilePhoto: `/${path}` },
+      { profilePhoto: file ? file.location : "" },
       { new: true }
     );
     req.session.user = newUser;
