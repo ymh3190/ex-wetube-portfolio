@@ -89,7 +89,7 @@ export const updatePhoto = async (req, res) => {
       { new: true }
     );
     req.session.user = newUser;
-    return res.status(201).send({ path: `/${path}` });
+    return res.status(201).send({ path: `/${file.location}` });
   } catch (error) {
     console.log(error);
   }
