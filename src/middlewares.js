@@ -33,6 +33,7 @@ export const photoUploader = photoUpload.single("photo");
 export const localsMiddlewares = (req, res, next) => {
   res.locals.user = req.session.user;
   res.locals.authorized = Boolean(req.session.authorized);
+  res.locals.production = Boolean(process.env.NODE_ENV);
   next();
 };
 

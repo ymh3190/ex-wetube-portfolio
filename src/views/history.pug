@@ -3,7 +3,6 @@ extends layouts/main.pug
 block content 
     .historycontainer
         .historycontainer-left
-            //- - const days = ['일요일','월요일','화요일','수요일','목요일','금요일','토요일']
             if histories.length
                 .historycontainer-left-date#leftDate
                     span.historycontainer-left-date__term 오늘
@@ -13,8 +12,11 @@ block content
                         if diffTime === 0
                             .historycontainer-left-date__container
                                 .historycontainer-left-date__container-left
-                                    a(href=history.video.id)
-                                        video(src=history.video.path)
+                                    a(href=history.video._id)
+                                        if production
+                                            video(src=history.video.path)
+                                        else 
+                                            video(src=`/${history.video.path}`)
                                 .historycontainer-left-date__container-right
                                     .historycontainer-left-date__container-right-top
                                         span.historycontainer-left-date__container-right-top-title=history.video.title
@@ -25,19 +27,6 @@ block content
                                         span.historycontainer-left-date__container-right-middle-views 조회수 #{history.video.metadata.views}
                                     .historycontainer-left-date__container-right-bottom
                                         span=history.video.description
-
-                    //- //- else if diffTime === 1
-                    //- //-     span 어제
-                    //- //- else if diffTime === 2
-                    //- //-     span #{days[day-2]}
-                    //- //- else if diffTime === 3
-                    //- //-     span #{days[day-3]}
-                    //- //- else if diffTime === 4
-                    //- //-     span #{days[day-4]}
-                    //- //- else if diffTime === 5
-                    //- //-     span #{days[day-5]}
-                    //- //- else if diffTime === 6
-                    //- //-     span #{days[day-6]}
         .historycontainer-right
 
 block scripts 

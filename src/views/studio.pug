@@ -5,9 +5,17 @@ block content
         each video in videos
             .studiocontainers-studiocontainer
                 .studiocontainers-studiocontainer-left
-                    span 비디오
-                    a(href=`/videos/${video.id}`) 
-                        video(src=video.path data-id=video.id)
+                    .studiocontainers-studiocontainer-left__video
+                        span 비디오
+                        if production
+                            a(href=`/videos/${video.id}`) 
+                                video(src=video.path data-id=video.id)
+                        else 
+                            a(href=`/videos/${video.id}`) 
+                                video(src=`/${video.path}` data-id=video.id)
+                    .studiocontainers-studiocontainer-left__edit
+                        span 삭제
+                        button#delBtn ❌
                 .studiocontainers-studiocontainer-right
                     .studiocontainers-studiocontainer-right-visibility
                         span 공개 여부

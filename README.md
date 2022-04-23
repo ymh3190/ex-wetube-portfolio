@@ -1,5 +1,7 @@
 # wetube
 
+- 사이트 주소: https://wetube-ymh3190.herokuapp.com/
+
 - 프론트엔드: javascript
 - 백엔드: nodejs
 - 데이터베이스: MongoDB(NoSQL)
@@ -34,5 +36,5 @@
   - [x] 스타일링
   - [x] 비디오 플레이어
 - 배포
-  - [] heroku
-  - [] AWS S3
+  - [x] heroku
+  - [x] AWS S3

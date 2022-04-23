@@ -124,6 +124,5 @@ export const history = async (req, res) => {
     path: "histories",
     populate: { path: "video", populate: { path: "owner" } },
   });
-
   return res.render("history", { histories });
 };

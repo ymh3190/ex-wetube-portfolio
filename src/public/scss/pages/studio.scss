@@ -4,7 +4,6 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     margin-bottom: 2%;
-    &-left,
     &-right-visibility,
     &-right-date,
     &-right-views,
@@ -20,12 +19,40 @@
       }
     }
     &-left {
-      a {
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        video {
-          width: 45%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      width: 100%;
+      &__video {
+        display: grid;
+        grid-template-rows: 1fr 5fr;
+        span {
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 105%;
+        }
+        a {
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+          video {
+            width: 80%;
+          }
+        }
+      }
+      &__edit {
+        display: grid;
+        grid-template-rows: 1fr 5fr;
+        span {
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 105%;
+        }
+        button {
+          border: none;
+          background-color: white;
+          cursor: pointer;
         }
       }
     }

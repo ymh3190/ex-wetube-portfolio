@@ -4,7 +4,10 @@ block content
     .watchcontainers
         .watchcontainers-container
             .watchcontainers-container-videoplayer#videoPlayer
-                video.watchcontainers-container-videoplayer__video(src=video.path data-id=video.id)
+                if production
+                    video.watchcontainers-container-videoplayer__video(src=video.path data-id=video.id)
+                else 
+                    video.watchcontainers-container-videoplayer__video(src=`/${video.path}` data-id=video.id)
                 .watchcontainers-container-videoplayer-videocontrollers
                     .watchcontainers-container-videoplayer-videocontrollers__timeline#timeline
                         .watchcontainers-container-videoplayer-videocontrollers__timeline-drag#timelineDrag

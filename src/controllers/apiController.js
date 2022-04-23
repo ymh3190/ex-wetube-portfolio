@@ -85,13 +85,13 @@ export const updatePhoto = async (req, res) => {
   try {
     const newUser = await User.findByIdAndUpdate(
       { _id: user._id },
-      { profilePhoto: process.env.NODE_ENV ? file.location : file.path },
+      { profilePhoto: process.env.NODE_ENV ? file.location : `/${file.path}` },
       { new: true }
     );
     req.session.user = newUser;
     return res
       .status(201)
-      .send({ path: process.env.NODE_ENV ? file.location : file.path });
+      .send({ path: process.env.NODE_ENV ? file.location : `/${file.path}` });
   } catch (error) {
     console.log(error);
   }
@@ -297,4 +297,26 @@ export const delHistory = async (req, res) => {
   await user.save();
   req.session.user = user;
   return res.sendStatus(201);
+};
+
+export const delVideo = async (req, res) => {
+  const {
+    body: { id },
+  } = req;
+
+  try {
+    const users = await User.find({});
+    for (const user of users) {
+      for (const [i, history] of user.metadata.histories.entries()) {
+        if (history.video._id.toString() === id) {
+          user.metadata.histories.splice(i, 1);
+          await user.save();
+        }
+      }
+    }
+    await Video.findByIdAndDelete(id);
+    return res.sendStatus(200);
+  } catch (error) {
+    console.log(error);
+  }
 };

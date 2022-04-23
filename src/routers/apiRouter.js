@@ -11,6 +11,7 @@ import {
   delComment,
   deleteAccount,
   delHistory,
+  delVideo,
   recordPlayTime,
   saveInfo,
   updatePhoto,
@@ -32,5 +33,6 @@ apiRouter.post("/subscribe", addSubscribe);
 apiRouter.post("/like", addLike);
 apiRouter.post("/dislike", addDislike);
 apiRouter.post("/delHistory", delHistory);
+apiRouter.post("/delVideo", delVideo);
 
 export default apiRouter;
