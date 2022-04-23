@@ -103,6 +103,9 @@ export const deleteAccount = async (req, res) => {
   } = req;
 
   try {
+    if (await Video.exists({ owner: user._id })) {
+      return res.sendStatus(401);
+    }
     await User.findByIdAndDelete({ _id: user._id });
     delete req.session.authorized;
     delete req.session.user;

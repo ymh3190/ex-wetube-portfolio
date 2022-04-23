@@ -125,6 +125,8 @@ async function handleSubmitDeleteAccount(e) {
     if (response.status === 200) {
       alert("계정을 삭제했습니다.");
       window.location.href = "/";
+    } else if (response.status === 401) {
+      alert("업로드한 비디오를 삭제해야 합니다.");
     }
   }
 }

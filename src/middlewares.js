@@ -7,24 +7,24 @@ const s3 = new aws.S3({
     secretAccessKey: process.env.AWS_SECRET,
   },
 });
-const imageStorage = multerS3({
-  s3,
-  bucket: "wetube-ymh3190/images",
-  acl: "public-read",
-});
 const videoStorage = multerS3({
   s3,
   bucket: "wetube-ymh3190/videos",
   acl: "public-read",
 });
+const imageStorage = multerS3({
+  s3,
+  bucket: "wetube-ymh3190/images",
+  acl: "public-read",
+});
 
 const videoUpload = multer({
   dest: "uploads/videos/",
-  storage: process.env.NODE_ENV ? imageStorage : undefined,
+  storage: process.env.NODE_ENV ? videoStorage : undefined,
 });
 const photoUpload = multer({
   dest: "uploads/photos/",
-  storage: process.env.NODE_ENV ? videoStorage : undefined,
+  storage: process.env.NODE_ENV ? imageStorage : undefined,
 });
 
 export const videoUploader = videoUpload.single("video");

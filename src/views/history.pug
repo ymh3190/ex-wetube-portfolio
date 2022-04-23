@@ -13,15 +13,14 @@ block content
                         if diffTime === 0
                             .historycontainer-left-date__container
                                 .historycontainer-left-date__container-left
-                                    a(href=`/videos/${history.video.id}`)
-                                        video(src=`/${history.video.path}`)
+                                    a(href=history.video.id)
+                                        video(src=history.video.path)
                                 .historycontainer-left-date__container-right
                                     .historycontainer-left-date__container-right-top
                                         span.historycontainer-left-date__container-right-top-title=history.video.title
                                         button.historycontainer-left-date__container-right-top-button#deleteBtn(data-id=history.video.id) ❌
                                     .historycontainer-left-date__container-right-middle
-                                        a(href=`/channels/${history.video.owner.username}`) 
-                                            span=history.video.owner.username
+                                        span=history.video.owner.username
                                         span •
                                         span.historycontainer-left-date__container-right-middle-views 조회수 #{history.video.metadata.views}
                                     .historycontainer-left-date__container-right-bottom
