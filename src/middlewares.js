@@ -20,10 +20,16 @@ const imageStorage = multerS3({
 
 const videoUpload = multer({
   dest: "uploads/videos/",
+  limits: {
+    fileSize: 3000000,
+  },
   storage: process.env.NODE_ENV ? videoStorage : undefined,
 });
 const photoUpload = multer({
   dest: "uploads/photos/",
+  limits: {
+    fileSize: 1000000,
+  },
   storage: process.env.NODE_ENV ? imageStorage : undefined,
 });
 

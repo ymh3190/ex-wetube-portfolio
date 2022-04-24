@@ -25,7 +25,7 @@ const userSchema = new Schema({
     type: String,
     default: function () {
       if (!this.profilePhoto) {
-        return "https://wetube-ymh3190.s3.ap-northeast-2.amazonaws.com/images/58b180bcba5a92d7d95c58153c9ce5b2.png";
+        return "https://wetube-ymh3190.s3.ap-northeast-2.amazonaws.com/images/58b180bcba5a92d7d95c58153c9ce5b1.png";
       }
       return this.profilePhoto;
     },
