@@ -137,7 +137,7 @@ export const facebook = (req, res) => {
   const config = {
     client_id: process.env.FACEBOOK_ID,
     redirect_uri: process.env.NODE_ENV
-      ? `https://wetube-ymh3190.herokuapp.com/users/facebook/callback`
+      ? `https://wetube-portfolio.herokuapp.com/users/facebook/callback`
       : `http://localhost:${process.env.PORT}/users/facebook/callback`,
     scope: "email public_profile",
     auth_type: "rerequest",
@@ -152,7 +152,7 @@ export const facebookCallback = async (req, res) => {
   let config = {
     client_id: process.env.FACEBOOK_ID,
     redirect_uri: process.env.NODE_ENV
-      ? `https://wetube-ymh3190.herokuapp.com/users/facebook/callback`
+      ? `https://wetube-portfolio.herokuapp.com/users/facebook/callback`
       : `http://localhost:${process.env.PORT}/users/facebook/callback`,
     client_secret: process.env.FACEBOOK_SECRET,
     code: req.query.code,
@@ -204,7 +204,7 @@ export const naver = (req, res) => {
     response_type: "code",
     client_id: process.env.NAVER_ID,
     redirect_uri: process.env.NODE_ENV
-      ? `https://wetube-ymh3190.herokuapp.com/users/naver/callback`
+      ? `https://wetube-portfolio.herokuapp.com/users/naver/callback`
       : `http://localhost:${process.env.PORT}/users/naver/callback`,
     state: "RANDOM_STATE",
   };
@@ -219,7 +219,7 @@ export const naverCallback = async (req, res) => {
     client_id: process.env.NAVER_ID,
     client_secret: process.env.NAVER_SECRET,
     redirect_uri: process.env.NODE_ENV
-      ? `https://wetube-ymh3190.herokuapp.com/users/naver/callback`
+      ? `https://wetube-portfolio.herokuapp.com/users/naver/callback`
       : `http://localhost:${process.env.PORT}/users/naver/callback`,
     code: req.query.code,
     state: req.query.state,
@@ -266,7 +266,7 @@ export const kakao = (req, res) => {
   const config = {
     client_id: process.env.KAKAO_ID,
     redirect_uri: process.env.NODE_ENV
-      ? `https://wetube-ymh3190.herokuapp.com/users/kakao/callback`
+      ? `https://wetube-portfolio.herokuapp.com/users/kakao/callback`
       : `http://localhost:${process.env.PORT}/users/kakao/callback`,
     response_type: "code",
   };
@@ -280,7 +280,7 @@ export const kakaoCallback = async (req, res) => {
     grant_type: "authorization_code",
     client_id: process.env.KAKAO_ID,
     redirect_uri: process.env.NODE_ENV
-      ? `https://wetube-ymh3190.herokuapp.com/users/kakao/callback`
+      ? `https://wetube-portfolio.herokuapp.com/users/kakao/callback`
       : `http://localhost:${process.env.PORT}/users/kakao/callback`,
     code: req.query.code,
     client_secret: process.env.KAKAO_SECRET,
@@ -344,7 +344,7 @@ export const google = (req, res) => {
       "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email",
     access_type: "offline",
     redirect_uri: process.env.NODE_ENV
-      ? `https://wetube-ymh3190.herokuapp.com/users/google/callback`
+      ? `https://wetube-portfolio.herokuapp.com/users/google/callback`
       : `http://localhost:${process.env.PORT}/users/google/callback`,
     prompt: "consent",
     include_granted_scopes: true,
@@ -360,7 +360,7 @@ export const googleCallback = async (req, res) => {
     client_id: process.env.GOOGLE_CLIENT,
     client_secret: process.env.GOOGLE_SECRET,
     redirect_uri: process.env.NODE_ENV
-      ? `https://wetube-ymh3190.herokuapp.com/users/google/callback`
+      ? `https://wetube-portfolio.herokuapp.com/users/google/callback`
       : `http://localhost:${process.env.PORT}/users/google/callback`,
     grant_type: "authorization_code",
   };

@@ -9,12 +9,12 @@ const s3 = new aws.S3({
 });
 const videoStorage = multerS3({
   s3,
-  bucket: "wetube-ymh3190/videos",
+  bucket: "wetube-portfolio/videos",
   acl: "public-read",
 });
 const imageStorage = multerS3({
   s3,
-  bucket: "wetube-ymh3190/images",
+  bucket: "wetube-portfolio/images",
   acl: "public-read",
 });
 
