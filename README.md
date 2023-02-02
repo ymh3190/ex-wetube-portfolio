@@ -1,10 +1,5 @@
 # wetube
 
-- 프레임워크 변경 프로젝트 예정
-  - Framework: Django, Djangorestframework
-  - DB: mongoDB, MySQL, PostgreSQL 중 선택
-  - Deployment: heroku, docker
-
 - 사이트 주소: https://wetube-portfolio.herokuapp.com/
   - AWS 무료 사용 기간 초과로 인한 서버 중지
 
